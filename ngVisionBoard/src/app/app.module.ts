@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   // Define your application routes here
@@ -11,6 +12,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes) // Configure the routes

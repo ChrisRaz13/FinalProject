@@ -1,3 +1,4 @@
-<div *ngFor="let photo of photos">
-  <img [src]="photo.urls.small" alt="Photo by {{ photo.user.name }}">
+<!-- app.component.html -->
+<div *ngIf="randomPhotos.length > 0">
+  <img *ngFor="let photo of randomPhotos" [src]="photo.urls.regular" [alt]="photo.alt_description">
 </div>
