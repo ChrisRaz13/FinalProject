@@ -54,9 +54,12 @@ public class PostTest {
 		assertEquals("John's Travels", post.getBoard().getTitle());
 	}
 	
-//	@Test
-//	void test_Post_Category_OnetoMany() {
-//		assertNotNull(post.getCategories());
-//		assertTrue(post.getCategories().size() > 1);
-//	}
+	@Test
+	void test_Post_Categories_ManyToMany() {
+	    assertNotNull(post.getCategories());
+	    assertTrue(post.getCategories().size() > 0);
+	    assertEquals("travel destinations", post.getCategories().get(0).getName());
+	}
+
+	
 }

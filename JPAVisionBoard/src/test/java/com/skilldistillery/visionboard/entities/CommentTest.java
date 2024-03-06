@@ -51,4 +51,14 @@ class CommentTest {
 		assertNotNull(comment.getBoard());
 		assertEquals(1, comment.getBoard().getId());
 	}
+	
+	@Test
+	void test_Comment_User_and_Board_mapping() {
+	    assertNotNull(comment);
+	    assertNotNull(comment.getUser());
+	    assertEquals("test", comment.getUser().getUsername());
+	    assertNotNull(comment.getBoard());
+	    assertEquals(1, comment.getBoard().getId());
+	}
+
 }

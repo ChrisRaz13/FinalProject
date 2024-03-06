@@ -46,4 +46,13 @@ class BoardTest {
 		assertNotNull(board);
 		assertEquals("John's Travels", board.getTitle());
 	}
+	
+	@Test
+	void test_Board_User_mapping() {
+	    Board board = em.find(Board.class, 1);
+	    assertNotNull(board);
+	    assertNotNull(board.getUser());
+	    assertEquals("john", board.getUser().getUsername());
+	}
+
 }

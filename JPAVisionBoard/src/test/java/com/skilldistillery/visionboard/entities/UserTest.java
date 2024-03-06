@@ -2,6 +2,7 @@ package com.skilldistillery.visionboard.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -47,6 +48,28 @@ class UserTest {
     	assertNotNull(user);
     	assertEquals("test", user.getUsername());
     }
+    
+    @Test
+    void test_User_Boards_OneToMany() {
+        assertNotNull(user.getBoards());
+        assertTrue(user.getBoards().size() > 0);
+        assertEquals("Test's Health", user.getBoards().get(0).getTitle());
+    }
+
+    @Test
+    void test_User_Comments_OneToMany() {
+        assertNotNull(user.getComments());
+        assertTrue(user.getComments().size() > 0);
+        assertEquals("Amazing travel goals!", user.getComments().get(0).getComment());
+    }
+
+    @Test
+    void test_User_BoardLikes_OneToMany() {
+        assertNotNull(user.getBoardLikes());
+        assertTrue(user.getBoardLikes().size() > 0);
+        assertNotNull(user.getBoardLikes().get(0).getBoard());
+    }
+
 
 }
 

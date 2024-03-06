@@ -47,4 +47,14 @@ class CategoryTest {
 		assertNotNull(cat);
 		assertEquals("fitness goals", cat.getName());
 	}
+	
+	@Test
+	void test_Category_Posts_mapping() {
+	    Category category = em.find(Category.class, 1);
+	    assertNotNull(category);
+	    assertTrue(category.getPosts().size() > 0);
+	    Post post = category.getPosts().get(0);
+	    assertNotNull(post);
+	}
+
 }

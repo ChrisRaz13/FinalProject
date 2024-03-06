@@ -7,6 +7,8 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,12 +50,15 @@ public class User {
 	@Column(name = "about_me")
 	private String aboutMe;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Board> boards;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Comment> comments;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<BoardLike> boardLikes;
 

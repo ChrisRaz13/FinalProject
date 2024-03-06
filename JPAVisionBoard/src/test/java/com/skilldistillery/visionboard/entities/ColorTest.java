@@ -22,31 +22,37 @@ class ColorTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-	    emf = Persistence.createEntityManagerFactory("JPAVisionBoard");
+		emf = Persistence.createEntityManagerFactory("JPAVisionBoard");
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-	    emf.close();
+		emf.close();
 	}
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
-	    em = emf.createEntityManager();
-	    color = em.find(Color.class, 1);
+		em = emf.createEntityManager();
+		color = em.find(Color.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		color = null;
-	    em.close();
+		em.close();
 	}
-	
-	
+
 	@Test
 	void test_Board_entity_mapping() {
 		assertNotNull(color);
 		assertEquals("white", color.getName());
+	}
+
+	@Test
+	void test_Color_Boards_mapping() {
+		Color color = em.find(Color.class, 2);
+		assertNotNull(color);
+		assertTrue(color.getBoards().size() > 0);
 	}
 
 }
