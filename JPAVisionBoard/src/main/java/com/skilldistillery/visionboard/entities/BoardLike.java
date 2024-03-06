@@ -2,6 +2,8 @@ package com.skilldistillery.visionboard.entities;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -21,6 +23,7 @@ public class BoardLike {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @JsonIgnore
     @MapsId("boardId")
     @ManyToOne
     @JoinColumn(name = "board_id", referencedColumnName = "id")

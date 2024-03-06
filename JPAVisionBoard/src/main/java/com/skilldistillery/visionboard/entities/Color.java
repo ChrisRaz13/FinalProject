@@ -3,6 +3,8 @@ package com.skilldistillery.visionboard.entities;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +20,7 @@ public class Color {
 	private String name;
 	private String value;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "color")
 	private List<Board> boards;
 
