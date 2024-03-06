@@ -43,7 +43,7 @@ class CommentTest {
 	@Test
 	void test_Comment_entity_mapping() {
 		assertNotNull(comment);
-		assertEquals("", comment.getComment());
+		assertEquals("Amazing travel goals!", comment.getComment());
 	}
 
 	@Test

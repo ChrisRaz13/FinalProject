@@ -2,9 +2,11 @@ package com.skilldistillery.visionboard.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,8 +14,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,18 +28,17 @@ public class Post {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "title")
     private String title;
 
-    @Column(name = "completed")
     private boolean completed;
-
+    
+    @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
@@ -55,25 +57,53 @@ public class Post {
     @Column(name = "completed_date")
     private LocalDate completedDate;
 
-    @Column(name = "enabled")
     private boolean enabled;
 
-    @Column(name = "published")
     private Boolean published;
 
-    @Column(name = "scale")
     private Integer scale;
 
-    @Column(name = "layer")
     private Integer layer;
     
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
     
-	@OneToMany(mappedBy = "post_id")
+	@ManyToMany
+	@JoinTable(name = "post_has_category",
+	joinColumns = @JoinColumn(name = "post_id"),
+	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories;
-  
+
+	//methods and constructors
+	
+	public Post() {
+		super();
+	}
+
+	public Post(int id, String description, String title, boolean completed, LocalDateTime createdAt,
+			LocalDateTime updatedAt, LocalDate dueDate, String imageUrl, String videoUrl, String overlayText,
+			LocalDate completedDate, boolean enabled, Boolean published, Integer scale, Integer layer, Board board,
+			List<Category> categories) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.title = title;
+		this.completed = completed;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.dueDate = dueDate;
+		this.imageUrl = imageUrl;
+		this.videoUrl = videoUrl;
+		this.overlayText = overlayText;
+		this.completedDate = completedDate;
+		this.enabled = enabled;
+		this.published = published;
+		this.scale = scale;
+		this.layer = layer;
+		this.board = board;
+		this.categories = categories;
+	}
 
 	public int getId() {
 		return id;
@@ -99,7 +129,7 @@ public class Post {
 		this.title = title;
 	}
 
-	public boolean isCompleted() {
+	public boolean getCompleted() {
 		return completed;
 	}
 
@@ -194,8 +224,6 @@ public class Post {
 	public void setLayer(Integer layer) {
 		this.layer = layer;
 	}
-	
-	
 
 	public Board getBoard() {
 		return board;
@@ -204,7 +232,7 @@ public class Post {
 	public void setBoard(Board board) {
 		this.board = board;
 	}
-	
+
 	public List<Category> getCategories() {
 		return categories;
 	}
@@ -212,25 +240,6 @@ public class Post {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
-
-	
-	
-	public void addCategory(Category category) {
-	    if (categories == null) {
-	        categories = new ArrayList<>();
-	    }
-	    if (!categories.contains(category)) {
-	        categories.add(category);
-	    }
-	}
-
-	public void removeCategory(Category category) {
-	    if (category != null && categories != null && categories.contains(category)) {
-	        categories.remove(category);
-	    }
-	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -255,11 +264,8 @@ public class Post {
 				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", dueDate=" + dueDate + ", imageUrl="
 				+ imageUrl + ", videoUrl=" + videoUrl + ", overlayText=" + overlayText + ", completedDate="
 				+ completedDate + ", enabled=" + enabled + ", published=" + published + ", scale=" + scale + ", layer="
-				+ layer + "]";
+				+ layer + ", board=" + board + "]";
 	}
-	
-	
+  
 
-    
-    
 }

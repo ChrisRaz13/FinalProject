@@ -1,14 +1,19 @@
 package com.skilldistillery.visionboard.entities;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -18,37 +23,62 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "title")
+    
     private String title;
 
+    @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "description")
     private String description;
-
-    @Column(name = "enabled")
     private Boolean enabled;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+    @ManyToOne
+    @JoinColumn(name = "color_id")
+    private Color color;
 
     private Boolean published;
     
-//  @ManyToOne
-//  @JoinColumn(name = "user_id", nullable = false)
-//  private User user;
+    @OneToMany(mappedBy = "board")
+    private List<Post> posts;
     
-	@OneToMany(mappedBy = "board")
-	private List<Post> posts;
-	
-	@OneToMany(mappedBy = "board")
-	private List<Comment> comments;
-  
-  
+    @OneToMany(mappedBy = "board")
+    private List<Comment> comments;
+    
+    @OneToMany(mappedBy = "board")
+    private List<BoardLike> boardLikes;
+
+    //methods and constr
+    
+    public Board() {
+    	super();
+    }
+
+	public Board(int id, String title, LocalDateTime createdAt, LocalDateTime updatedAt, User user, String description,
+			Boolean enabled, Color color, Boolean published, List<Post> posts, List<Comment> comments,
+			List<BoardLike> boardLikes) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.user = user;
+		this.description = description;
+		this.enabled = enabled;
+		this.color = color;
+		this.published = published;
+		this.posts = posts;
+		this.comments = comments;
+		this.boardLikes = boardLikes;
+	}
 
 	public int getId() {
 		return id;
@@ -82,6 +112,14 @@ public class Board {
 		this.updatedAt = updatedAt;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -98,12 +136,12 @@ public class Board {
 		this.enabled = enabled;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
+	public Color getColor() {
+		return color;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 	public Boolean getPublished() {
@@ -113,36 +151,16 @@ public class Board {
 	public void setPublished(Boolean published) {
 		this.published = published;
 	}
-	
-	
 
 	public List<Post> getPosts() {
 		return posts;
 	}
 
-	public void setPost(List<Post> posts) {
+	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
-	
-	public void addPost(Post post) {
-        if (posts == null) {
-            posts = new ArrayList<>();
-        }
-        if (!posts.contains(post)) {
-            posts.add(post);
-            post.setBoard(this); 
-        }
-    }
 
-    public void removePost(Post post) {
-        if (post != null && posts != null && posts.contains(post)) {
-            posts.remove(post);
-            post.setBoard(null); 
-        }
-    }
-    
-	
-    public List<Comment> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
@@ -150,22 +168,13 @@ public class Board {
 		this.comments = comments;
 	}
 
-	public void addComment(Comment comment) {
-        if (comments == null) {
-            comments = new ArrayList<>();
-        }
-        if (!comments.contains(comment)) {
-            comments.add(comment);
-            comment.setBoard(this); 
-        }
-    }
+	public List<BoardLike> getBoardLikes() {
+		return boardLikes;
+	}
 
-    public void removeComment(Comment comment) {
-        if (comment != null && comments != null && comments.contains(comment)) {
-            comments.remove(comment);
-            comment.setBoard(null); 
-        }
-    }
+	public void setBoardLikes(List<BoardLike> boardLikes) {
+		this.boardLikes = boardLikes;
+	}
 
 	@Override
 	public int hashCode() {
@@ -187,12 +196,8 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [id=" + id + ", title=" + title + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", description=" + description + ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", published="
+				+ ", user=" + user + ", description=" + description + ", enabled=" + enabled + ", published="
 				+ published + "]";
 	}
-
-	
     
-
-
 }

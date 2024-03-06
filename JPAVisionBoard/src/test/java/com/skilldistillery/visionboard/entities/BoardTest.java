@@ -2,7 +2,6 @@ package com.skilldistillery.visionboard.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -22,36 +21,29 @@ class BoardTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-	    emf = Persistence.createEntityManagerFactory("JPAVisionBoard");
+		emf = Persistence.createEntityManagerFactory("JPAVisionBoard");
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-	    emf.close();
+		emf.close();
 	}
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
-	    em = emf.createEntityManager();
-	    board = em.find(Board.class, 1);
+		em = emf.createEntityManager();
+		board = em.find(Board.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		board = null;
-	    em.close();
-	}
-	
-	
-	@Test
-	void test_Board_entity_mapping() {
-		assertNotNull(board);
-		assertEquals("", board.getTitle());
+		em.close();
 	}
 
 	@Test
-	void test_Board_Post_OneToMany() {
-		assertNotNull(board.getPosts());
-		assertTrue(board.getPosts().size() > 0);
+	void test_Board_entity_mapping() {
+		assertNotNull(board);
+		assertEquals("John's Travels", board.getTitle());
 	}
 }

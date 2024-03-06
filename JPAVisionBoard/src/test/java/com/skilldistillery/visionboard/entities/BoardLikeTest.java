@@ -2,7 +2,6 @@ package com.skilldistillery.visionboard.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -14,10 +13,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-public class PostTest {
+class BoardLikeTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Post post;
+	private BoardLike boardLike;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,31 +32,21 @@ public class PostTest {
 	@BeforeEach
 	void setUp() throws Exception {
 	    em = emf.createEntityManager();
-	    post = em.find(Post.class, 1);
+	    BoardLikeId id = new BoardLikeId(1L, 2L);
+	    boardLike = em.find(BoardLike.class, id);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		post = null;
+		boardLike = null;
 	    em.close();
 	}
 	
 	
 	@Test
-	void test_Post_entity_mapping() {
-		assertNotNull(post);
-		assertEquals("Paris Trip", post.getTitle());
+	void test_Board_entity_mapping() {
+		assertNotNull(boardLike);
+		assertEquals(2, boardLike.getBoard().getId());
 	}
-	
-	@Test
-	void test_Post_Board_ManytoOne() {
-		assertNotNull(post.getBoard());
-		assertEquals("John's Travels", post.getBoard().getTitle());
-	}
-	
-//	@Test
-//	void test_Post_Category_OnetoMany() {
-//		assertNotNull(post.getCategories());
-//		assertTrue(post.getCategories().size() > 1);
-//	}
+
 }

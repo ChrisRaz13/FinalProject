@@ -1,29 +1,55 @@
 package com.skilldistillery.visionboard.entities;
+
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    private String name;
+	private String name;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+	@CreationTimestamp
+	@Column(name = "created_at")
+	private LocalDateTime createdAt;
 
-    private String description;
+	private String description;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+	@Column(name = "image_url")
+	private String imageUrl;
+
+	@ManyToMany(mappedBy = "categories")
+	private List<Post> posts;
+
+	// methods and constructors
+
+	public Category() {
+		super();
+	}
+
+	public Category(int id, String name, LocalDateTime createdAt, String description, String imageUrl,
+			List<Post> posts) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.createdAt = createdAt;
+		this.description = description;
+		this.imageUrl = imageUrl;
+		this.posts = posts;
+	}
 
 	public int getId() {
 		return id;
@@ -65,6 +91,14 @@ public class Category {
 		this.imageUrl = imageUrl;
 	}
 
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -87,7 +121,5 @@ public class Category {
 		return "Category [id=" + id + ", name=" + name + ", createdAt=" + createdAt + ", description=" + description
 				+ ", imageUrl=" + imageUrl + "]";
 	}
-
-    
 
 }

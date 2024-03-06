@@ -45,6 +45,6 @@ class CategoryTest {
 	@Test
 	void test_Category_entity_mapping() {
 		assertNotNull(cat);
-		assertEquals("", cat.getName());
+		assertEquals("fitness goals", cat.getName());
 	}
 }

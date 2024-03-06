@@ -14,10 +14,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-public class PostTest {
+class ColorTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Post post;
+	private Color color;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,31 +33,20 @@ public class PostTest {
 	@BeforeEach
 	void setUp() throws Exception {
 	    em = emf.createEntityManager();
-	    post = em.find(Post.class, 1);
+	    color = em.find(Color.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		post = null;
+		color = null;
 	    em.close();
 	}
 	
 	
 	@Test
-	void test_Post_entity_mapping() {
-		assertNotNull(post);
-		assertEquals("Paris Trip", post.getTitle());
+	void test_Board_entity_mapping() {
+		assertNotNull(color);
+		assertEquals("white", color.getName());
 	}
-	
-	@Test
-	void test_Post_Board_ManytoOne() {
-		assertNotNull(post.getBoard());
-		assertEquals("John's Travels", post.getBoard().getTitle());
-	}
-	
-//	@Test
-//	void test_Post_Category_OnetoMany() {
-//		assertNotNull(post.getCategories());
-//		assertTrue(post.getCategories().size() > 1);
-//	}
+
 }
