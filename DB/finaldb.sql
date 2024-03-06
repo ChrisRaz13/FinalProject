@@ -40,6 +40,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `color`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `color` ;
+
+CREATE TABLE IF NOT EXISTS `color` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `value` VARCHAR(7) NOT NULL DEFAULT '#FFFFFF',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
+  UNIQUE INDEX `value_UNIQUE` (`value` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `board`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `board` ;
@@ -52,14 +68,20 @@ CREATE TABLE IF NOT EXISTS `board` (
   `user_id` INT NOT NULL,
   `description` TEXT NULL,
   `enabled` TINYINT NULL,
-  `image_url` VARCHAR(2000) NULL,
+  `color_id` INT NOT NULL,
   `published` TINYINT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `fk_board_user1_idx` (`user_id` ASC),
+  INDEX `fk_board_color1_idx` (`color_id` ASC),
   CONSTRAINT `fk_board_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_board_color1`
+    FOREIGN KEY (`color_id`)
+    REFERENCES `color` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -217,6 +239,103 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `finaldb`;
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `first_name`, `last_name`, `enabled`, `role`, `created_at`, `updated_at`, `image_url`, `about_me`) VALUES (1, 'test', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 'test@test.test', 'Test', 'Test', 1, 'standard', '2024-03-05T10:00:00', '2024-03-05T10:00:00', NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `first_name`, `last_name`, `enabled`, `role`, `created_at`, `updated_at`, `image_url`, `about_me`) VALUES (2, 'john', '$2a$10$mmKnPfJ3xFFpgbJYiMnhUuL2wZEYfjPi0tdHF01hDPLblKgXgQP1W', 'john@john.john', 'John', 'Doe', 1, 'standard', NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `first_name`, `last_name`, `enabled`, `role`, `created_at`, `updated_at`, `image_url`, `about_me`) VALUES (3, 'admin', '$2a$10$lbDUjbWEymwRyxKDyObFKOIJv.Wm9Dm1taspaCNjfVi8hc1Ih8q6S', 'admin@admin.admin', 'System', 'Administrator', 1, 'admin', NULL, NULL, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `color`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `finaldb`;
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (1, 'white', '#FFFFFF');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (2, 'light pink', '#FFB6C1');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (3, 'peach', '#FFDAB9');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (4, 'lavender', '#E6E6FA');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (5, 'baby blue', '#89CFF0');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (6, 'mint green', '#98FF98');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (7, 'light yellow', '#FFFFE0');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (8, 'pale aqua', '#BCD4E6');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (9, 'blush', '#DE5D83');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (10, 'beige', '#F5F5DC');
+INSERT INTO `color` (`id`, `name`, `value`) VALUES (11, 'powder blue', '#B0E0E6');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `board`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `finaldb`;
+INSERT INTO `board` (`id`, `title`, `created_at`, `updated_at`, `user_id`, `description`, `enabled`, `color_id`, `published`) VALUES (1, 'John\'s Travels', '2024-03-05T10:15:00', '2024-03-05T10:15:00', 2, 'This vision board helps to remind me of the trips I have taken and the trips I want to take still.', 1, 2, 1);
+INSERT INTO `board` (`id`, `title`, `created_at`, `updated_at`, `user_id`, `description`, `enabled`, `color_id`, `published`) VALUES (2, 'Test\'s Health', '2024-03-05T10:15:00', '2024-03-05T10:15:00', 1, 'This vision board is meant to help visualize my health and fitness journey.', 1, 10, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `post`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `finaldb`;
+INSERT INTO `post` (`id`, `description`, `title`, `completed`, `created_at`, `updated_at`, `due_date`, `image_url`, `video_url`, `overlay_text`, `completed_date`, `enabled`, `published`, `scale`, `board_id`, `layer`) VALUES (1, 'My trip to Paris was a dream!', 'Paris Trip', 1, '2024-03-06 00:25:00', '2024-03-06 00:25:00', '2024-12-20', NULL, NULL, 'A Dream Come True', '2024-03-01', 1, 1, 5, 1, NULL);
+INSERT INTO `post` (`id`, `description`, `title`, `completed`, `created_at`, `updated_at`, `due_date`, `image_url`, `video_url`, `overlay_text`, `completed_date`, `enabled`, `published`, `scale`, `board_id`, `layer`) VALUES (2, 'Starting my 30-day yoga challenge.', 'Yoga Challenge', 0, '2024-03-06 00:30:00', '2024-03-06 00:30:00', '2024-04-05', NULL, NULL, 'Day 1: The Journey Begins', NULL, 1, 1, 5, 2, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `finaldb`;
+INSERT INTO `comment` (`id`, `created_at`, `updated_at`, `comment`, `enabled`, `board_id`, `user_id`, `in_reply_to_id`) VALUES (1, '2024-03-06 00:15:00', '2024-03-06 00:15:00', 'Amazing travel goals!', 1, 1, 1, NULL);
+INSERT INTO `comment` (`id`, `created_at`, `updated_at`, `comment`, `enabled`, `board_id`, `user_id`, `in_reply_to_id`) VALUES (2, '2024-03-06 00:20:00', '2024-03-06 00:20:00', 'Keep up with your fitness journey!', 1, 2, 2, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `board_like`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `finaldb`;
+INSERT INTO `board_like` (`user_id`, `board_id`, `created_at`) VALUES (1, 2, '2024-03-06 00:05:00');
+INSERT INTO `board_like` (`user_id`, `board_id`, `created_at`) VALUES (2, 1, '2024-03-06 00:10:00');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `finaldb`;
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (1, 'fitness goals', '2024-03-06 00:00:00', 'Categories related to physical health and workout regimes.', NULL);
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (2, 'career milestones', '2024-03-06 00:00:00', 'Professional achievements and career development objectives.', NULL);
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (3, 'travel destinations', '2024-03-06 00:00:00', 'Dream destinations and travel plans.', NULL);
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (4, 'personal growth', '2024-03-06 00:00:00', 'Self-improvement and educational pursuits.', NULL);
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (5, 'financial goals', '2024-03-06 00:00:00', 'Financial targets and investment plans.', NULL);
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (6, 'creative projects', '2024-03-06 00:00:00', 'Artistic endeavors and creative expressions.', NULL);
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (7, 'home improvement', '2024-03-06 00:00:00', 'Home renovation and decoration ideas.', NULL);
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (8, 'educational milestones', '2024-03-06 00:00:00', 'Academic goals and learning achievements.', NULL);
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (9, 'relationship goals', '2024-03-06 00:00:00', 'Objectives for building and nurturing personal relationships.', NULL);
+INSERT INTO `category` (`id`, `name`, `created_at`, `description`, `image_url`) VALUES (10, 'health and wellness', '2024-03-06 00:00:00', 'Activities for maintaining and improving mental and physical health.', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `post_has_category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `finaldb`;
+INSERT INTO `post_has_category` (`post_id`, `category_id`) VALUES (1, 3);
+INSERT INTO `post_has_category` (`post_id`, `category_id`) VALUES (2, 1);
+INSERT INTO `post_has_category` (`post_id`, `category_id`) VALUES (2, 10);
 
 COMMIT;
 
