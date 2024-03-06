@@ -19,7 +19,7 @@ class CommentTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-	    emf = Persistence.createEntityManagerFactory("XJPAVisionBoard);
+	    emf = Persistence.createEntityManagerFactory("JPAVisionBoard");
 	}
 
 	@AfterAll
