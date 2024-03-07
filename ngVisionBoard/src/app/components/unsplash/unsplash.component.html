@@ -5,9 +5,14 @@
   </form>
 </div>
 
+
+<div cdkDropList (cdkDropListDropped)="drop($event)" class="drop-zone">
+  <p>Drag photos here</p>
+</div>
+
 <div *ngFor="let collection of collections">
   <h3>{{ collection.title }}</h3>
-  <div *ngFor="let photo of collection.preview_photos">
+  <div *ngFor="let photo of collection.preview_photos" cdkDrag>
     <img [src]="photo.urls.small" [alt]="photo.alt_description">
   </div>
 </div>
