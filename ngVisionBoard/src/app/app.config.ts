@@ -6,5 +6,6 @@ import { provideRouter, withHashLocation } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes, withHashLocation()), provideHttpClient()]
+  providers: [provideRouter(routes, withHashLocation()), provideHttpClient()],
+
 };
