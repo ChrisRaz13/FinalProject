@@ -20,6 +20,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "post")
@@ -67,7 +68,7 @@ public class Post {
 
     private Integer layer;
     
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
@@ -229,6 +230,7 @@ public class Post {
 		this.layer = layer;
 	}
 
+	@Transient
 	public Board getBoard() {
 		return board;
 	}

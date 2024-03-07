@@ -34,7 +34,7 @@ public class Comment {
     private String comment;
     private boolean enabled;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
