@@ -5,7 +5,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
 export const routes: Routes = [
-  { path: '', component: UnsplashComponent  },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: UnsplashComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'navigation', component: NavigationComponent },

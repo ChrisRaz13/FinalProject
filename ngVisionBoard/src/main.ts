@@ -4,17 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { importProvidersFrom } from '@angular/core';
+import { appConfig } from './app/app.config';
 
 const routes: Routes = [
   // Your routes go here
 ];
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    importProvidersFrom(
-      HttpClientModule,
-      FormsModule,
-      RouterModule.forRoot(routes),
-    ),
-  ],
-}).catch(err => console.error(err));
+bootstrapApplication(AppComponent, appConfig).catch(err => console.error(err));

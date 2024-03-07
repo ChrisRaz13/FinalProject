@@ -11,7 +11,7 @@ import com.skilldistillery.visionboard.entities.BoardLikeId;
 import com.skilldistillery.visionboard.entities.User;
 
 @Repository
-public interface BoardLikeRepository extends JpaRepository<BoardLike, Integer> {
+public interface BoardLikeRepository extends JpaRepository<BoardLike, BoardLikeId> {
 
     @Query("SELECT bl FROM BoardLike bl WHERE bl.id = :blId")
     BoardLike findByBoardLikeId(@Param("blId") BoardLikeId blId);
