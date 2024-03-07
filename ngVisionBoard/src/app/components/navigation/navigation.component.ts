@@ -4,11 +4,14 @@ import { RouterLink } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationComponent } from '../registration/registration.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from '../login/login.component';
+import { LogoutComponent } from '../logout/logout.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [RouterLink, NgbModule, RegistrationComponent, FormsModule],
+  imports: [RouterLink, NgbModule, RegistrationComponent, FormsModule, LoginComponent, LogoutComponent, CommonModule],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css'
 })

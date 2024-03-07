@@ -11,11 +11,7 @@ import { VisionboardComponent } from './components/visionboard/visionboard.compo
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-<<<<<<< HEAD
-  imports: [CommonModule, FormsModule, UnsplashComponent, RouterOutlet, NavigationComponent, VisionboardComponent]
-=======
-  imports: [CommonModule, FormsModule, UnsplashComponent, RouterOutlet, NavigationComponent, RouterLink, RouterLinkActive]
->>>>>>> f3491996ce579f00c1638133a96e7f5790da133e
+  imports: [CommonModule, FormsModule, UnsplashComponent, RouterOutlet, NavigationComponent, RouterLink, RouterLinkActive, VisionboardComponent]
 })
 export class AppComponent {
   title = "Dreamscape";
