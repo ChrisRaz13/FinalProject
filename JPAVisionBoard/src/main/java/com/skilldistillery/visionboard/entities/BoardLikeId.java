@@ -7,8 +7,8 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class BoardLikeId implements Serializable {
-	private Long userId;
-	private Long boardId;
+	private int userId;
+	private int boardId;
 	
 	//methods and constructors
 	
@@ -16,25 +16,25 @@ public class BoardLikeId implements Serializable {
 		super();
 	}
 
-	public BoardLikeId(Long userId, Long boardId) {
+	public BoardLikeId(int userId, int boardId) {
 		super();
 		this.userId = userId;
 		this.boardId = boardId;
 	}
 
-	public Long getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
-	public Long getBoardId() {
+	public int getBoardId() {
 		return boardId;
 	}
 
-	public void setBoardId(Long boardId) {
+	public void setBoardId(int boardId) {
 		this.boardId = boardId;
 	}
 
