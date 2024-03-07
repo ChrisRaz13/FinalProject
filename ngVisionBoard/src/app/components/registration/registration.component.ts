@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'
 })
@@ -21,7 +21,7 @@ export class RegistrationComponent {
       next: (newUser) => {
         this.authService.login(user.username, user.password).subscribe({
           next: (loggedInUser) => {
-            this.router.navigateByUrl('/todo');
+            this.router.navigateByUrl('/home');
           },
           error: (problem) => {
             console.error('RegisterComponent.register(): Error logging in user:');
