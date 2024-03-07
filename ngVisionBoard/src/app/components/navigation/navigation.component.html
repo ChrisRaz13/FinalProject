@@ -10,6 +10,9 @@
       <li *ngIf="isLoggedIn()">
         <app-logout></app-logout>
       </li>
+      <li *ngIf="isLoggedIn()">
+        <a class="nav-link" [routerLink]="['/account']">Account</a>
+      </li>
       <li *ngIf="!isLoggedIn()">
         <a class="nav-link" [routerLink]="['/login']">Login</a>
       </li>
