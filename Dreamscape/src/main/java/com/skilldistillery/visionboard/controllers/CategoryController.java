@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.visionboard.entities.Category;
+import com.skilldistillery.visionboard.entities.Post;
 import com.skilldistillery.visionboard.services.CategoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -64,4 +65,5 @@ public class CategoryController {
             response.setStatus(404);
         }
     }
+
 }

@@ -63,4 +63,9 @@ public class PostServiceImpl implements PostService {
             return false;
         }
     }
+    
+    @Override
+    public List<Post> findPostsByCategory(String category) {
+        return postRepo.findByCategories_NameContaining(category);
+    }
 }

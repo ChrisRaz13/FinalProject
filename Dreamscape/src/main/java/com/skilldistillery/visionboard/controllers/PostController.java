@@ -76,4 +76,10 @@ public class PostController {
             e.printStackTrace();
         }
     }
+    
+    @GetMapping("search/categories/{category}")
+    public List<Post> findPostsByCategory(@PathVariable("category") String category) {
+        return postService.findPostsByCategory(category);
+    }
 }
+

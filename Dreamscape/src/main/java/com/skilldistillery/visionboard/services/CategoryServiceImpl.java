@@ -7,14 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.visionboard.entities.Category;
+import com.skilldistillery.visionboard.entities.Post;
 import com.skilldistillery.visionboard.repositories.CategoryRepository;
+import com.skilldistillery.visionboard.repositories.PostRepository;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-
+    
     @Override
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
@@ -52,4 +54,5 @@ public class CategoryServiceImpl implements CategoryService {
             return false;
         }
     }
+
 }
