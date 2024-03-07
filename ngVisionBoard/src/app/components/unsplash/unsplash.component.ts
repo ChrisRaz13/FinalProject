@@ -12,24 +12,23 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [CommonModule, FormsModule, HttpClientModule],
 })
 export class UnsplashComponent implements OnInit {
-  randomPhotos: any[] = [];
+  collections: any[] = [];
+  searchQuery: string = '';
 
   constructor(private unsplashService: UnsplashService) {}
 
   ngOnInit() {
-    this.getRandomPhotos();
+    this.searchCollections();
   }
 
-  getRandomPhotos() {
-    this.unsplashService.getRandomPhoto('nature', 5).subscribe(
-      (photos: any[]) => {
-        this.randomPhotos = photos;
-      },
-      (error) => {
-        console.error('Error fetching random photos:', error);
-      }
-    );
+  search(){
+
+    this.searchCollections();
+  }
+
+  searchCollections() {
+    this.unsplashService.searchCollections(this.searchQuery).subscribe((response: any) => {
+      this.collections = response.results;
+    });
   }
 }
-
-

@@ -6,22 +6,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UnsplashService {
-  private splashUrl: string = 'https://api.unsplash.com';
+  private baseUrl: string = 'https://api.unsplash.com';
   private accessKey: string = 'g2TUe8r-1sUbtn1lIxX_C2AwstnMEcGCKfXh6LVV3A4'; // Replace with your Unsplash Access Key
 
   constructor(private http: HttpClient) { }
 
-  getRandomPhoto(query?: string, count: number = 1): Observable<any> {
-    const url = `${this.splashUrl}/photos/random`;
-    let params = new HttpParams().set('client_id', this.accessKey).set('count', count.toString());
+  searchCollections(query: string, page: number = 1, perPage: number = 10): Observable<any> {
+    const params = new HttpParams()
+      .set('query', query)
+      .set('page', page.toString())
+      .set('per_page', perPage.toString())
+      .set('client_id', this.accessKey);
 
-    if (query) {
-      params = params.set('query', query);
-    }
-
-    return this.http.get(url, { params });
+    return this.http.get(`${this.baseUrl}/search/collections`, { params });
   }
-
-  }
+}
 
 
