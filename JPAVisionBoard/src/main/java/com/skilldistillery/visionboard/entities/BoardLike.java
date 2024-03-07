@@ -2,7 +2,7 @@ package com.skilldistillery.visionboard.entities;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -20,12 +20,13 @@ public class BoardLike {
 
     @MapsId("userId")
     @ManyToOne
+    @JsonIgnoreProperties({"boardLikes"})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
-    @JsonIgnore
+    
     @MapsId("boardId")
     @ManyToOne
+    @JsonIgnoreProperties({"boardLikes"})
     @JoinColumn(name = "board_id", referencedColumnName = "id")
     private Board board;
 
@@ -41,6 +42,16 @@ public class BoardLike {
 		this.user = user;
 		this.board = board;
 		this.createdAt = createdAt;
+	}
+	
+	
+
+	public BoardLikeId getId() {
+		return id;
+	}
+
+	public void setId(BoardLikeId id) {
+		this.id = id;
 	}
 
 	public User getUser() {
@@ -69,7 +80,7 @@ public class BoardLike {
 
 	@Override
 	public String toString() {
-		return "BoardLike [user=" + user + ", board=" + board + ", createdAt=" + createdAt + "]";
+		return "BoardLike [id=" + id + "]";
 	}
 
 }

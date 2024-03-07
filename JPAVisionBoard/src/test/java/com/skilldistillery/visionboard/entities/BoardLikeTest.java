@@ -32,7 +32,7 @@ class BoardLikeTest {
 	@BeforeEach
 	void setUp() throws Exception {
 	    em = emf.createEntityManager();
-	    BoardLikeId id = new BoardLikeId(1L, 2L);
+	    BoardLikeId id = new BoardLikeId(1, 2);
 	    boardLike = em.find(BoardLike.class, id);
 	}
 
