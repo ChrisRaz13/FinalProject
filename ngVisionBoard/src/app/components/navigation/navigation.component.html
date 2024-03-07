@@ -7,7 +7,13 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]='isCollapsed'>
     <ul class="navbar-nav">
-      <li>
+      <li *ngIf="isLoggedIn()">
+        <app-logout></app-logout>
+      </li>
+      <li *ngIf="!isLoggedIn()">
+        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+      <li *ngIf="!isLoggedIn()">
         <a class="nav-link" [routerLink]="['/register']">Register</a>
       </li>
     </ul>
