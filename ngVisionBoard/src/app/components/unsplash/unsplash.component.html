@@ -1,4 +1,13 @@
-<!-- unsplash.component.html -->
-<div *ngIf="randomPhotos.length > 0">
-  <img *ngFor="let photo of randomPhotos" [src]="photo.urls.regular" [alt]="photo.alt_description">
+<div>
+  <form (submit)="search()">
+    <input type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Search collections">
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+<div *ngFor="let collection of collections">
+  <h3>{{ collection.title }}</h3>
+  <div *ngFor="let photo of collection.preview_photos">
+    <img [src]="photo.urls.small" [alt]="photo.alt_description">
+  </div>
 </div>

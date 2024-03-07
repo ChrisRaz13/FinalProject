@@ -11,17 +11,16 @@ export class UnsplashService {
 
   constructor(private http: HttpClient) { }
 
-  getRandomPhoto(query?: string, count: number = 1): Observable<any> {
-    const url = `${this.baseUrl}/photos/random`;
-    let params = new HttpParams().set('client_id', this.accessKey).set('count', count.toString());
 
-    if (query) {
-      params = params.set('query', query);
-    }
+  searchCollections(query: string, page: number = 1, perPage: number = 10): Observable<any> {
+    const params = new HttpParams()
+      .set('query', query)
+      .set('page', page.toString())
+      .set('per_page', perPage.toString())
+      .set('client_id', this.accessKey);
 
-    return this.http.get(url, { params });
+    return this.http.get(`${this.baseUrl}/search/collections`, { params });
   }
-
-  }
+}
 
 
