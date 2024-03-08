@@ -53,4 +53,9 @@ public class CommentServiceImpl implements CommentService {
             return false;
         }
     }
+
+	@Override
+	public List<Comment> getCommentsByBoardId(int id) {
+	    return commentRepo.findByBoardId(id);
+	}
 }

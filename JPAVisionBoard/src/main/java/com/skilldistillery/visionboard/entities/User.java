@@ -62,7 +62,6 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<BoardLike> boardLikes;
 
-	//methods & const
 	
 	public User() {
 		super();

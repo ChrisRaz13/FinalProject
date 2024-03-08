@@ -59,7 +59,7 @@ export class AccountPageComponent {
     return fi+li;
   }
 
-  getBoardCount()
+  getBoardCount() {}
 
-  getLikeCount()
+  getLikeCount() {}
 }

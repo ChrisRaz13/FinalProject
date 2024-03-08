@@ -16,4 +16,6 @@ public interface CommentService {
 
 	boolean delete(int id);
 
+	List<Comment> getCommentsByBoardId(int id);
+
 }

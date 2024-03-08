@@ -1,19 +1,17 @@
-// board-like.model.ts
-
-import { Board } from "./comments";
+import { Board } from "./board";
 import { User } from "./user";
 
 export class BoardLike {
   id: number;
-  createdAt: Date;
-  updatedAt: Date;
   user: User;
   board: Board;
 
-  constructor(id: number, createdAt: Date, updatedAt: Date, user: User, board: Board) {
+  constructor(
+    id: number = 0,
+    user: User = new User(),
+    board: Board = new Board()
+  ) {
     this.id = id;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
     this.user = user;
     this.board = board;
   }

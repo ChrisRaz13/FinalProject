@@ -3,6 +3,7 @@ package com.skilldistillery.visionboard.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,4 +77,18 @@ public class CommentController {
 				e.printStackTrace();
 			}
 		}
+		
+		@GetMapping("comments/boards/{boardId}")
+		public List<Comment> getCommentsByBoardId(@PathVariable("boardId") int id, HttpServletRequest request, HttpServletResponse response) {
+		    List<Comment> comments = commentService.getCommentsByBoardId(id);
+		    if (comments == null || comments.isEmpty()) {
+		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		    }
+		    return comments;
+		}
+
+
+
+		
+		
 }
