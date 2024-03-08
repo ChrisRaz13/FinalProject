@@ -29,7 +29,7 @@ export class Post {
     completed: boolean = false,
     createdAt: Date = new Date(),
     updatedAt: Date = new Date(),
-    dueDate: Date = new Date(), // Removed the semicolon here
+    dueDate: Date = new Date(), 
     imageUrl: string = '',
     videoUrl: string = '',
     overlayText: string = '',
