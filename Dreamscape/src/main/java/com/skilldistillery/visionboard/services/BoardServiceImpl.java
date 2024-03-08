@@ -56,4 +56,12 @@ public class BoardServiceImpl implements BoardService {
 			return false;
 		}
 	}
+
+	@Override
+	public List<Board> findByUserId(int userId) {
+		// TODO Auto-generated method stub
+		return boardRepo.findByUserId(userId);
+	}
+	
+	
 }

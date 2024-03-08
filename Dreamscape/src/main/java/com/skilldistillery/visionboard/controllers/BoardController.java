@@ -76,4 +76,29 @@ public class BoardController {
 				e.printStackTrace();
 			}
 		}
+		
+		@GetMapping("boards/search/{userId}")
+		public List<Board> findByUserId(@PathVariable("userId") int userId,
+				                       HttpServletRequest request, HttpServletResponse response) {
+			List<Board> boards = boardService.findByUserId(userId);
+			if (boards == null) {
+				response.setStatus(404);
+			}
+			return boards;
+		}
+		
+		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
