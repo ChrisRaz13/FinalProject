@@ -1,4 +1,6 @@
-package com.skilldistillery.visionboard.repositories;
+	package com.skilldistillery.visionboard.repositories;
+
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +22,6 @@ public interface BoardLikeRepository extends JpaRepository<BoardLike, BoardLikeI
 
     @Query("INSERT INTO BoardLike (id, user, board) VALUES (:id, :user, :board)")
     void createBoardLike(@Param("id") BoardLikeId id, @Param("user") User user, @Param("board") Board board);
+    
+    List<BoardLike> findByUserId(int userId);
 }

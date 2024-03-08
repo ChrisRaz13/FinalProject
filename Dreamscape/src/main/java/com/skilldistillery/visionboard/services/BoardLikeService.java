@@ -14,5 +14,7 @@ public interface BoardLikeService {
 	
 	boolean delete(BoardLikeId id);
 	
+	List<BoardLike> findByUserId(int userId);
+	
 	
 }

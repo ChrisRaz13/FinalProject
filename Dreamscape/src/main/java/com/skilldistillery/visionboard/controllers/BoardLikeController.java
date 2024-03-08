@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.visionboard.entities.Board;
 import com.skilldistillery.visionboard.entities.BoardLike;
 import com.skilldistillery.visionboard.entities.BoardLikeId;
 import com.skilldistillery.visionboard.services.BoardLikeService;
@@ -19,21 +20,22 @@ import com.skilldistillery.visionboard.services.BoardLikeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@CrossOrigin({"*", "http://localhost/"})
+@CrossOrigin({ "*", "http://localhost/" })
 @RequestMapping("api")
 @RestController
 public class BoardLikeController {
-	
+
 	@Autowired
 	private BoardLikeService blService;
-	
+
 	@GetMapping({ "boardLikes", "boardLikes/" })
 	public List<BoardLike> index() {
 		return blService.index();
 	}
-	
+
 	@PostMapping("boardLikes")
-	public BoardLike create(@RequestBody BoardLike boardLike, HttpServletRequest request, HttpServletResponse response) {
+	public BoardLike create(@RequestBody BoardLike boardLike, HttpServletRequest request,
+			HttpServletResponse response) {
 		BoardLike newBoardLike = blService.create(boardLike);
 		if (newBoardLike == null) {
 			response.setStatus(409);
@@ -43,28 +45,26 @@ public class BoardLikeController {
 			return newBoardLike;
 		}
 	}
-	
 
-    @GetMapping("boardLikes/{userId}/{boardId}")
-    public BoardLike getBoardLikeById(@PathVariable("userId") int userId, @PathVariable("boardId") int boardId,
-    		 HttpServletRequest request, HttpServletResponse response) {
-    	System.out.println("User id:" + userId);
-    	System.out.println("Board id:" + boardId);
-        BoardLikeId id = new BoardLikeId(userId, boardId);
-        BoardLike boardLike = blService.findById(id);
-        if (boardLike == null) {
-        	response.setStatus(404);
-        } else {
-            return boardLike;
-        }
-        return null;
-    }
-    
+	@GetMapping("boardLikes/{userId}/{boardId}")
+	public BoardLike getBoardLikeById(@PathVariable("userId") int userId, @PathVariable("boardId") int boardId,
+			HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("User id:" + userId);
+		System.out.println("Board id:" + boardId);
+		BoardLikeId id = new BoardLikeId(userId, boardId);
+		BoardLike boardLike = blService.findById(id);
+		if (boardLike == null) {
+			response.setStatus(404);
+		} else {
+			return boardLike;
+		}
+		return null;
+	}
 
-    @DeleteMapping("boardLikes/{userId}/{boardId}")
-    public void deleteBoardLike(@PathVariable("userId") int userId, @PathVariable("boardId") int boardId,
-    		HttpServletRequest request, HttpServletResponse response) {
-        BoardLikeId id = new BoardLikeId(userId, boardId);
+	@DeleteMapping("boardLikes/{userId}/{boardId}")
+	public void deleteBoardLike(@PathVariable("userId") int userId, @PathVariable("boardId") int boardId,
+			HttpServletRequest request, HttpServletResponse response) {
+		BoardLikeId id = new BoardLikeId(userId, boardId);
 		try {
 			if (blService.delete(id)) {
 				response.setStatus(204);
@@ -75,31 +75,16 @@ public class BoardLikeController {
 			response.setStatus(400);
 			e.printStackTrace();
 		}
-    }
+	}
+
+	@GetMapping("boardLikes/search/user/{userId}")
+	public List<BoardLike> findByUserId(@PathVariable("userId") int userId, HttpServletRequest request,
+			HttpServletResponse response) {
+		List<BoardLike> boardLikes = blService.findByUserId(userId);
+		if (boardLikes == null) {
+			response.setStatus(404);
+		}
+		return boardLikes;
+	}
+
 }
-	
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

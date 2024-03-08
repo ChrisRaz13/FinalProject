@@ -59,9 +59,15 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<Board> findByUserId(int userId) {
-		// TODO Auto-generated method stub
 		return boardRepo.findByUserId(userId);
 	}
+
+	@Override
+	public List<Board> findLikedBoardsByUserId(int userId) {
+		return boardRepo.findLikedBoardsByUserId(userId);
+	}
+	
+	
 	
 	
 }
