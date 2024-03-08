@@ -24,12 +24,24 @@ export class BoardService {
   }
 
   getBoardsByUserId(userId: number): Observable<Board[]> {
-    let curUrl = `${this.url}/search/${userId}`;
-    return this.http.get<Board[]>(curUrl, this.getHttpOptions()).pipe(
+    let userSearchUrl = `${this.url}/search/${userId}`;
+    return this.http.get<Board[]>(userSearchUrl , this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
           () => new Error('BoardService.getBoardsByUserId(): error retrieving boards: ' + err)
+        );
+      })
+    );
+  }
+
+  getBoardsLikedByUserId(userId: number): Observable<Board[]> {
+    let userSearchUrl = `${this.url}/search/likedbyuser/${userId}`;
+    return this.http.get<Board[]>(userSearchUrl , this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('BoardService.getBoardsLikedByUserId(): error retrieving boards: ' + err)
         );
       })
     );

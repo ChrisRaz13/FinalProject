@@ -87,6 +87,16 @@ public class BoardController {
 			return boards;
 		}
 		
+		@GetMapping("boards/search/likedbyuser/{userId}")
+		public List<Board> findLikedBoardsByUserId(@PathVariable("userId") int userId,
+				                       HttpServletRequest request, HttpServletResponse response) {
+			List<Board> boards = boardService.findLikedBoardsByUserId(userId);
+			if (boards == null) {
+				response.setStatus(404);
+			}
+			return boards;
+		}
+		
 		
 }
 
