@@ -17,11 +17,21 @@ import { CommonModule } from '@angular/common';
 })
 export class NavigationComponent {
   isCollapsed: boolean = false;
+  showLoginPopup: boolean = false;
+  showRegistrationPopup: boolean = false;
 
   constructor(private authService: AuthService){}
 
   isLoggedIn() :boolean {
     return this.authService.checkLogin();
+  }
+
+  toggleLoginPopup(){
+    this.showLoginPopup = !this.showLoginPopup;
+  }
+
+  toggleRegistrationPopup(){
+    this.showRegistrationPopup = !this.showRegistrationPopup;
   }
 
 }

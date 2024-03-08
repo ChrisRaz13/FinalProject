@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -15,12 +15,15 @@ export class LoginComponent {
 
   loginUser: User = new User();
 
+  @Output() close: EventEmitter<void> = new EventEmitter<void>();
+
   constructor(private authService: AuthService, private router: Router) {}
 
   login(user: User) {
     this.authService.login(user.username, user.password).subscribe({
       next: (loggedInUser) => {
         this.router.navigateByUrl('');
+        this.close.emit();
       },
       error: (failedLogin) => {
         console.error(failedLogin);

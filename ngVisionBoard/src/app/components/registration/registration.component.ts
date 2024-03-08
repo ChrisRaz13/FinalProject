@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegistrationComponent {
   newUser: User = new User();
+  @Output() close: EventEmitter<void> = new EventEmitter<void>();
 
   register(user: User): void {
     console.log('Registering user:');
@@ -23,6 +24,7 @@ export class RegistrationComponent {
         this.authService.login(user.username, user.password).subscribe({
           next: (loggedInUser) => {
             this.router.navigateByUrl('/home');
+            this.close.emit();
           },
           error: (problem) => {
             console.error('RegisterComponent.register(): Error logging in user:');
