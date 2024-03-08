@@ -11,7 +11,7 @@ describe('VisionboardComponent', () => {
       imports: [VisionboardComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(VisionboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
