@@ -1,5 +1,6 @@
 // comment.model.ts
 
+import { Board } from "./board";
 import { User } from "./user";
 
 
@@ -13,7 +14,16 @@ export class Comment {
   user: User;
   inReplyTo: Comment;
 
-  constructor(id: number, createdAt: Date, updatedAt: Date, comment: string, enabled: boolean, board: Board, user: User, inReplyTo: Comment) {
+  constructor(
+    id: number = 0,
+    createdAt: Date = new Date(),
+    updatedAt: Date = new Date(),
+    comment: string = '',
+    enabled: boolean = false,
+    board: Board = new Board(),
+    user?: User,
+    inReplyTo?: Comment
+  ) {
     this.id = id;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -23,18 +33,5 @@ export class Comment {
     this.user = user;
     this.inReplyTo = inReplyTo;
   }
+
 }
-
-export class Board {
-  id: number;
-  name: string;
-  description: string;
-
-  constructor(id: number, name: string, description: string) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-  }
-}
-
-

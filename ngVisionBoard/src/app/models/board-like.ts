@@ -1,6 +1,6 @@
 // board-like.model.ts
 
-import { Board } from "./comments";
+import { Board } from "./comment";
 import { User } from "./user";
 
 export class BoardLike {

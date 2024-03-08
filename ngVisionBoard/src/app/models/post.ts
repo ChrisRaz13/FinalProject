@@ -23,24 +23,26 @@ export class Post {
   categories: Category[];
 
   constructor(
-    id: number,
-    description: string,
-    title: string,
-    completed: boolean,
-    createdAt: Date,
-    updatedAt: Date,
-    dueDate: Date,
-    imageUrl: string,
-    videoUrl: string,
-    overlayText: string,
-    completedDate: Date,
-    enabled: boolean,
-    published: boolean,
-    scale: number,
-    layer: number,
-    board: Board,
-    categories: Category[]
-  ) {
+    id: number = 0,
+    description: string = '',
+    title: string = '',
+    completed: boolean = false,
+    createdAt: Date = new Date(),
+    updatedAt: Date = new Date(),
+    dueDate: Date = new Date(), // Removed the semicolon here
+    imageUrl: string = '',
+    videoUrl: string = '',
+    overlayText: string = '',
+    completedDate: Date = new Date(),
+    enabled: boolean = false,
+    published: boolean = false,
+    scale: number = 0,
+    layer: number = 0,
+    board: Board = new Board(0),
+    categories: Category[] = []
+  ){
+
+
     this.id = id;
     this.description = description;
     this.title = title;

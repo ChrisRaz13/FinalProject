@@ -1,7 +1,7 @@
-import { Comments } from './comments';
+import { Comment } from './comment';
 
 describe('Comments', () => {
   it('should create an instance', () => {
-    expect(new Comments()).toBeTruthy();
+    expect(new Comment()).toBeTruthy();
   });
 });
