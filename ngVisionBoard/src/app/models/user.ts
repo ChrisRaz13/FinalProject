@@ -8,6 +8,8 @@ export class User {
     email: string;
     enabled: boolean;
     role: string;
+    imageUrl: string | null;
+    aboutMe: string
 
     constructor (
     id: number = 0,
@@ -17,7 +19,9 @@ export class User {
     lastName: string = '',
     email: string = '',
     enabled: boolean = true,
-    role: string = ''
+    role: string = '',
+    imageUrl = null,
+    aboutMe: string = ''
     ){
       this.id = id;
       this.username = username;
@@ -27,5 +31,7 @@ export class User {
       this.email = email;
       this.enabled = enabled;
       this.role = role;
+      this.imageUrl = imageUrl;
+      this.aboutMe = aboutMe;
     }
   }

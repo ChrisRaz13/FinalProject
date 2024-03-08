@@ -15,5 +15,7 @@ public interface BoardService {
 	Board update(int id, Board existingBoard);
 
 	boolean delete(int id);
+	
+	List<Board> findByUserId(int userId);
 
 }
