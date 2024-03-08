@@ -1,0 +1,15 @@
+/* Styles for the resize handle */
+.resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 20px; /* Size of the handle */
+  height: 20px; /* Size of the handle */
+  background: rgba(0, 0, 0, 0); /* Making it invisible or semi-transparent; adjust as needed */
+  cursor: nwse-resize; /* Cursor indicates the ability to drag to resize */
+}
+
+/* Optional: To increase visibility when hovering over the handle */
+.resize-handle:hover {
+  background: rgba(0, 0, 0, 0.1); /* Slightly darken on hover to indicate active area */
+}

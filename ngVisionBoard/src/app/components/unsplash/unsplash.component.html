@@ -1,18 +1,21 @@
 <div>
   <form (submit)="search()">
-    <input type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Search collections">
+    <input type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Find photos">
     <button type="submit">Search</button>
   </form>
 </div>
 
 
 <div cdkDropList (cdkDropListDropped)="drop($event)" class="drop-zone">
-  <p>Drag photos here</p>
 </div>
 
-<div *ngFor="let collection of collections">
-  <h3>{{ collection.title }}</h3>
-  <div *ngFor="let photo of collection.preview_photos" cdkDrag>
-    <img [src]="photo.urls.small" [alt]="photo.alt_description">
+
+<div class="scroll-container">
+  <div *ngFor="let collection of collections">
+    <div *ngFor="let photo of collection.preview_photos">
+      <div cdkDrag [cdkDragData]="photo">
+        <img [src]="photo.urls.small" appDragToResize [alt]="photo.alt_description">
+      </div>
+    </div>
   </div>
 </div>
