@@ -40,9 +40,8 @@ export class AuthService {
     // Create GET request to authenticate credentials
     return this.http.get<User>(this.url + 'authenticate', httpOptions).pipe(
       tap((newUser) => {
-        // While credentials are stored in browser localStorage, we consider
-        // ourselves logged in.
-        localStorage.setItem('credentials', credentials);
+        localStorage.setItem('credentials', this.generateBasicAuthCredentials(username, password));
+        localStorage.setItem('user', JSON.stringify(newUser));
         return newUser;
       }),
       catchError((err: any) => {
@@ -95,6 +94,11 @@ export class AuthService {
 
   getCredentials(): string | null {
     return localStorage.getItem('credentials');
+  }
+
+  isAdmin(): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.role === 'admin';
   }
 
 }

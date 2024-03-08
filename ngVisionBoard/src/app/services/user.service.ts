@@ -71,6 +71,33 @@ export class UserService {
     );
   }
 
+  deactivateUser(id: number): Observable<any> {
+    return this.http.put(`${this.url}${id}/disable`, {}, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error('UserService.deactivateUser(): error deactivating user', err);
+        return throwError(() => new Error('UserService.deactivateUser(): error deactivating user: ' + err));
+      })
+    );
+  }
+
+  activateUser(id: number): Observable<any> {
+    return this.http.put(`${this.url}${id}/enable`, {}, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error('UserService.activateUser(): error activating user', err);
+        return throwError(() => new Error('UserService.activateUser(): error activating user: ' + err));
+      })
+    );
+  }
+
+  resetPassword(id: number, newPassword: string): Observable<any> {
+    return this.http.post(`${this.url}${id}/resetPassword`, newPassword, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error('UserService.resetPassword(): error resetting password', err);
+        return throwError(() => new Error('UserService.resetPassword(): error resetting password: ' + err));
+      })
+    );
+  }
+
   getHttpOptions() {
     let options = {
       headers: {

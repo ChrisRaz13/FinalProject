@@ -26,6 +26,10 @@ export class NavigationComponent {
     return this.authService.checkLogin();
   }
 
+  isAdmin() :boolean {
+    return this.authService.isAdmin();
+  }
+
   toggleLoginPopup(){
     this.showLoginPopup = !this.showLoginPopup;
   }

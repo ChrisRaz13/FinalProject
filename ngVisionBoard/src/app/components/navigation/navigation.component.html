@@ -13,6 +13,9 @@
       <li *ngIf="isLoggedIn()">
         <a class="nav-link" [routerLink]="['/account']">Account</a>
       </li>
+      <li *ngIf="isAdmin() && isLoggedIn()">
+        <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+      </li>
       <li *ngIf="!isLoggedIn()">
         <a class="nav-link" (click)="toggleLoginPopup()">Login</a>
         <div *ngIf="showLoginPopup">

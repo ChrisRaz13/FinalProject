@@ -15,4 +15,8 @@ public interface UserService {
 	User update(int id, User user);
 
 	boolean delete(int id);
+	
+	boolean disableUser(int userId);
+	boolean enableUser(int userId);
+	User resetPassword(int userId, String newPassword);
 }
