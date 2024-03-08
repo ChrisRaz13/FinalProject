@@ -11,6 +11,7 @@ export class Comment {
     id: number;
   };
   inReplyTo?: Comment;
+text: any;
 
   constructor(
     id: number = 0,

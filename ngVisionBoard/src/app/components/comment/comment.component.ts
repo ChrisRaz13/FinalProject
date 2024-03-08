@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from '../../app.component';
+import { BoardService } from '../../services/board.service';
+import { ActivatedRoute } from '@angular/router';
+import { catchError, of, tap, throwError } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,10 @@ export class AppModule { }
   styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
+
+  boardId: any;
+  boardInfo: any;
+
 submitComment() {
 throw new Error('Method not implemented.');
 }
@@ -42,16 +49,55 @@ updateSuccess: boolean = false;
 showEditFormFlag: boolean = false;
 displayEditForm: boolean;
 
-  constructor(private commentService: CommentService) {
+  constructor(
+    private commentService: CommentService,
+    private boardService: BoardService,
+    private route: ActivatedRoute
+
+    ) {
     this.displayEditForm = false;
   }
 
   ngOnInit(): void {
-    this.loadComments();
+    this.route.params.subscribe(params => {
+      const boardId = params['boardId']; // Extract the boardId from route parameters
+      if (boardId) {
+        // Load board information and comments
+        this.loadBoardInfo(boardId);
+        this.loadComments(boardId);
+      } else {
+        console.error('Board ID is not provided.');
+      }
+    });
   }
 
-  loadComments() {
-    this.commentService.index().subscribe(
+
+
+
+loadBoardInfo(boardId: any) {
+  // Mock board object
+  const mockBoard = {
+    id: boardId,
+    title: 'Sample Board',
+    description: 'This is a sample board description.'
+  };
+
+  // Simulate API call by returning an observable with the mock board object
+  return of(mockBoard).pipe(
+    tap((boardInfo: any) => {
+      console.log('Board info loaded successfully:', boardInfo);
+      this.boardInfo = boardInfo;
+    }),
+    catchError((err: any) => {
+      console.error('Error loading board information:', err);
+      return throwError(err); // Rethrow the error
+    })
+  );
+}
+
+
+  loadComments(boardId: number) {
+    this.commentService.index(boardId).subscribe(
       (commentList) => {
         this.comments = commentList;
         console.log(this.comments);
@@ -74,10 +120,10 @@ displayEditForm: boolean;
     this.selected = null;
   }
 
-  addComment() {
+  addComment(boardId: number) {
     this.commentService.create(this.newComment).subscribe(
       () => {
-        this.loadComments();
+        this.loadComments(boardId); // Load comments for the specified board
         this.newComment = this.getDefaultComment(); // Reset newComment to default values
       },
       (error) => {
@@ -90,11 +136,11 @@ displayEditForm: boolean;
     this.editComment = { ...comment }; // Clone the selected comment
   }
 
-  updateComment() {
+  updateComment(boardId: number) {
     if (this.editComment) {
       this.commentService.update(this.editComment).subscribe(
         () => {
-          this.loadComments();
+          this.loadComments(boardId); // Pass the board ID here
           this.editComment = null; // Reset editComment
         },
         (error) => {
@@ -104,10 +150,10 @@ displayEditForm: boolean;
     }
   }
 
-  deleteComment(id: number) {
+  deleteComment(id: number, boardId: number) {
     this.commentService.destroy(id).subscribe(
       () => {
-        this.loadComments();
+        this.loadComments(boardId); // Pass the board ID here
       },
       (error) => {
         console.error('CommentComponent.deleteComment: error', error);
@@ -116,21 +162,23 @@ displayEditForm: boolean;
   }
 
   getDefaultComment(): Comment {
-    return {
+    const defaultComment: Comment = {
       id: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
       comment: '',
       enabled: false,
       board: {
-        id: 0, // Assuming the board ID
+        id: 0,
       },
       user: {
-        id: 0, // Assuming the user ID
+        id: 0,
       },
-
-      inReplyTo: undefined
+      inReplyTo: undefined,
+      text: undefined
     };
+
+    return defaultComment;
   }
 
 }

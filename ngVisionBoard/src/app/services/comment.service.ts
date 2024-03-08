@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Comment } from '../models/comment';
 
 @Injectable({
@@ -9,17 +9,34 @@ import { Comment } from '../models/comment';
 })
 export class CommentService {
   private url = environment.baseUrl + 'api/comments'; // Assuming the endpoint is 'api/comments'
+  baseUrl: any;
 
   constructor(private http: HttpClient) { }
 
-  index(): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.url).pipe(
+  index(boardId: number): Observable<Comment[]> {
+    if (!this.url) {
+      console.error('Base URL is not defined.');
+      return throwError(new Error('Base URL is not defined.'));
+    }
+
+    if (!boardId) {
+      console.error('Board ID is not provided.');
+      return throwError(new Error('Board ID is not provided.'));
+    }
+
+    const url = `${this.url}/boards/${boardId}`;
+    return this.http.get<Comment[]>(url).pipe(
+      tap((comments: any) => {
+        console.log(comments);
+      }),
       catchError((err: any) => {
         console.error(err);
         return throwError(new Error('CommentService.index(): error retrieving comments: ' + err));
       })
     );
   }
+
+
 
   create(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(this.url, comment).pipe(
