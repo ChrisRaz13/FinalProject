@@ -5,6 +5,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { LoginComponent } from './components/login/login.component';
+import { AccountPageComponent } from './components/account-page/account-page.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -13,5 +14,6 @@ export const routes: Routes = [
   { path: 'navigation', component: NavigationComponent },
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
+  { path: 'account/:userId', component: AccountPageComponent },
   { path: '**', component: NotfoundComponent}
 ];
