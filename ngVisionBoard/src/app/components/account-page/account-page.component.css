@@ -1,0 +1,13 @@
+/* Additional custom styles */
+.profile-image {
+  width: 200px;
+  height: 200px;
+  max-width: 200px; /* Set maximum width */
+  max-height: 200px;
+  border-radius: 50%; /* to make it circular */
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 50px;
+}
