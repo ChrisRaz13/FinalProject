@@ -3,7 +3,6 @@
 import { Board } from "./board";
 import { User } from "./user";
 
-
 export class Comment {
   id: number;
   createdAt: Date;
@@ -21,8 +20,8 @@ export class Comment {
     comment: string = '',
     enabled: boolean = false,
     board: Board = new Board(),
-    user?: User,
-    inReplyTo?: Comment
+    user: User = new User(),
+    inReplyTo: Comment = new Comment()
   ) {
     this.id = id;
     this.createdAt = createdAt;
@@ -33,5 +32,6 @@ export class Comment {
     this.user = user;
     this.inReplyTo = inReplyTo;
   }
-
 }
+
+export { Board };
