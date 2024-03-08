@@ -12,11 +12,11 @@ img:active {
 }
 
 .scroll-container {
-  max-height: 300px; /* Adjust the maximum height as needed */
+  max-height: 1000px; /* Adjust the maximum height as needed */
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
-/* Optional: Adjust the image size */
+/* Adjust the image size */
 .scroll-container img {
-  max-width: 100%; /* Ensure images fit within the container */
+  max-width: 25%;
 }
