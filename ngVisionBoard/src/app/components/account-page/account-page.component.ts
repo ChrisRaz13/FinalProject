@@ -4,10 +4,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { Board } from '../../models/board';
 import { BoardLikeService } from '../../services/board-like.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+//ng add @angular/material for the snackbar
+
 
 @Component({
   selector: 'app-account-page',
@@ -23,25 +26,15 @@ export class AccountPageComponent implements OnInit {
   likeCount: number = 0;
   userLikedBoards: Board[] = [];
   userCreatedBoards: Board[] = [];
-  //   user: User = new User(
-  //     1,
-  //     'username',
-  //     'password',
-  //     'John',
-  //     'Doe',
-  //     'john@example.com',
-  //     true,
-  //     'user',
-  //     null,
-  //     'About me...'
-  // );
 
   constructor(
     private userService: UserService,
     private boardService: BoardService,
     private authService: AuthService,
     private boardLikeService: BoardLikeService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -95,7 +88,6 @@ export class AccountPageComponent implements OnInit {
     this.boardService.getBoardsByUserId(userId).subscribe({
       next: (boards) => {
         this.userLikedBoards = boards;
-        console.log(this.userLikedBoards);
         this.likedBoardCount = this.userLikedBoards.length;
       },
       error: (problem) => {
@@ -106,4 +98,21 @@ export class AccountPageComponent implements OnInit {
       },
     });
   }
+
+  deleteProfile(){
+    this.user.enabled = false;
+    this.userService.update(this.user).subscribe({
+      next: (updatedUser) => {
+        this.authService.logout();
+        console.log('User updated successfully:', updatedUser);
+        this.snackBar.open('User deleted successfully', 'Close', {
+          duration: 2000, // Duration for which the message will be displayed
+        });
+        this.router.navigateByUrl('/');
+      },
+      error: (error) => {
+        console.error('Error updating user:', error);
+      },
+    });
+  };
 }
