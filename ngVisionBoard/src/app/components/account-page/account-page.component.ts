@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { Board } from '../../models/board';
+import { BoardLikeService } from '../../services/board-like.service';
 
 @Component({
   selector: 'app-account-page',
@@ -19,6 +20,7 @@ export class AccountPageComponent {
   boardCount: number = 0;
   likedBoardCount: number = 0;
   likeCount: number = 0;
+  userLikedBoards: Board[] = [];
   userCreatedBoards: Board[] = [];
   user: User = new User(
     1,
@@ -37,6 +39,7 @@ export class AccountPageComponent {
   constructor(
     private userService: UserService,
     private boardService: BoardService,
+    private boardLikeService: BoardLikeService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -46,6 +49,7 @@ export class AccountPageComponent {
       this.load(userId);
       //TODO fix hardcoded value
       this.loadUserCreatedBoards(1);
+      this.loadUserLikedBoards(1);
 
     });
   }
@@ -65,7 +69,6 @@ export class AccountPageComponent {
   generateInitials(firstName : string, lastName : string): string {
     let fi = firstName.charAt(0).toUpperCase();
     let li = lastName.charAt(0).toUpperCase();
-    console.log(fi + li);
     return fi+li;
   }
 
@@ -83,4 +86,23 @@ export class AccountPageComponent {
       },
     });
   }
+
+  loadUserLikedBoards(userId: number) {
+    this.boardService.getBoardsByUserId(userId).subscribe({
+      next: (boards) => {
+        this.userLikedBoards = boards
+        console.log(this.userLikedBoards);
+        this.likedBoardCount = this.userLikedBoards.length;
+      },
+      error: (problem) => {
+        console.error(
+          'UserBoardLikeHttpComponent.loadBook(): error loading user likedboards:'
+        );
+        console.error(problem);
+      },
+    });
+  }
+
+
+
 }
