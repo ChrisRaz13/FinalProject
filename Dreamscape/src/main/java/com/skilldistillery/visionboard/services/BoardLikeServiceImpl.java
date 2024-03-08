@@ -72,6 +72,15 @@ public class BoardLikeServiceImpl implements BoardLikeService {
 
 	}
 
+	@Override
+	public List<BoardLike> findByUserId(int userId) {
+		return blRepo.findByUserId(userId);
+	}
+	
+	
+	
+	
+
 	
 	
 }

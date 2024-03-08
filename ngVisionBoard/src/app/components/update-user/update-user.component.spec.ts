@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VisionboardComponent } from './visionboard.component';
+import { UpdateUserComponent } from './update-user.component';
 
-describe('VisionboardComponent', () => {
-  let component: VisionboardComponent;
-  let fixture: ComponentFixture<VisionboardComponent>;
+describe('UpdateUserComponent', () => {
+  let component: UpdateUserComponent;
+  let fixture: ComponentFixture<UpdateUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VisionboardComponent]
+      imports: [UpdateUserComponent]
     })
     .compileComponents();
-
-    fixture = TestBed.createComponent(VisionboardComponent);
+    
+    fixture = TestBed.createComponent(UpdateUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

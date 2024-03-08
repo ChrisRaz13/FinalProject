@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VisionboardComponent } from './visionboard.component';
+import { DragtoresizeComponent } from './dragtoresize.component';
 
-describe('VisionboardComponent', () => {
-  let component: VisionboardComponent;
-  let fixture: ComponentFixture<VisionboardComponent>;
+describe('DragtoresizeComponent', () => {
+  let component: DragtoresizeComponent;
+  let fixture: ComponentFixture<DragtoresizeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VisionboardComponent]
+      imports: [DragtoresizeComponent]
     })
     .compileComponents();
-
-    fixture = TestBed.createComponent(VisionboardComponent);
+    
+    fixture = TestBed.createComponent(DragtoresizeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

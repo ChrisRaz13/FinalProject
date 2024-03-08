@@ -11,3 +11,15 @@
 .profile-name {
   font-size: 50px;
 }
+
+.update-link {
+  text-decoration: none;
+}
+
+.delete-button {
+  color: red; /* Make the text color red */
+  background-color: transparent; /* Make the background transparent */
+  border: none; /* Remove border */
+  text-decoration: none; /* Remove underline */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}

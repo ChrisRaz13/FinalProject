@@ -2,6 +2,7 @@ package com.skilldistillery.visionboard.entities;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -20,13 +21,13 @@ public class BoardLike {
 
     @MapsId("userId")
     @ManyToOne
-    @JsonIgnoreProperties({"boardLikes"})
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     
     @MapsId("boardId")
     @ManyToOne
-    @JsonIgnoreProperties({"boardLikes"})
+    @JsonIgnore
     @JoinColumn(name = "board_id", referencedColumnName = "id")
     private Board board;
 
