@@ -1,5 +1,14 @@
-<div
-
-  id="drop-area">
+<!-- HTML markup for drop area -->
+<div id="drop-area">
   Drag & drop images here
+</div>
+
+<!-- Placeholder text to display board information -->
+<div *ngIf="board" class="board-info">
+  <h2>{{ board.title }}</h2>
+  <p>Created At: {{ board.createdAt }}</p>
+  <p>Updated At: {{ board.updatedAt }}</p>
+  <p>Description: {{ board.description }}</p>
+  <p>Published: {{ board.published }}</p>
+  <!-- Add more properties as needed -->
 </div>

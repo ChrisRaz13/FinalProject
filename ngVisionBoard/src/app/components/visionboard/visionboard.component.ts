@@ -3,6 +3,7 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { CommonModule } from '@angular/common';
 import { Board } from '../../models/board';
 import { HttpClient } from '@angular/common/http';
+import { Mock } from '../../models/mock';
 
 
 @Component({
@@ -14,8 +15,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class VisionboardComponent implements OnInit{
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
-    this.fetchBoardData();
+    // throw new Error('Method not implemented.');
+    const boardId = 1;
+    this.loadBoardInfo(boardId);
   }
 
   items = ['Item 1', 'Item 2', 'Item 3'];
@@ -31,19 +33,24 @@ export class VisionboardComponent implements OnInit{
 
   // testing
 
-  fetchBoardData() {
-    this.http.get<Board>('/get-board/' + this.userId).subscribe(response => {
-      this.board = response;
-    });
+  loadBoardInfo(boardId: any) {
+    // Assign the mockBoard object to the board property
+    this.board = Mock;
   }
 
-  onFileDrop(event: any) {
-    // Handle file drop here
-  }
+  // fetchBoardData() {
+  //   this.http.get<Board>('/get-board/' + this.userId).subscribe(response => {
+  //     this.board = response;
+  //   });
+  // }
 
-  saveBoard() {
-    this.http.post('/save-board', { userId: this.userId, boardData: this.board }).subscribe(response => {
-      console.log('Board saved successfully');
-    });
-  }
+  // onFileDrop(event: any) {
+  //   // Handle file drop here
+  // }
+
+  // saveBoard() {
+  //   this.http.post('/save-board', { userId: this.userId, boardData: this.board }).subscribe(response => {
+  //     console.log('Board saved successfully');
+  //   });
+  // }
 }
