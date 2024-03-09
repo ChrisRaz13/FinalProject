@@ -1,34 +1,46 @@
-<div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
-<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
 <div class="container mt-4">
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+
   <h2>Admin Dashboard</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Username</th>
-        <th scope="col">Email</th>
-        <th scope="col">Actions</th>
-        <th scope="col">Reset Password</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>
-          <!-- Existing buttons for activate/deactivate -->
-          <button class="btn btn-warning btn-sm" (click)="deactivateUser(user.id)">Deactivate</button>
-          <button class="btn btn-success btn-sm" (click)="activateUser(user.id)">Activate</button>
-        </td>
-        <td>
-          <form class="d-flex" (submit)="resetPassword(user.id, newPassword.value)">
-            <input type="password" class="form-control me-2" #newPassword placeholder="New Password" required>
-            <button type="submit" class="btn btn-primary btn-sm">Reset</button>
-          </form>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col" style="width: 20%;">Actions</th>
+          <th scope="col">Reset Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <button class="btn" [ngClass]="user.enabled ? 'btn-primary' : 'btn-success'"
+              (click)="toggleUserStatus(user)">
+              {{ user.enabled ? 'Deactivate' : 'Activate' }}
+            </button>
+          </td>
+          <td>
+            <form class="form-inline" (submit)="resetPassword(user.id, newPassword.value)">
+              <div class="input-group">
+                <input type="password" class="form-control" #newPassword placeholder="New Password" required>
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-outline-primary">Reset</button>
+                </div>
+              </div>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -6,19 +6,21 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { LogoutComponent } from './components/logout/logout.component';
 import { LoginComponent } from './components/login/login.component';
 import { AccountPageComponent } from './components/account-page/account-page.component';
+import { HomeComponent } from './components/home/home.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'home', component: UnsplashComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'navigation', component: NavigationComponent },
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
   { path: 'account/:userId', component: AccountPageComponent },
-  { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'account', component: AccountPageComponent },
+  { path: '**', component: NotfoundComponent},
+  { path: 'home', component: UnsplashComponent},
+  { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'update-profile', component: UpdateUserComponent },
-  { path: '**', component: NotfoundComponent}
 ];

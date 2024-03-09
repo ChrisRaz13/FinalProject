@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap, catchError, throwError, Observable } from 'rxjs';
-import { Buffer } from "buffer";
+import { Observable, catchError, throwError, tap } from 'rxjs';
 import { User } from '../models/user';
+import { Buffer } from "buffer";
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
 
@@ -40,8 +40,9 @@ export class AuthService {
     // Create GET request to authenticate credentials
     return this.http.get<User>(this.url + 'authenticate', httpOptions).pipe(
       tap((newUser) => {
-        localStorage.setItem('credentials', this.generateBasicAuthCredentials(username, password));
-        localStorage.setItem('user', JSON.stringify(newUser));
+        // While credentials are stored in browser localStorage, we consider
+        // ourselves logged in.
+        localStorage.setItem('credentials', credentials);
         return newUser;
       }),
       catchError((err: any) => {
@@ -100,5 +101,5 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.role === 'admin';
   }
-
+  
 }

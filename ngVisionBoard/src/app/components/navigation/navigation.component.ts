@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationComponent } from '../registration/registration.component';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [RouterLink, NgbModule, RegistrationComponent, FormsModule, LoginComponent, LogoutComponent, CommonModule],
+  imports: [RouterLink, RouterModule, NgbModule, RegistrationComponent, FormsModule, LoginComponent, LogoutComponent, CommonModule],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css'
 })
@@ -19,6 +19,7 @@ export class NavigationComponent {
   isCollapsed: boolean = false;
   showLoginPopup: boolean = false;
   showRegistrationPopup: boolean = false;
+  showHome: boolean = true;
 
   constructor(private authService: AuthService){}
 
@@ -39,3 +40,4 @@ export class NavigationComponent {
   }
 
 }
+

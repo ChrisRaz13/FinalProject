@@ -15,51 +15,45 @@ import { catchError, of, tap, throwError } from 'rxjs';
   ],
   imports: [
     // Other imported modules
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-
-export class AppModule { }
+export class AppModule {}
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.css']
+  styleUrls: ['./comment.component.css'],
 })
 export class CommentComponent implements OnInit {
-
   boardId: any;
   boardInfo: any;
 
-submitComment() {
-throw new Error('Method not implemented.');
-}
-comments: Comment[] = [];
-editComment: Comment | null = null;
-newComment: Comment = this.getDefaultComment();
-title: string = 'Comment Tracker';
-selected: Comment | null = null;
-updateSuccess: boolean = false;
-showEditFormFlag: boolean = false;
-displayEditForm: boolean;
+  submitComment() {
+    throw new Error('Method not implemented.');
+  }
+  comments: Comment[] = [];
+  editComment: Comment | null = null;
+  newComment: Comment = this.getDefaultComment();
+  title: string = 'Comment Tracker';
+  selected: Comment | null = null;
+  updateSuccess: boolean = false;
+  showEditFormFlag: boolean = false;
+  displayEditForm: boolean;
 
   constructor(
     private commentService: CommentService,
     private boardService: BoardService,
     private route: ActivatedRoute
-
-    ) {
+  ) {
     this.displayEditForm = false;
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const boardId = params['boardId']; // Extract the boardId from route parameters
       if (boardId) {
         // Load board information and comments
@@ -71,30 +65,26 @@ displayEditForm: boolean;
     });
   }
 
+  loadBoardInfo(boardId: any) {
+    // Mock board object
+    const mockBoard = {
+      id: boardId,
+      title: 'Sample Board',
+      description: 'This is a sample board description.',
+    };
 
-
-
-loadBoardInfo(boardId: any) {
-  // Mock board object
-  const mockBoard = {
-    id: boardId,
-    title: 'Sample Board',
-    description: 'This is a sample board description.'
-  };
-
-  // Simulate API call by returning an observable with the mock board object
-  return of(mockBoard).pipe(
-    tap((boardInfo: any) => {
-      console.log('Board info loaded successfully:', boardInfo);
-      this.boardInfo = boardInfo;
-    }),
-    catchError((err: any) => {
-      console.error('Error loading board information:', err);
-      return throwError(err); // Rethrow the error
-    })
-  );
-}
-
+    // Simulate API call by returning an observable with the mock board object
+    return of(mockBoard).pipe(
+      tap((boardInfo: any) => {
+        console.log('Board info loaded successfully:', boardInfo);
+        this.boardInfo = boardInfo;
+      }),
+      catchError((err: any) => {
+        console.error('Error loading board information:', err);
+        return throwError(err); // Rethrow the error
+      })
+    );
+  }
 
   loadComments(boardId: number) {
     this.commentService.index(boardId).subscribe(
@@ -175,10 +165,9 @@ loadBoardInfo(boardId: any) {
         id: 0,
       },
       inReplyTo: undefined,
-      text: undefined
+      text: undefined,
     };
 
     return defaultComment;
   }
-
 }

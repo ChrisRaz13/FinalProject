@@ -5,6 +5,7 @@ import { Board } from '../../models/board';
 import { HttpClient } from '@angular/common/http';
 import { Mock } from '../../models/mock';
 import { BoardService } from '../../services/board.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class VisionboardComponent implements OnInit{
   board: Board | undefined;
   userId: number = 1; // Assuming there's a logged-in user
 
-  constructor(private http: HttpClient, private boardService: BoardService ) {
+  constructor(private http: HttpClient, private boardService: BoardService, private authService: AuthService ) {
     this.displayEditForm = false;
   }
 
@@ -37,45 +38,38 @@ export class VisionboardComponent implements OnInit{
   }
 
   // in testing phase of the methods below
-  toggleEditForm() {
-    throw new Error('Method not implemented.');
-    }
-
+  
   ngOnInit(): void {
-    const boardId = 1;
-    this.loadBoardInfo(boardId);
+    // const boardId = 1;
+    // this.loadBoardInfo(boardId);
     this.loadBoards();
     // throw new Error('Method not implemented.');
   }
 
-  loadBoardInfo(boardId: any) {
-    this.board = Mock;
+  // loadBoardInfo(boardId: any) {
+  //   this.board = Mock;
+  // }
 
-  }
-  loadBoards() {
-    this.boardService.index().subscribe(
-      (boardList: Board[]) => {
-        this.boards = boardList;
-        console.log(this.boards);
-      },
-      (err) => {
-        console.error('HomeComponent.loadBoards: error', err);
-      }
-    );
-  }
   getBoardCount(): number {
     return this.boards.length;
   }
 
-  displayBoard(board: Board): void {
-    this.selected = board;
-  }
-
-  displayTable(): void {
-    this.selected = null;
+  loadBoards() {
+    if(this.authService.checkLogin()) {
+      this.boardService.index().subscribe( {
+        next: (boardList) => {
+          this.boards = boardList; // Update variable name
+          console.log(this.boards); // Update variable name
+        },
+        error: (err: any) => {
+          console.error('VisionBoardComponent.loadVisionBoards: error', err); // Update method name
+        }
+      });
+    }
   }
 
   addBoard(board: Board) {
+    if(this.authService.checkLogin()) {
     this.boardService.create(board).subscribe(
       () => {
         this.loadBoards(); // Reload boards after adding
@@ -86,12 +80,14 @@ export class VisionboardComponent implements OnInit{
       }
     );
   }
+}
 
   setEditBoard() {
     this.editBoard = Object.assign({}, this.selected);
   }
 
   updateBoard(editBoard: Board) {
+    if(this.authService.checkLogin()) {
     this.boardService.update(editBoard).subscribe(
       () => {
         this.loadBoards(); // Reload boards after updating
@@ -102,16 +98,21 @@ export class VisionboardComponent implements OnInit{
       }
     );
   }
+}
 
   deleteBoard(id: number) {
-    this.boardService.destroy(id).subscribe(
-      () => {
-        this.loadBoards(); // Reload boards after deleting
-      },
+    if(this.authService.checkLogin()) {
+      this.boardService.destroy(id).subscribe(
+        () => {
+          this.boards = this.boards.filter((board) => board.id !== id);
+          console.log('Delete of board id: ' + id + ' successful');
+        },
       (error) => {
         console.error('HomeComponent.deleteBoard: error', error);
       }
     );
   }
+}
+
 }
 

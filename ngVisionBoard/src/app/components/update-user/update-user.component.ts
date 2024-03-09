@@ -15,6 +15,9 @@ import { NavigationComponent } from '../navigation/navigation.component';
   styleUrl: './update-user.component.css',
 })
 export class UpdateUserComponent implements OnInit {
+editUser(arg0: User) {
+throw new Error('Method not implemented.');
+}
   updateUser: User = new User();
   updateSuccess: boolean = false;
 
@@ -33,29 +36,29 @@ export class UpdateUserComponent implements OnInit {
       },
     });
   }
+//FIXME
+  // load(userId : number): void {
+  //   this.userService.show(userId).subscribe({
+  //     next: (user) => {
+  //       this.updateUser = user;
+  //     },
+  //     error: (problem) => {
+  //       console.error('UserUpdateHttpComponent.reload(): error loading user:');
+  //       console.error(problem);
+  //     },
+  //   });
+  // }
+//FIXME
+//   editUser(editUser: User): void {
 
-  load(userId : number): void {
-    this.userService.show(userId).subscribe({
-      next: (user) => {
-        this.updateUser = user;
-      },
-      error: (problem) => {
-        console.error('UserUpdateHttpComponent.reload(): error loading user:');
-        console.error(problem);
-      },
-    });
-  }
-
-  editUser(editUser: User): void {
-
-    this.userService.update(editUser).subscribe({
-      next: (updatedUser) => {
-        console.log('User updated successfully:', updatedUser);
-        this.updateSuccess = true;
-      },
-      error: (error) => {
-        console.error('Error updating user:', error);
-      },
-    });
-  }
+//     this.userService.update(editUser).subscribe({
+//       next: (updatedUser) => {
+//         console.log('User updated successfully:', updatedUser);
+//         this.updateSuccess = true;
+//       },
+//       error: (error) => {
+//         console.error('Error updating user:', error);
+//       },
+//     });
+//   }
 }

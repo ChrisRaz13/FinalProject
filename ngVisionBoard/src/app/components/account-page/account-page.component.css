@@ -23,3 +23,23 @@
   text-decoration: none; /* Remove underline */
   cursor: pointer; /* Change cursor to pointer on hover */
 }
+
+#drop-area {
+  border: 2px dashed #ccc;
+  width: 1200px; /* Increase the width */
+  height: 800px; /* Increase the height */
+  line-height: 300px; /* Adjust line height for centering content vertically */
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 5px; /* Optional: Add border radius for a rounded look */
+  border-style: dashed; /* Optional: Specify dashed border style */
+  border-color: #ccc; /* Optional: Specify border color */
+  border-width: 2px; /* Optional: Specify border width */
+  padding: 10px; /* Optional: Add padding inside the drop area */
+  box-sizing: border-box; /* Optional: Ensure padding is included in width and height */
+}
+
+#drop-area.hover {
+  background-color: #f0f0f0;
+}
+
