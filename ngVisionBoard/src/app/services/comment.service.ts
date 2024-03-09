@@ -1,78 +1,73 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Comment } from '../models/comment'; // Import the Comment model
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, tap, throwError } from 'rxjs';
-import { Comment } from '../models/comment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
-  private url = environment.baseUrl + 'api/comments'; // Assuming the endpoint is 'api/comments'
-  baseUrl: any;
+  private url = environment.baseUrl + 'api/comments'; // Adjust the URL for comments
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
-  index(boardId: number): Observable<Comment[]> {
-    if (!this.url) {
-      console.error('Base URL is not defined.');
-      return throwError(new Error('Base URL is not defined.'));
-    }
+  getHttpOptions() {
+    return {
+      headers: {
+        Authorization: 'Basic ' + this.auth.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest',
+      }
+    };
+  }
 
-    if (!boardId) {
-      console.error('Board ID is not provided.');
-      return throwError(new Error('Board ID is not provided.'));
-    }
-
-    const url = `${this.url}/boards/${boardId}`;
-    return this.http.get<Comment[]>(url).pipe(
-      tap((comments: any) => {
-        console.log(comments);
-      }),
+  index(): Observable<Comment[]> {
+    return this.http.get<Comment[]>(this.url, this.getHttpOptions()).pipe(
       catchError((err: any) => {
-        console.error(err);
-        return throwError(new Error('CommentService.index(): error retrieving comments: ' + err));
+        console.log(err);
+        return throwError(
+          () => new Error('CommentService.index(): error retrieving comments: ' + err)
+        );
       })
     );
   }
-
-
 
   create(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(this.url, comment).pipe(
+    return this.http.post<Comment>(this.url, comment, this.getHttpOptions()).pipe(
       catchError((err: any) => {
-        console.error(err);
-        return throwError(() => new Error('CommentService.create(): error creating comment: ' + err));
-      })
-    );
-  }
-
-  destroy(id: number): Observable<void> {
-    const deleteUrl = `${this.url}/${id}`;
-    return this.http.delete<void>(deleteUrl).pipe(
-      catchError((error: any) => {
-        console.error(error);
-        return throwError(() => new Error('CommentService.destroy(): error deleting comment: ' + error));
+        console.error('CommentService.create(): error creating comment', err);
+        return throwError(
+          () => new Error('Error creating comment: ' + err.message)
+        );
       })
     );
   }
 
   update(comment: Comment): Observable<Comment> {
     const updateUrl = `${this.url}/${comment.id}`;
-    return this.http.put<Comment>(updateUrl, comment).pipe(
-      catchError((error: any) => {
-        console.error(error);
-        return throwError(() => new Error('CommentService.update(): error updating comment: ' + error));
+    return this.http.put<Comment>(updateUrl, comment, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error('CommentService.update(): error updating comment', err);
+        return throwError(
+          () => new Error('Error updating comment: ' + err.message)
+        );
       })
     );
   }
 
-  show(id: number): Observable<Comment> {
-    return this.http.get<Comment>(`${this.url}/${id}`).pipe(
+  destroy(id: number): Observable<any> {
+    const deleteUrl = `${this.url}/${id}`;
+    return this.http.delete(deleteUrl, this.getHttpOptions()).pipe(
       catchError((err: any) => {
-        console.error(err);
-        return throwError(() => new Error('CommentService.show(): error showing comment: ' + err));
+        console.error('CommentService.destroy(): error deleting comment', err);
+        return throwError(
+          () => new Error('Error deleting comment: ' + err.message)
+        );
       })
     );
   }
+
+  // You can add more methods here as needed, such as getting comments by board ID, etc.
 }
