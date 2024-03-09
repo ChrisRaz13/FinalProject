@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
   { path: 'account/:userId', component: AccountPageComponent },
-  { path: 'admin-dashboard', component: AdminDashboardComponent },
+  { path: 'admin', component: AdminDashboardComponent },
   { path: 'account', component: AccountPageComponent },
   { path: 'update-profile', component: UpdateUserComponent },
   { path: '**', component: NotfoundComponent}

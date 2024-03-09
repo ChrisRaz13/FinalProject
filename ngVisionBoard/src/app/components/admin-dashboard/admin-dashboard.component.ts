@@ -29,20 +29,6 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  deactivateUser(id: number) {
-    this.userService.deactivateUser(id).subscribe({
-      next: () => this.loadUsers(),
-      error: (error) => console.error('Error deactivating user', error),
-    });
-  }
-
-  activateUser(id: number){
-    this.userService.activateUser(id).subscribe({
-      next: () => this.loadUsers(),
-      error: (error) => console.error('Error activating user', error),
-    });
-  }
-
   resetPassword(userId: number, newPassword: string): void {
     this.errorMessage = '';
     this.successMessage = '';
@@ -61,5 +47,20 @@ export class AdminDashboardComponent implements OnInit {
         this.errorMessage = 'Error resetting password. Please try again.';
       },
     });
+  }
+
+  toggleUserStatus(user: User): void {
+    if (user.enabled) {
+      this.userService.deactivateUser(user.id).subscribe({
+        next: () => this.loadUsers(),
+        error: (error) => console.error('Error deactivating user', error),
+      });
+    } else {
+      this.userService.activateUser(user.id).subscribe({
+        next: () => this.loadUsers(),
+        error: (error) => console.error('Error activating user', error),
+      });
+    }
+    user.enabled = !user.enabled;
   }
 }
