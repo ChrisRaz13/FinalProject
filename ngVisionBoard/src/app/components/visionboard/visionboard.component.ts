@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Board } from '../../models/board';
 import { HttpClient } from '@angular/common/http';
 import { Mock } from '../../models/mock';
+import { BoardService } from '../../services/board.service';
 
 
 @Component({
@@ -14,43 +15,103 @@ import { Mock } from '../../models/mock';
   styleUrl: './visionboard.component.css'
 })
 export class VisionboardComponent implements OnInit{
-  ngOnInit(): void {
-    // throw new Error('Method not implemented.');
-    const boardId = 1;
-    this.loadBoardInfo(boardId);
-  }
-
+  boards: Board[] = [];
+  editBoard: Board | null = null;
+  newBoard: Board = new Board();
+  title: string = 'Board Tracker';
+  selected: Board | null = null;
+  updateSuccess: boolean = false;
+  showEditFormFlag: boolean = false;
+  displayEditForm: boolean = false;
   items = ['Item 1', 'Item 2', 'Item 3'];
 
   board: Board | undefined;
   userId: number = 1; // Assuming there's a logged-in user
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private boardService: BoardService ) {
+    this.displayEditForm = false;
+  }
 
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
 
-  // testing
+  // in testing phase of the methods below
+  toggleEditForm() {
+    throw new Error('Method not implemented.');
+    }
 
-  loadBoardInfo(boardId: any) {
-    // Assign the mockBoard object to the board property
-    this.board = Mock;
+  ngOnInit(): void {
+    const boardId = 1;
+    this.loadBoardInfo(boardId);
+    this.loadBoards();
+    // throw new Error('Method not implemented.');
   }
 
-  // fetchBoardData() {
-  //   this.http.get<Board>('/get-board/' + this.userId).subscribe(response => {
-  //     this.board = response;
-  //   });
-  // }
+  loadBoardInfo(boardId: any) {
+    this.board = Mock;
 
-  // onFileDrop(event: any) {
-  //   // Handle file drop here
-  // }
+  }
+  loadBoards() {
+    this.boardService.index().subscribe(
+      (boardList: Board[]) => {
+        this.boards = boardList;
+        console.log(this.boards);
+      },
+      (err) => {
+        console.error('HomeComponent.loadBoards: error', err);
+      }
+    );
+  }
+  getBoardCount(): number {
+    return this.boards.length;
+  }
 
-  // saveBoard() {
-  //   this.http.post('/save-board', { userId: this.userId, boardData: this.board }).subscribe(response => {
-  //     console.log('Board saved successfully');
-  //   });
-  // }
+  displayBoard(board: Board): void {
+    this.selected = board;
+  }
+
+  displayTable(): void {
+    this.selected = null;
+  }
+
+  addBoard(board: Board) {
+    this.boardService.create(board).subscribe(
+      () => {
+        this.loadBoards(); // Reload boards after adding
+        this.newBoard = new Board(); // Reset newBoard
+      },
+      (error) => {
+        console.error('HomeComponent.addBoard: error', error);
+      }
+    );
+  }
+
+  setEditBoard() {
+    this.editBoard = Object.assign({}, this.selected);
+  }
+
+  updateBoard(editBoard: Board) {
+    this.boardService.update(editBoard).subscribe(
+      () => {
+        this.loadBoards(); // Reload boards after updating
+        this.editBoard = null; // Reset editBoard
+      },
+      (error) => {
+        console.error('HomeComponent.updateBoard: error', error);
+      }
+    );
+  }
+
+  deleteBoard(id: number) {
+    this.boardService.destroy(id).subscribe(
+      () => {
+        this.loadBoards(); // Reload boards after deleting
+      },
+      (error) => {
+        console.error('HomeComponent.deleteBoard: error', error);
+      }
+    );
+  }
 }
+

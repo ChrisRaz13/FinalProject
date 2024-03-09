@@ -57,6 +57,59 @@ export class BoardService {
     };
     return options;
   }
+  index(): Observable<Board[]> {
+    return this.http.get<Board[]>(this.url).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(new Error('BoardService.index(): error retrieving boards: ' + err));
+      })
+    );
+  }
 
+  create(board: Board): Observable<Board> {
+    return this.http.post<Board>(this.url, board).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'BoardService.create(): error creating board: ' + err )
+        );
+      })
+    );
+  }
 
+  destroy(id: number): Observable<void> {
+    const deleteUrl = `${this.url}/${id}`;
+    return this.http.delete<void>(deleteUrl).pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(
+           () => new Error( 'BoardService.destroy(): error deleting board: ' + error )
+        );
+      })
+    );
+  }
+
+  update(board: Board): Observable<Board> {
+    const updateUrl = `${this.url}/${board.id}`;
+    return this.http.put<Board>(updateUrl, board).pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(
+           () => new Error( 'BoardService.update(): error updating board: ' + error )
+        );
+      })
+    );
+  }
+
+  show(id: number): Observable<Board> {
+    return this.http.get<Board>(`${this.url}/${id}`).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'BoardService.show(): error showing board: ' + err )
+        );
+      })
+    );
+  }
 }
+
