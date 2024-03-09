@@ -1,7 +1,6 @@
-import { User } from "./user";
-import { Post } from "./post";
-import { Comment } from "./comment";
-import { BoardLike } from "./board-like";
+// board.ts
+import { User } from './user';
+import { Color } from './color';
 
 export class Board {
   id: number;
@@ -11,25 +10,40 @@ export class Board {
   user: User;
   description: string;
   enabled: boolean;
-  color: string;
+  color: Color; // Update the type to Color
   published: boolean;
-  posts: Post[];
-  comments: Comment[];
-  boardLikes: BoardLike[];
+  posts: any[]; // Adjust types as needed
+  comments: any[]; // Adjust types as needed
+  boardLikes: any[]; // Adjust types as needed
 
   constructor(
     id: number = 0,
     title: string = '',
     createdAt: Date = new Date(),
     updatedAt: Date = new Date(),
-    user: User = new User(),
+    user: User = {
+      id: 0,
+      username: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      enabled: false,
+      role: '',
+      imageUrl: null,
+      aboutMe: ''
+    },
     description: string = '',
     enabled: boolean = false,
-    color: string = '',
+    color: Color = {
+      id: 0,
+      name: '',
+      value: ''
+    }, // Update to Color type
     published: boolean = false,
-    posts: Post[] = [],
-    comments: Comment[] = [],
-    boardLikes: BoardLike[] = []
+    posts: any[] = [], // Adjust types as needed
+    comments: any[] = [], // Adjust types as needed
+    boardLikes: any[] = [] // Adjust types as needed
   ) {
     this.id = id;
     this.title = title;
@@ -38,10 +52,10 @@ export class Board {
     this.user = user;
     this.description = description;
     this.enabled = enabled;
-    this.color = color;
+    this.color = color; // Assign to Color type
     this.published = published;
-    this.posts = posts;
-    this.comments = comments;
-    this.boardLikes = boardLikes;
+    this.posts = posts; // Assign posts array
+    this.comments = comments; // Assign comments array
+    this.boardLikes = boardLikes; // Assign boardLikes array
   }
 }
