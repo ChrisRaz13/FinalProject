@@ -18,6 +18,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
   { path: 'account/:userId', component: AccountPageComponent },
+  { path: 'admin', component: AdminDashboardComponent },
   { path: 'account', component: AccountPageComponent },
   { path: '**', component: NotfoundComponent},
   { path: 'home', component: UnsplashComponent},
