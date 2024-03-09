@@ -23,7 +23,7 @@ img:active {
 
 
 .example-box {
-  width: 200px;
+  width: 800px;
   height: 200px;
   padding: 10px;
   box-sizing: border-box;
@@ -57,4 +57,10 @@ img:active {
   cursor: move;
   width: 24px;
   height: 24px;
+}
+
+.example-box img {
+  width: 100%; /* Make images fill their container */
+  max-width: 100%; /* Ensure images don't exceed their original size */
+  height: auto; /* Maintain aspect ratio */
 }
