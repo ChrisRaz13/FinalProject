@@ -9,15 +9,24 @@ import { BoardLikeService } from '../../services/board-like.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Board } from '../../models/board';
 import { HomeComponent } from "../home/home.component";
+import { ColorPickerModule } from 'ngx-color-picker';
+import { ColorService } from '../../services/color.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { UnsplashComponent } from '../unsplash/unsplash.component';
+
 
 @Component({
     selector: 'app-account',
     standalone: true,
     templateUrl: './account-page.component.html',
     styleUrl: './account-page.component.css',
-    imports: [FormsModule, CommonModule, HomeComponent]
+    imports: [FormsModule, CommonModule, HomeComponent, MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule, ColorPickerModule, UnsplashComponent ]
 })
 export class AccountPageComponent implements OnInit {
+
   user: User | any;
   Users: User[] = [];
   editUser: any;
@@ -25,12 +34,16 @@ export class AccountPageComponent implements OnInit {
   errorMessage: string | undefined;
   editAddress: any;
   allUsers: any;
-
+  newBoard: Board = new Board();
   boardCount: number = 0;
   likedBoardCount: number = 0;
   likeCount: number = 0;
   userLikedBoards: Board[] = [];
   userCreatedBoards: Board[] = [];
+  selectedColor: any;
+  colors: any;
+  showModal: boolean = false;
+  defaultColor: string = '#CCCCCC';
 
   // constructor(private userService: UserService, private auth: AuthService) {}
   constructor(
@@ -40,6 +53,7 @@ export class AccountPageComponent implements OnInit {
     private boardLikeService: BoardLikeService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private colorService: ColorService,
     // private snackBar: MatSnackBar
 
 
@@ -167,5 +181,60 @@ export class AccountPageComponent implements OnInit {
     let li = lastName.charAt(0).toUpperCase();
     return fi + li;
   }
+  createBoard(): void {
+    if (this.authService.checkLogin()) { // Ensure the user is logged in
+      this.boardService.create(this.newBoard).subscribe(
+        (createdBoard: Board) => {
+          console.log('New board created:', createdBoard);
+          // Optionally, you can perform any action after creating the board
+        },
+        (error) => {
+          console.error('Error creating board:', error);
+          // Optionally, handle the error
+        }
+      );
+    }
+  }
 
+
+  // currently working on
+  action1(color: string): void {
+    // Set the selected color
+    this.selectedColor = color;
+    console.log('Selected color:', color);
+    // Implement any additional logic here if needed
+  }
+
+
+  action2() {
+    // Action 2 logic
+  }
+
+  fetchColors(): void {
+    this.colorService.getColors().subscribe(
+      (colors: string[]) => {
+        this.colors = colors;
+      },
+      (error) => {
+        console.error('Error fetching colors:', error);
+      }
+    );
+  }
+
+  changeBackgroundColor(): void {
+    const boardElement = document.getElementById('board');
+    if (boardElement) {
+      boardElement.style.backgroundColor = this.selectedColor;
+    } else {
+      console.error('Element with ID "board" not found.');
+    }
+  }
+
+openModal(): void {
+  this.showModal = true;
+}
+
+closeModal(): void {
+  this.showModal = false;
+}
 }

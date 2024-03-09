@@ -19,7 +19,21 @@ export class UnsplashService {
       .set('client_id', this.accessKey);
 
     return this.http.get(`${this.baseUrl}/search/collections`, { params });
+
+
+
   }
+
+
+  searchImages(query: string): Observable<any> {
+    const url = `${this.baseUrl}/search/photos`;
+    const params = {
+      query: query,
+      client_id: this.accessKey
+    };
+    return this.http.get(url, { params: params });
+  }
+
 }
 
 

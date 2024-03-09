@@ -6,13 +6,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DragtoresizeComponent } from '../dragtoresize/dragtoresize.component';
 import { DragToResizeDirective } from '../dragtoresize/drag-to-resize.directive';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-unsplash',
   templateUrl: './unsplash.component.html',
   styleUrls: ['./unsplash.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, DragDropModule, DragtoresizeComponent, DragToResizeDirective],
+  imports: [CommonModule, FormsModule, HttpClientModule, DragDropModule, DragtoresizeComponent, DragToResizeDirective, ScrollingModule],
 })
 export class UnsplashComponent implements OnInit {
 
@@ -29,7 +31,7 @@ drop(event: CdkDragDrop<any[]>) {
                       event.currentIndex);
   }
 }
-
+  images$!: Observable<any[]>;
   collections: any[] = [];
   searchQuery: string = '';
 
@@ -37,6 +39,7 @@ drop(event: CdkDragDrop<any[]>) {
 
   ngOnInit() {
     this.searchCollections();
+    this.search();
   }
 
   search(){
