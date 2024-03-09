@@ -12,6 +12,7 @@ import { DragtoresizeComponent } from './components/dragtoresize/dragtoresize.co
 import { DragToResizeDirective } from './components/dragtoresize/drag-to-resize.directive';
 import { HomeComponent } from "./components/home/home.component";
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @Component({
     selector: 'app-root',

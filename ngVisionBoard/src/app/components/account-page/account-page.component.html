@@ -1,3 +1,12 @@
+<button class="create-board-button" (click)="createBoard()">+</button>
+
+<app-unsplash></app-unsplash>
+
+
+
+
+
+
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -26,7 +35,7 @@
             <h3>username: {{ user.username }}</h3>
             <h3>email: {{ user.email }}</h3>
             <div class="text-center">
-              
+
               <!-- <a [routerLink]="['/update-profile']" class="update-link">Update Profile</a> -->
 
               <button class="delete-button" (click)="deactivateUser(user)">
