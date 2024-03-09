@@ -77,8 +77,8 @@ export class UserService {
     );
   }
 
-  resetPassword(id: number, newPassword: string): Observable<any> {
-    return this.http.post(`${this.url}${id}/resetPassword`, newPassword, this.getHttpOptions()).pipe(
+  resetPassword(userId: number, newPassword: string): Observable<any> {
+    return this.http.post(`${this.url}/${userId}/resetPassword`, newPassword, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error('UserService.resetPassword(): error resetting password', err);
         return throwError(() => new Error('UserService.resetPassword(): error resetting password: ' + err));

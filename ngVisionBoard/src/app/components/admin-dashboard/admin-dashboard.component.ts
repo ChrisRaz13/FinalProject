@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/user';
 import { UserService } from './../../services/user.service';
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -15,6 +15,7 @@ export class AdminDashboardComponent implements OnInit {
   users: User[] = [];
   errorMessage: string = '';
   successMessage: string = '';
+  @ViewChild('newPassword') newPasswordRef!: ElementRef;
 
   constructor(private userService: UserService){}
 
@@ -24,12 +25,15 @@ export class AdminDashboardComponent implements OnInit {
 
   loadUsers(): void {
     this.userService.index().subscribe({
-      next: (users) => this.users = users,
+      next: (users) => {
+        const loggedInUser = JSON.parse(localStorage.getItem('user') || '{}');
+        this.users = users.filter(user => user.id !== loggedInUser.id || user.role !== 'admin');
+      },
       error: (error) => console.error('There was an error loading the users', error)
     });
   }
 
-  resetPassword(userId: number, newPassword: string): void {
+  resetPassword(userId: number, newPassword: string) {
     this.errorMessage = '';
     this.successMessage = '';
 
@@ -41,6 +45,7 @@ export class AdminDashboardComponent implements OnInit {
     this.userService.resetPassword(userId, newPassword).subscribe({
       next: () => {
         this.successMessage = `Password for user ID ${userId} reset successfully.`;
+        this.newPasswordRef.nativeElement.value = '';
       },
       error: (error) => {
         console.error('Error resetting password', error);
@@ -48,6 +53,7 @@ export class AdminDashboardComponent implements OnInit {
       },
     });
   }
+
   toggleUserStatus(user: User): void {
     if (user.enabled) {
       this.userService.deactivateUser(user.id).subscribe({

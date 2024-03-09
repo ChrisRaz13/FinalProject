@@ -30,7 +30,7 @@
             </button>
           </td>
           <td>
-            <form class="form-inline" (submit)="resetPassword(user.id, newPassword.value)">
+            <form #resetPasswordForm="ngForm" (ngSubmit)="resetPassword(user.id, newPassword.value)">
               <div class="input-group">
                 <input type="password" class="form-control" #newPassword placeholder="New Password" required>
                 <div class="input-group-append">
