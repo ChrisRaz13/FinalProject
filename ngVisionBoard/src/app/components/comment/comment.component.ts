@@ -1,184 +1,98 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Comment } from '../../models/comment'; // Import Comment model
+import { HttpClient } from '@angular/common/http';
 import { CommentService } from '../../services/comment.service'; // Import CommentService
-import { Comment } from '../../models/comment';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from '../../app.component';
-import { BoardService } from '../../services/board.service';
-import { ActivatedRoute } from '@angular/router';
-import { catchError, of, tap, throwError } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
-@NgModule({
-  declarations: [
-    // Your components
-  ],
-  imports: [
-    // Other imported modules
-    HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-
-export class AppModule { }
 @Component({
-  selector: 'app-comment',
+  selector: 'app-visionboard',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.css']
 })
-export class CommentComponent implements OnInit {
+export class VisionboardComponent implements OnInit {
+  comments: Comment[] = [];
+  editComment: Comment | null = null;
+  newComment: Comment = new Comment();
+  title: string = 'Board Tracker';
+  selected: Comment | null = null;
+  updateSuccess: boolean = false;
+  showEditFormFlag: boolean = false;
+  displayEditForm: boolean = false;
+  items = ['Item 1', 'Item 2', 'Item 3'];
 
-  boardId: any;
-  boardInfo: any;
+  userId: number | undefined;
 
-submitComment() {
-throw new Error('Method not implemented.');
-}
-comments: Comment[] = [];
-editComment: Comment | null = null;
-newComment: Comment = this.getDefaultComment();
-title: string = 'Comment Tracker';
-selected: Comment | null = null;
-updateSuccess: boolean = false;
-showEditFormFlag: boolean = false;
-displayEditForm: boolean;
-
-  constructor(
-    private commentService: CommentService,
-    private boardService: BoardService,
-    private route: ActivatedRoute
-
-    ) {
+  constructor(private http: HttpClient, private commentService: CommentService, private authService: AuthService) {
     this.displayEditForm = false;
   }
 
+  drop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+  }
+
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const boardId = params['boardId']; // Extract the boardId from route parameters
-      if (boardId) {
-        // Load board information and comments
-        this.loadBoardInfo(boardId);
-        this.loadComments(boardId);
-      } else {
-        console.error('Board ID is not provided.');
-      }
-    });
+    this.loadComments();
   }
 
-
-
-
-loadBoardInfo(boardId: any) {
-  // Mock board object
-  const mockBoard = {
-    id: boardId,
-    title: 'Sample Board',
-    description: 'This is a sample board description.'
-  };
-
-  // Simulate API call by returning an observable with the mock board object
-  return of(mockBoard).pipe(
-    tap((boardInfo: any) => {
-      console.log('Board info loaded successfully:', boardInfo);
-      this.boardInfo = boardInfo;
-    }),
-    catchError((err: any) => {
-      console.error('Error loading board information:', err);
-      return throwError(err); // Rethrow the error
-    })
-  );
-}
-
-//FIX ME
-  // loadComments(boardId: number) {
-  //   this.commentService.index(boardId).subscribe(
-  //     (commentList) => {
-  //       this.comments = commentList;
-  //       console.log(this.comments);
-  //     },
-  //     (err) => {
-  //       console.error('CommentComponent.loadComments: error', err);
-  //     }
-  //   );
-  // }
-
-  getCommentCount(): number {
-    return this.comments.length;
+  loadComments() {
+    if (this.authService.checkLogin()) {
+      this.commentService.index().subscribe({
+        next: (commentList) => {
+          this.comments = commentList;
+          console.log(this.comments);
+        },
+        error: (err: any) => {
+          console.error('VisionBoardComponent.loadComments: error', err);
+        }
+      });
+    }
   }
 
-  displayComment(comment: Comment): void {
-    this.selected = comment;
-  }
-
-  displayTable(): void {
-    this.selected = null;
-  }
-
-  addComment(boardId: number) {
-    this.commentService.create(this.newComment).subscribe(
-      () => {
-        // this.loadComments(boardId); // Load comments for the specified board
-        this.newComment = this.getDefaultComment(); // Reset newComment to default values
-      },
-      (error) => {
-        console.error('CommentComponent.addComment: error', error);
-      }
-    );
-  }
-
-  setEditComment(comment: Comment) {
-    this.editComment = { ...comment }; // Clone the selected comment
-  }
-
-  updateComment(boardId: number) {
-    if (this.editComment) {
-      this.commentService.update(this.editComment).subscribe(
+  addComment(comment: Comment) {
+    if (this.authService.checkLogin()) {
+      this.commentService.create(comment).subscribe(
         () => {
-          // this.loadComments(boardId); // Pass the board ID here
-          this.editComment = null; // Reset editComment
+          this.loadComments(); // Reload comments after adding
+          this.newComment = new Comment(); // Reset newComment
         },
         (error) => {
-          console.error('CommentComponent.updateComment: error', error);
+          console.error('VisionBoardComponent.addComment: error', error);
         }
       );
     }
   }
 
-  deleteComment(id: number, boardId: number) {
-    this.commentService.destroy(id).subscribe(
-      () => {
-        // this.loadComments(boardId); // Pass the board ID here
-      },
-      (error) => {
-        console.error('CommentComponent.deleteComment: error', error);
-      }
-    );
+  setEditComment() {
+    this.editComment = Object.assign({}, this.selected);
   }
 
-  getDefaultComment(): Comment {
-    const defaultComment: Comment = {
-      id: 0,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      comment: '',
-      enabled: false,
-      board: {
-        id: 0,
-      },
-      user: {
-        id: 0,
-      },
-      inReplyTo: undefined,
-      text: undefined
-    };
-
-    return defaultComment;
+  updateComment(editComment: Comment) {
+    if (this.authService.checkLogin()) {
+      this.commentService.update(editComment).subscribe(
+        () => {
+          this.loadComments(); // Reload comments after updating
+          this.editComment = null; // Reset editComment
+        },
+        (error) => {
+          console.error('VisionBoardComponent.updateComment: error', error);
+        }
+      );
+    }
   }
 
+  deleteComment(id: number) {
+    if (this.authService.checkLogin()) {
+      this.commentService.destroy(id).subscribe(
+        () => {
+          this.comments = this.comments.filter((comment) => comment.id !== id);
+          console.log('Delete of comment id: ' + id + ' successful');
+        },
+        (error) => {
+          console.error('VisionBoardComponent.deleteComment: error', error);
+        }
+      );
+    }
+  }
 }

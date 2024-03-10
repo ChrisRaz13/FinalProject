@@ -1,30 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Comment } from '../../models/comment'; // Import Comment model
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
+import { Board } from '../../models/board';
 import { HttpClient } from '@angular/common/http';
-import { CommentService } from '../../services/comment.service'; // Import CommentService
+import { Mock } from '../../models/mock';
+import { BoardService } from '../../services/board.service';
 import { AuthService } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-visionboard',
   standalone: true,
+  imports: [CommonModule, DragDropModule],
   templateUrl: './visionboard.component.html',
-  styleUrls: ['./visionboard.component.css']
+  styleUrl: './visionboard.component.css'
 })
-export class VisionboardComponent implements OnInit {
-  comments: Comment[] = [];
-  editComment: Comment | null = null;
-  newComment: Comment = new Comment();
+export class VisionboardComponent implements OnInit{
+  boards: Board[] = [];
+  editBoard: Board | null = null;
+  newBoard: Board = new Board();
   title: string = 'Board Tracker';
-  selected: Comment | null = null;
+  selected: Board | null = null;
   updateSuccess: boolean = false;
   showEditFormFlag: boolean = false;
   displayEditForm: boolean = false;
   items = ['Item 1', 'Item 2', 'Item 3'];
 
-  userId: number | undefined;
+  board: Board | undefined;
+  userId: number = 1; // Assuming there's a logged-in user
 
-  constructor(private http: HttpClient, private commentService: CommentService, private authService: AuthService) {
+  constructor(private http: HttpClient, private boardService: BoardService, private authService: AuthService ) {
     this.displayEditForm = false;
   }
 
@@ -32,67 +37,82 @@ export class VisionboardComponent implements OnInit {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
 
+  // in testing phase of the methods below
+
   ngOnInit(): void {
-    this.loadComments();
+    // const boardId = 1;
+    // this.loadBoardInfo(boardId);
+    this.loadBoards();
+    // throw new Error('Method not implemented.');
   }
 
-  loadComments() {
-    if (this.authService.checkLogin()) {
-      this.commentService.index().subscribe({
-        next: (commentList) => {
-          this.comments = commentList;
-          console.log(this.comments);
+  // loadBoardInfo(boardId: any) {
+  //   this.board = Mock;
+  // }
+
+  getBoardCount(): number {
+    return this.boards.length;
+  }
+
+  loadBoards() {
+    if(this.authService.checkLogin()) {
+      this.boardService.index().subscribe( {
+        next: (boardList) => {
+          this.boards = boardList; // Update variable name
+          console.log(this.boards); // Update variable name
         },
         error: (err: any) => {
-          console.error('VisionBoardComponent.loadComments: error', err);
+          console.error('VisionBoardComponent.loadVisionBoards: error', err); // Update method name
         }
       });
     }
   }
 
-  addComment(comment: Comment) {
-    if (this.authService.checkLogin()) {
-      this.commentService.create(comment).subscribe(
-        () => {
-          this.loadComments(); // Reload comments after adding
-          this.newComment = new Comment(); // Reset newComment
-        },
-        (error) => {
-          console.error('VisionBoardComponent.addComment: error', error);
-        }
-      );
-    }
-  }
-
-  setEditComment() {
-    this.editComment = Object.assign({}, this.selected);
-  }
-
-  updateComment(editComment: Comment) {
-    if (this.authService.checkLogin()) {
-      this.commentService.update(editComment).subscribe(
-        () => {
-          this.loadComments(); // Reload comments after updating
-          this.editComment = null; // Reset editComment
-        },
-        (error) => {
-          console.error('VisionBoardComponent.updateComment: error', error);
-        }
-      );
-    }
-  }
-
-  deleteComment(id: number) {
-    if (this.authService.checkLogin()) {
-      this.commentService.destroy(id).subscribe(
-        () => {
-          this.comments = this.comments.filter((comment) => comment.id !== id);
-          console.log('Delete of comment id: ' + id + ' successful');
-        },
-        (error) => {
-          console.error('VisionBoardComponent.deleteComment: error', error);
-        }
-      );
-    }
+  addBoard(board: Board) {
+    if(this.authService.checkLogin()) {
+    this.boardService.create(board).subscribe(
+      () => {
+        this.loadBoards(); // Reload boards after adding
+        this.newBoard = new Board(); // Reset newBoard
+      },
+      (error) => {
+        console.error('HomeComponent.addBoard: error', error);
+      }
+    );
   }
 }
+
+  setEditBoard() {
+    this.editBoard = Object.assign({}, this.selected);
+  }
+
+  updateBoard(editBoard: Board) {
+    if(this.authService.checkLogin()) {
+    this.boardService.update(editBoard).subscribe(
+      () => {
+        this.loadBoards(); // Reload boards after updating
+        this.editBoard = null; // Reset editBoard
+      },
+      (error) => {
+        console.error('HomeComponent.updateBoard: error', error);
+      }
+    );
+  }
+}
+
+  deleteBoard(id: number) {
+    if(this.authService.checkLogin()) {
+      this.boardService.destroy(id).subscribe(
+        () => {
+          this.boards = this.boards.filter((board) => board.id !== id);
+          console.log('Delete of board id: ' + id + ' successful');
+        },
+      (error) => {
+        console.error('HomeComponent.deleteBoard: error', error);
+      }
+    );
+  }
+}
+
+}
+
