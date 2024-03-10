@@ -1,15 +1,20 @@
-<div class="container">
-  <h2>Login Form</h2>
-  <form>
-    <div class="form-group">
-      <label for="username">Username:</label>
+<div class="wrapper">
+  <h2>Login</h2>
+  <form action="#">
+    <div class="input-box">
       <input type="text" class="form-control" id="username" name="username" [(ngModel)]="loginUser.username" required>
     </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
+    <div class="input-box">
       <input type="password" class="form-control" id="password" name="password" [(ngModel)]="loginUser.password" required>
     </div>
-    <br>
-    <button type="submit" class="btn btn-primary" (click)="login(loginUser)">Login</button>
+    <div class="policy">
+      <h3>Forgot password?</h3>
+    </div>
+    <div class="input-box button">
+      <button type="Submit" value="Register Now" class="btn btn-primary" (click)="login(loginUser)">Login</button>
+    </div>
+    <div class="text">
+      <h3>Already have an account? <a href="#">Login now</a></h3>
+    </div>
   </form>
 </div>

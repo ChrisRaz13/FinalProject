@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Comment } from '../../models/comment'; // Import Comment model
+import { Board } from '../../models/board';
 import { HttpClient } from '@angular/common/http';
 import { CommentService } from '../../services/comment.service'; // Import CommentService
 import { AuthService } from '../../services/auth.service';
+import { BoardService } from '../../services/board.service';
 
 @Component({
   selector: 'app-visionboard',
@@ -11,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.css']
 })
-export class VisionboardComponent implements OnInit {
+export class CommentComponent implements OnInit {
   comments: Comment[] = [];
   editComment: Comment | null = null;
   newComment: Comment = new Comment();
@@ -23,8 +25,9 @@ export class VisionboardComponent implements OnInit {
   items = ['Item 1', 'Item 2', 'Item 3'];
 
   userId: number | undefined;
+  boards: Board[] | undefined;
 
-  constructor(private http: HttpClient, private commentService: CommentService, private authService: AuthService) {
+  constructor(private http: HttpClient, private commentService: CommentService, private authService: AuthService, private boardService: BoardService) {
     this.displayEditForm = false;
   }
 
@@ -35,6 +38,22 @@ export class VisionboardComponent implements OnInit {
   ngOnInit(): void {
     this.loadComments();
   }
+
+  loadBoards() {
+    if(this.authService.checkLogin()) {
+      this.boardService.index().subscribe( {
+        next: (boardList) => {
+          this.boards = boardList; // Update variable name
+          console.log(this.boards); // Update variable name
+        },
+        error: (err: any) => {
+          console.error('VisionBoardComponent.loadVisionBoards: error', err); // Update method name
+        }
+      });
+    }
+  }
+
+
 
   loadComments() {
     if (this.authService.checkLogin()) {

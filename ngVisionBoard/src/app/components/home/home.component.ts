@@ -17,6 +17,7 @@ import { Board } from '../../models/board';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { BoardService } from '../../services/board.service';
+import { CommentService } from '../../services/comment.service';
 
 @Component({
     selector: 'app-home',
@@ -26,25 +27,26 @@ import { BoardService } from '../../services/board.service';
     imports: [CommonModule, FormsModule, UnsplashComponent, RouterOutlet, NavigationComponent, RouterLink, RouterLinkActive, FlipComponent, VisionboardComponent, CommentComponent, AccountPageComponent, DragtoresizeComponent, DragToResizeDirective, HomeComponent, AdminDashboardComponent]
   })
 export class HomeComponent implements OnInit{
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private http: HttpClient, private boardService: BoardService, private authService: AuthService ) {}
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private http: HttpClient, private boardService: BoardService, private authService: AuthService, private commentService: CommentService ) {}
+  route: any;
+
   boards: Board[] = [];
   editBoard: Board | null = null;
   newBoard: Board = new Board();
   title: string = 'Board Tracker';
   selected: Board | null = null;
-  updateSuccess: boolean = false;
-  showEditFormFlag: boolean = false;
-  displayEditForm: boolean = false;
+
   items = ['Item 1', 'Item 2', 'Item 3'];
 
-  board: Board | undefined;
-  userId: number = 1; // Assuming there's a logged-in user
+  userId: number| undefined;
 
 
   ngOnInit(): void {
     this.loadBoards();
 
-}
+  }
+
 loadBoards() {
   if(this.authService.checkLogin()) {
     this.boardService.index().subscribe( {
@@ -58,4 +60,5 @@ loadBoards() {
     });
   }
 }
+
 }

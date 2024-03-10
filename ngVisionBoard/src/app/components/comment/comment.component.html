@@ -1,42 +1,16 @@
-
-  <h2>Comments</h2>
-
-  <div *ngIf="boardInfo">
-    <h2>{{ boardInfo.title }}</h2>
-    <p>{{ boardInfo.description }}</p>
-  </div>
-
-  <div *ngIf="!boardInfo">
-    <p>Loading board information...</p>
-  </div>
-
-
-
-  <div *ngIf="boardInfo">
-    <!-- Display board information -->
-    <h2>{{ boardInfo.title }}</h2>
-    <p>{{ boardInfo.description }}</p>
-  </div>
-
-  <div *ngIf="comments && comments.length > 0">
-    <!-- Display comments -->
-    <h3>Comments</h3>
-    <div *ngFor="let comment of comments">
-      <p>{{ comment.comment }}</p>
+<div class="comment">
+  <img src="profile.jpg" alt="Profile Picture" class="profile-picture">
+  <div class="comment-content">
+    <div class="comment-header">
+      <span class="user-name">John Doe</span>
+      <span class="comment-time">2 hours ago</span>
+    </div>
+    <p class="comment-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
+    </p>
+    <div class="comment-actions">
+      <button class="like-button">Like</button>
+      <button class="reply-button">Reply</button>
     </div>
   </div>
-
-  <div *ngIf="!boardInfo && !comments">
-    <p>Loading...</p>
-  </div>
-
-  <div *ngIf="!boardInfo && comments && comments.length === 0">
-    <p>No comments available.</p>
-  </div>
-
-
-  <div class="comment-form">
-    <textarea class="form-control" placeholder="Write a comment..." [(ngModel)]="newComment.comment"></textarea>
-    <button class="btn btn-primary" (click)="submitComment()">Post</button>
-  </div>
-
+</div>

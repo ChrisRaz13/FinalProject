@@ -4,9 +4,10 @@
   <h2>All Boards</h2>
   <ul>
     <li *ngFor="let board of boards">
-      <h3>{{ board.title }}</h3>
-      <p>Description: {{ board.description }}</p>
-      <!-- Add more properties as needed -->
+      <h3>{{ board.title }}</h3> <!-- Assuming each board has a 'title' property -->
+
+      <p>Description: {{ board.description }}</p> <!-- Assuming each board has a 'description' property -->
+      <p>Comments: {{ board.comments }}</p>
     </li>
   </ul>
 </div>
