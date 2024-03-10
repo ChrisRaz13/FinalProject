@@ -1,28 +1,51 @@
 
-<div class="wrapper">
-  <h2>Registration</h2>
-  <form action="#">
-    <div class="input-box">
-      <input type="text" placeholder="Enter your name" [(ngModel)]="newUser.password" required>
-    </div>
-    <div class="input-box">
-      <input type="text" placeholder="Enter your email" [(ngModel)]="newUser.email" required>
-    </div>
-    <div class="input-box">
-      <input type="password" placeholder="Create password" [(ngModel)]="newUser.password" required>
-    </div>
-    <div class="input-box">
-      <input type="password" placeholder="Confirm password" [(ngModel)]="newUser.password" required>
-    </div>
-    <div class="policy">
-      <input type="checkbox">
-      <h3>I accept all terms & condition</h3>
-    </div>
-    <div class="input-box button">
-      <button type="Submit" value="Register Now" class="btn btn-primary" (click)="register(newUser)">Register</button>
-    </div>
-    <div class="text">
-      <h3>Already have an account? <a href="#">Login now</a></h3>
-    </div>
-  </form>
-</div>
+              <div class="wrapper">
+                <h2>Registration</h2>
+                <form>
+                  <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="newUser.firstName" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="newUser.lastName" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="newUser.email" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="newUser.username" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="newUser.email" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="newUser.password" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password">Confirm Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="newUser.password" required>
+                  </div>
+
+                  <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="acceptTerms" required>
+                    <label class="form-check-label" for="acceptTerms">I accept all terms & conditions</label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary" (click)="register(newUser)">Register</button>
+                </form>
+
+                <div class="text">
+                  <h3>Already have an account? <a [routerLink]="['/login']">Login now</a></h3>
+                </div>
+              </div>

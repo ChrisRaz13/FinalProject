@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DragtoresizeComponent } from '../dragtoresize/dragtoresize.component';
 import { DragToResizeDirective } from '../dragtoresize/drag-to-resize.directive';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-unsplash',
