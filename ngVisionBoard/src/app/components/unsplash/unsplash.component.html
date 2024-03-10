@@ -1,7 +1,5 @@
 
 
-<app-visionboard></app-visionboard>
-
 <div>
   <form (submit)="search()">
     <input type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Find photos">
@@ -10,11 +8,11 @@
 </div>
 
 
-<div cdkDropList (cdkDropListDropped)="drop($event)" class="drop-area">
+<div cdkDropList (cdkDropListDropped)="drop($event)" class="drop-zone">
 </div>
 
 
-<div class="example-box">
+<div class="photo-preview">
   <div *ngFor="let collection of collections">
     <div *ngFor="let photo of collection.preview_photos" cdkDrag [cdkDragData]="photo">
       <div class="example-handle" cdkDragHandle>
@@ -23,7 +21,7 @@
           <path d="M0 0h24v24H0z" fill="none"></path>
         </svg>
       </div>
-      <img [src]="photo.urls.regular" appDragToResize [alt]="photo.alt_description">
+      <img [src]="photo.urls.regular" appDragToResize [alt]="photo.alt_description" class="photo-preview">
     </div>
   </div>
 </div>

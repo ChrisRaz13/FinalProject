@@ -1,16 +1,21 @@
+<h2>Sandbox</h2>
+<div>
 
-<!-- view all boards -->
-<div *ngIf="boards.length > 0; else noBoardsMessage" class="allBoards">
-  <h2>All Boards</h2>
-  <ul>
-    <li *ngFor="let board of boards">
-      <h3>{{ board.title }}</h3> <!-- Assuming each board has a 'title' property -->
+  <div class="container">
+    <div class="search-box">
+      <!-- Search box for Unsplash image search -->
+      <app-unsplash></app-unsplash>
 
-      <p>Description: {{ board.description }}</p> <!-- Assuming each board has a 'description' property -->
-      <p>Comments: {{ board.comments }}</p>
-    </li>
-  </ul>
-</div>
-<ng-template #noBoardsMessage>
-  <p>No boards found.</p>
-</ng-template>
+    </div>
+    <div class="image-container">
+      <!-- Container for images where you can drag and drop -->
+      <div id="drop-area">
+        Drag & drop images here
+      </div>
+      <!-- You can implement drag and drop functionality here -->
+    </div>
+  </div>
+
+  <p class="login-prompt">Please <a routerLink="/login"><u>login</u></a> to create and save your vision.</p>
+
+

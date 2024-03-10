@@ -16,29 +16,3 @@
 #drop-area.hover {
   background-color: #f0f0f0;
 }
-
-.login-prompt {
-  /* Your CSS styles for the login prompt */
-}
-
-.container {
-    position: relative;
-  display: flex;
-  justify-content: space-between;
-}
-
-.search-box {
-  width: 40%; /* Adjust width as needed */
- 
-  padding: 10px;
-  overflow-x: auto;
-}
-
-.search-box {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1; /* Ensure the search box appears above the drop area */
-}
-
-
