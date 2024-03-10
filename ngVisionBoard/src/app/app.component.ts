@@ -19,7 +19,7 @@ import { CommentComponent } from './components/comment/comment.component';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     standalone: true,
-    imports: [CommonModule, FormsModule, UnsplashComponent, RouterOutlet, NavigationComponent, RouterLink, RouterLinkActive, FlipComponent, VisionboardComponent, AccountPageComponent, DragtoresizeComponent, DragToResizeDirective, HomeComponent, AdminDashboardComponent, CommentComponent]
+    imports: [CommonModule, FormsModule, UnsplashComponent, RouterOutlet, NavigationComponent, RouterLink, RouterLinkActive, FlipComponent, VisionboardComponent, AccountPageComponent, DragtoresizeComponent, DragToResizeDirective, HomeComponent, AdminDashboardComponent, CommentComponent, ]
 })
 export class AppComponent {
   title = 'Dreamscape';
