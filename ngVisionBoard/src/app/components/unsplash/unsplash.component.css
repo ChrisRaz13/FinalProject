@@ -36,14 +36,15 @@
 
 .container {
   position: relative;
-  display: flex;
-  justify-content: space-between;
+
 }
 
 .search-box {
   width: 40%; /* Adjust width as needed */
   padding: 10px;
   overflow-x: auto;
+
+
 }
 
 .search-box {
@@ -52,3 +53,4 @@
   left: 0;
   z-index: 1; /* Ensure the search box appears above the drop area */
 }
+
