@@ -96,4 +96,10 @@ export class BoardService {
       })
     );
   }
+
+  savePhotoUrls(photoUrls: string[]): Observable<any> {
+    // Replace 'your-api-endpoint' with the actual endpoint to save data in your backend
+    return this.http.post<any>('your-api-endpoint', { photoUrls });
+  }
+
 }

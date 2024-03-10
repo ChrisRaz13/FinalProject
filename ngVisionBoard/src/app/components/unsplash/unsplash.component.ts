@@ -1,13 +1,12 @@
 import { UnsplashService } from './../../services/unsplash.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DragtoresizeComponent } from '../dragtoresize/dragtoresize.component';
 import { DragToResizeDirective } from '../dragtoresize/drag-to-resize.directive';
-// import { AngularFireModule } from '@angular/fire';
-// import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { BoardService } from '../../services/board.service';
 
 @Component({
   selector: 'app-unsplash',
@@ -17,6 +16,7 @@ import { DragToResizeDirective } from '../dragtoresize/drag-to-resize.directive'
   imports: [CommonModule, FormsModule, HttpClientModule, DragDropModule, DragtoresizeComponent, DragToResizeDirective],
 })
 export class UnsplashComponent implements OnInit {
+  draggedPhotoIds: string[] = [];
   collections: any[] = [];
   searchQuery: string = '';
   dropAreaImages: any[] = [];
@@ -25,16 +25,23 @@ export class UnsplashComponent implements OnInit {
 
   // New array to store the IDs of images in the drop area to track their order
   dropAreaImageIds: string[] = [];
+  @ViewChild('dropList') dropListElement: ElementRef | undefined;
 
-  constructor(private unsplashService: UnsplashService) {}
+  constructor(private unsplashService: UnsplashService, private boardService: BoardService) {}
 
   ngOnInit() {
+    console.log('Initializing Unsplash component...');
+    this.loadDraggedPhotos();
     this.searchCollections();
   }
 
   ngAfterViewInit() {
-    // Disable the drop list to prevent items from being dragged into it
-    this.dropList.disabled = true;
+    // Check if dropListElement is defined before accessing its properties
+    if (this.dropListElement) {
+      this.dropListElement.nativeElement.disabled = true;
+    } else {
+      console.error('Drop list element is undefined.');
+    }
   }
 
   drop(event: CdkDragDrop<any[]>) {
@@ -43,9 +50,12 @@ export class UnsplashComponent implements OnInit {
     } else {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
-
+    console.log('Dropping photo...');
     // Update the order of images in the drop area
     this.updateDropAreaImageOrder();
+
+    // Save the dragged photo IDs after the drop operation
+    this.saveDraggedPhotosLocally();
   }
 
   search() {
@@ -101,5 +111,19 @@ export class UnsplashComponent implements OnInit {
         this.collections.push(result);
       }
     });
+  }
+
+  loadDraggedPhotos() {
+    console.log('Loading dragged photos...');
+    const savedPhotos = localStorage.getItem('draggedPhotos');
+    if (savedPhotos) {
+      this.draggedPhotoIds = JSON.parse(savedPhotos);
+      console.log('Dragged photos loaded:', this.draggedPhotoIds);
+    } else {
+      console.log('No saved dragged photos found.');
+    }
+  }
+  saveDraggedPhotosLocally() {
+    localStorage.setItem('draggedPhotos', JSON.stringify(this.draggedPhotoIds));
   }
 }
