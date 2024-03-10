@@ -40,7 +40,7 @@ import { LandingPageNavigationComponent } from './components/landing-page-naviga
     CommentComponent,
     LandingPageComponent,
     RegistrationComponent,
-    LandingPageNavigationComponent
+    LandingPageNavigationComponent,
   ],
 })
 export class AppComponent {
