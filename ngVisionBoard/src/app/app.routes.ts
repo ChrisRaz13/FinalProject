@@ -9,6 +9,7 @@ import { AccountPageComponent } from './components/account-page/account-page.com
 import { HomeComponent } from './components/home/home.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { VisionboardComponent } from './components/visionboard/visionboard.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -24,4 +25,5 @@ export const routes: Routes = [
   { path: 'home', component: UnsplashComponent},
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'update-profile', component: UpdateUserComponent },
+  { path: 'visionboard', component: VisionboardComponent },
 ];

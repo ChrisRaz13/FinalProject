@@ -1,0 +1,43 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+}
+
+.navbar-left ul,
+.navbar-right ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-left ul li,
+.navbar-right ul li {
+  display: inline;
+}
+
+.navbar-center ul li a,
+.navbar-right ul li a,
+.navbar-left a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+
+.navbar-left a:hover,
+.navbar-center ul li a:hover,
+.navbar-right ul li a:hover {
+  background-color: #555;
+}
+
+.create-link ul li a {
+  color: green; /* Set the default color to green */
+  text-decoration: none; /* Remove default underline */
+}
+
+.create-link ul li a:hover {
+  color: pink; /* Change the color to pink on hover */
+}

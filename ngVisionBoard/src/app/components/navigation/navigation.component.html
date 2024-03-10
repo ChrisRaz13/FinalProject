@@ -1,33 +1,19 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" [routerLink]="['/home']">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed"
-    [attr.aria-expanded]="!isCollapsed">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]='isCollapsed'>
-    <ul class="navbar-nav">
-      <li *ngIf="isLoggedIn()">
-        <app-logout></app-logout>
-      </li>
-      <li *ngIf="isLoggedIn()">
-        <a class="nav-link" [routerLink]="['/account']">Account</a>
-      </li>
-      <li *ngIf="isAdmin() && isLoggedIn()">
-        <a class="nav-link" [routerLink]="['/admin']">Admin</a>
-      </li>
-      <li *ngIf="!isLoggedIn()">
-        <a class="nav-link" (click)="toggleLoginPopup()">Login</a>
-        <div *ngIf="showLoginPopup">
-          <app-login (close)="toggleLoginPopup()"></app-login>
-        </div>
-      </li>
-      <li *ngIf="!isLoggedIn()">
-        <a class="nav-link" (click)="toggleRegistrationPopup()">Register</a>
-        <div *ngIf="showRegistrationPopup">
-          <app-registration (close)="toggleRegistrationPopup()"></app-registration>
-        </div>
-      </li>
+<nav>
+  <div class="navbar-left">
+    <a routerLink="/home">DREAMSCAPE</a>
+  </div>
+  <div class="navbar-right">
+    <ul>
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/login">Login</a></li>
+      <li><a routerLink="/register">Register</a></li>
+
+      <li *ngIf="isLoggedIn()"><a routerLink="/account">Account</a></li>
+      <li *ngIf="isAdmin() && isLoggedIn()"><a routerLink="/admin">Admin</a></li>
+      <li><a routerLink="/visionboard">Boards</a></li>
+      <li *ngIf="isLoggedIn()" class="create-link"><a routerLink="/create">+</a></li>
+
+
     </ul>
   </div>
 </nav>

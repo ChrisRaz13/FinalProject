@@ -6,12 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { Mock } from '../../models/mock';
 import { BoardService } from '../../services/board.service';
 import { AuthService } from '../../services/auth.service';
+import { RouterLink, RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-visionboard',
   standalone: true,
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule, DragDropModule, RouterLink, RouterModule],
   templateUrl: './visionboard.component.html',
   styleUrl: './visionboard.component.css'
 })
