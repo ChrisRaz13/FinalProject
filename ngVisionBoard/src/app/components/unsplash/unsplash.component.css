@@ -5,3 +5,50 @@
   height: auto;
   object-fit: contain; /* This will maintain aspect ratio and fit the image within the container */
 }
+
+#drop-zone {
+  border: 2px dashed #ccc;
+  width: 1200px; /* Increase the width */
+  height: 800px; /* Increase the height */
+  line-height: 0; /* Set line-height to 0 to remove any spacing between inline elements */
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 5px; /* Optional: Add border radius for a rounded look */
+  border-style: dashed; /* Optional: Specify dashed border style */
+  border-color: #ccc; /* Optional: Specify border color */
+  border-width: 2px; /* Optional: Specify border width */
+  padding: 10px; /* Optional: Add padding inside the drop area */
+  box-sizing: border-box; /* Optional: Ensure padding is included in width and height */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; /* Optional: Prevent background image from repeating */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #666;
+  margin-top: 20px; /* Adjust the margin to create space between the content and the placeholder image */
+}
+
+#drop-zone.hover {
+  background-color: #f0f0f0;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-box {
+  width: 40%; /* Adjust width as needed */
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.search-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensure the search box appears above the drop area */
+}

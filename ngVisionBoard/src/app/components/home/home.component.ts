@@ -27,6 +27,9 @@ import { CommentService } from '../../services/comment.service';
     imports: [CommonModule, FormsModule, UnsplashComponent, RouterOutlet, NavigationComponent, RouterLink, RouterLinkActive, FlipComponent, VisionboardComponent, CommentComponent, AccountPageComponent, DragtoresizeComponent, DragToResizeDirective, HomeComponent, AdminDashboardComponent]
   })
 export class HomeComponent implements OnInit{
+drop($event: Event) {
+throw new Error('Method not implemented.');
+}
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private http: HttpClient, private boardService: BoardService, private authService: AuthService, private commentService: CommentService ) {}
   route: any;
