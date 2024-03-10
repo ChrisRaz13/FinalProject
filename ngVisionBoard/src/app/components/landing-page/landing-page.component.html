@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6">
+        <!-- Content for the left column -->
+        <div class="carousel-wrapper d-flex justify-content-center align-items-center vh-100 p-0">
+          @if (images) {
+            <ngb-carousel [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+              @for (image of images; track image) {
+                <ng-template ngbSlide>
+                  <div class="picsum-img-wrapper">
+                    <img [src]="image" alt="Random slide" class="img-fluid"/>
+                  </div>
+                  <!-- <div class="carousel-caption">
+                    <h3>No mouse navigation</h3>
+                    <p>This carousel hides navigation arrows and indicators.</p>
+                  </div> -->
+                </ng-template>
+              }
+            </ngb-carousel>
+          }
+        </div>
+    </div>
+    <div class="col-sm-1 -flex justify-content-center align-items-center">
+    <div class="vr" style="height: 100vh; width: 1px;"></div>
+    </div>
+    <div class="col-sm-5 d-flex justify-content-center align-items-center vh-100 p-0">
+      <!-- Content for the right column -->
+        <app-registration></app-registration>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

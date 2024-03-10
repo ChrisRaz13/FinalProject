@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BoardService } from '../../services/board.service';
 import { BoardLikeService } from '../../services/board-like.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Board } from '../../models/board';
 import { HomeComponent } from "../home/home.component";
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -23,7 +23,7 @@ import { UnsplashComponent } from '../unsplash/unsplash.component';
     standalone: true,
     templateUrl: './account-page.component.html',
     styleUrl: './account-page.component.css',
-    imports: [FormsModule, CommonModule, HomeComponent, MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule, ColorPickerModule, UnsplashComponent ]
+    imports: [FormsModule, CommonModule, HomeComponent, MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule, ColorPickerModule, UnsplashComponent, RouterModule ]
 })
 export class AccountPageComponent implements OnInit {
 

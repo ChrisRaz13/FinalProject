@@ -14,7 +14,7 @@
       <button type="Submit" value="Register Now" class="btn btn-primary" (click)="login(loginUser)">Login</button>
     </div>
     <div class="text">
-      <h3>Don't have an account? <a href="#">Register now</a></h3>
+      <h3>Don't have an account? <a [routerLink]="['/register']">Register now</a></h3>
     </div>
   </form>
 </div>
