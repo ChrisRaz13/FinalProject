@@ -1,0 +1,75 @@
+<div class="container text-center">
+  <h1>{{currentBoard.title}}</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="grid-box">
+        Box 1<br>
+        <ng-container *ngIf="posts && posts[0]; else postForm">
+          <app-display-post [post]="posts[0]"></app-display-post>
+        </ng-container>
+        <ng-template #postForm>
+          <app-post-form [boardId]="currentBoard.id"></app-post-form>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="grid-box">
+        Box 2<br>
+        <ng-container *ngIf="posts && posts[1]; else postForm2">
+          <app-display-post [post]="posts[1]"></app-display-post>
+        </ng-container>
+        <ng-template #postForm2>
+          <app-post-form [boardId]="currentBoard.id"></app-post-form>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="grid-box">
+        Box 3<br>
+        <ng-container *ngIf="posts && posts[2]; else postForm3">
+          <app-display-post [post]="posts[2]"></app-display-post>
+        </ng-container>
+        <ng-template #postForm3>
+          <app-post-form [boardId]="currentBoard.id"></app-post-form>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="grid-box">
+        Box 4<br>
+        <ng-container *ngIf="posts && posts[3]; else postForm4">
+          <app-display-post [post]="posts[3]"></app-display-post>
+        </ng-container>
+        <ng-template #postForm4>
+          <app-post-form [boardId]="currentBoard.id"></app-post-form>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="grid-box">
+        Box 5<br>
+        <ng-container *ngIf="posts && posts[4]; else postForm5">
+          <app-display-post [post]="posts[4]"></app-display-post>
+        </ng-container>
+        <ng-template #postForm5>
+          <app-post-form [boardId]="currentBoard.id"></app-post-form>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="grid-box">
+        Box 6<br>
+        <ng-container *ngIf="posts && posts[5]; else postForm6">
+          <app-display-post [post]="posts[5]"></app-display-post>
+        </ng-container>
+        <ng-template #postForm6>
+          <app-post-form [boardId]="currentBoard.id"></app-post-form>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

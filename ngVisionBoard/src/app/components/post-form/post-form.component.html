@@ -1,0 +1,29 @@
+<div class="card-body">
+  <h1>Create Post</h1>
+  <form name="createPostForm" (submit)="createPost(post)">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" name="title" [(ngModel)]="post.title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" name="description" [(ngModel)]="post.description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="imageUrl">Image URL:</label>
+      <input type="text" class="form-control" name="imageUrl" [(ngModel)]="post.imageUrl">
+    </div>
+    <div class="form-group">
+      <label for="videoUrl">Video URL:</label>
+      <input type="text" class="form-control" name="videoUrl" [(ngModel)]="post.videoUrl">
+    </div>
+    <div class="form-group">
+      <label for="overlayText">Overlay Text:</label>
+      <input type="text" class="form-control" name="overlayText" [(ngModel)]="post.overlayText">
+    </div>
+    <button type="submit" class="btn btn-primary">Create Post</button>
+  </form>
+  <div *ngIf="createSuccess" class="alert alert-success">
+    Post creation successful.
+  </div>
+</div>
