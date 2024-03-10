@@ -17,5 +17,7 @@ public interface PostService {
 	boolean delete(int id);
 
 	List<Post> findPostsByCategory(String category);
+	
+	List<Post> findPostsByBoardId(int boardId); 
 
 }

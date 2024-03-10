@@ -68,4 +68,16 @@ public class PostServiceImpl implements PostService {
     public List<Post> findPostsByCategory(String category) {
         return postRepo.findByCategories_NameContaining(category);
     }
+    
+    @Override
+    public List<Post> findPostsByBoardId(int boardId) {
+        return postRepo.findByBoardId(boardId);
+    }
+    
+    
+    
+    
+    
+    
+    
 }
