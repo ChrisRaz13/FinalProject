@@ -1,0 +1,31 @@
+
+
+
+
+
+<div class="container">
+  <div class="carousel-wrapper">
+    @if (images) {
+      <ngb-carousel [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+        @for (image of images; track image) {
+          <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+              <img [src]="image" alt="Random slide" />
+            </div>
+            <!-- <div class="carousel-caption">
+              <h3>No mouse navigation</h3>
+              <p>This carousel hides navigation arrows and indicators.</p>
+            </div> -->
+          </ng-template>
+        }
+      </ngb-carousel>
+    }
+  </div>
+
+  <div class="login-register-wrapper">
+    <!-- Content for the right box -->
+    <h2>Right Box</h2>
+    <p>This is the content of the right box.</p>
+  </div>
+
+</div>

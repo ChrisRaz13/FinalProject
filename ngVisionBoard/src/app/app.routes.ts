@@ -10,9 +10,11 @@ import { HomeComponent } from './components/home/home.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { VisionboardComponent } from './components/visionboard/visionboard.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: '', pathMatch: 'full', redirectTo: 'landing-page' },
+  { path: 'landing-page', component: LandingPageComponent },
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'navigation', component: NavigationComponent },

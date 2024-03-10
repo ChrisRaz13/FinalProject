@@ -10,11 +10,15 @@
   <!-- <app-comment></app-comment> -->
 
 
-  <h1>{{title}}</h1>
+  <!-- <h1>{{title}}</h1> -->
 
 
-<app-navigation></app-navigation>
 
-<div class="container">
+<!-- <app-registration></app-registration> -->
+<!-- <app-landing-page></app-landing-page> -->
+<app-navigation *ngIf="showFullNavbar"></app-navigation>
+<app-landing-page-navigation *ngIf="!showFullNavbar"></app-landing-page-navigation>
+<!-- <router-outlet></router-outlet> -->
+<div class="container-fluid">
   <router-outlet></router-outlet>
 </div>
