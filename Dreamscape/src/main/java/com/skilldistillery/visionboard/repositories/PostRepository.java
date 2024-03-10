@@ -13,5 +13,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 	Post findById(int id);
 
 	List<Post> findByCategories_NameContaining(String categoryName);
+	
+	List<Post> findByBoardId(int boardId);
 
 }

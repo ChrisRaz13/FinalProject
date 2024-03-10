@@ -11,6 +11,9 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { VisionboardComponent } from './components/visionboard/visionboard.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
+import { VisionboardAlternateComponent } from './components/visionboard-alternate/visionboard-alternate.component';
+import { DisplayPostComponent } from './components/display-post/display-post.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'landing-page' },
@@ -23,9 +26,12 @@ export const routes: Routes = [
   { path: 'account/:userId', component: AccountPageComponent },
   { path: 'admin', component: AdminDashboardComponent },
   { path: 'account', component: AccountPageComponent },
-  { path: '**', component: NotfoundComponent},
   { path: 'home', component: UnsplashComponent},
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'update-profile', component: UpdateUserComponent },
   { path: 'visionboard', component: VisionboardComponent },
+  { path: 'create-post/:boardId', component: PostFormComponent },
+  { path: 'visionboard-alternate', component: VisionboardAlternateComponent },
+  { path: 'display-post', component: DisplayPostComponent },
+  { path: '**', component: NotfoundComponent},
 ];

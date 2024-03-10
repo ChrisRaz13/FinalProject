@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.visionboard.entities.Board;
 import com.skilldistillery.visionboard.entities.Post;
 import com.skilldistillery.visionboard.services.PostService;
 
@@ -77,9 +78,19 @@ public class PostController {
         }
     }
     
-    @GetMapping("search/categories/{category}")
+    @GetMapping("posts/search/categories/{category}")
     public List<Post> findPostsByCategory(@PathVariable("category") String category) {
         return postService.findPostsByCategory(category);
     }
+    
+	@GetMapping("posts/search/board/{boardId}")
+	public List<Post> findPostsByBoardId(@PathVariable("boardId") int boardId,
+			                       HttpServletRequest request, HttpServletResponse response) {
+		List<Post> posts = postService.findPostsByBoardId(boardId);
+		if (posts == null) {
+			response.setStatus(404);
+		}
+		return posts;
+	}
 }
 

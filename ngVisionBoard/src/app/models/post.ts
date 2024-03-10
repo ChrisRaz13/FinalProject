@@ -29,7 +29,7 @@ export class Post {
     completed: boolean = false,
     createdAt: Date = new Date(),
     updatedAt: Date = new Date(),
-    dueDate: Date = new Date(), 
+    dueDate: Date = new Date(),
     imageUrl: string = '',
     videoUrl: string = '',
     overlayText: string = '',
@@ -38,7 +38,7 @@ export class Post {
     published: boolean = false,
     scale: number = 0,
     layer: number = 0,
-    board: Board = new Board(0),
+    board: Board = new Board(),
     categories: Category[] = []
   ){
 
