@@ -14,3 +14,10 @@
   margin-right: 10px; /* Space between images */
   cursor: pointer; /* Indicates the image is selectable */
 }
+
+.photo-selector img.selected {
+  border: 5px solid #007bff; /* Blue border for selected photo */
+  cursor: pointer;
+}
+
+

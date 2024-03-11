@@ -45,10 +45,10 @@ export class PostFormComponent implements OnInit{
 
       this.unsplashService.searchCollections(this.searchQuery).subscribe({
         next: (response) => {
-          // Assuming response.results contains the collections
+
           this.collections = response.results;
 
-          // If you want to immediately display photos from all collections:
+
           this.photos = response.results.flatMap((collection: { preview_photos: any; }) => collection.preview_photos).map((photo: { id: any; urls: any; description: any; }) => ({
             id: photo.id,
             urls: photo.urls,
@@ -61,16 +61,22 @@ export class PostFormComponent implements OnInit{
       });
     }
 
-    search() {
-      this.searchCollections();
+ search() {
+   this.searchCollections();
     }
 
+selectedPhotoUrl: string = '';
 
-
-
-selectPhoto(photo: { urls: { regular: string; }; }): void {
+selectPhoto(photo: { id: string; urls: { regular: string; }; }): void {
   this.post.imageUrl = photo.urls.regular; // Set the post's imageUrl to the selected photo's URL
+  this.selectedPhotoUrl = photo.urls.regular;
 }
+
+
+hidePhotos(): void {
+  this.photos = [];
+}
+
 
 
   loadBoard(boardId: number): void {

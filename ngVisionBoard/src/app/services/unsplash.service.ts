@@ -11,7 +11,7 @@ export class UnsplashService {
 
   constructor(private http: HttpClient) { }
 
-  searchCollections(query: string, page: number = 1, perPage: number = 10): Observable<any> {
+  searchCollections(query: string, page: number = 1, perPage: number = 100): Observable<any> {
     const params = new HttpParams()
       .set('query', query)
       .set('page', page.toString())

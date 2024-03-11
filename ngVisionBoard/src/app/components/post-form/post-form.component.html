@@ -34,11 +34,17 @@
     </div>
 
 <!-- Photos Display -->
-<div class="photo-selector">
+<div class="photo-selector" *ngIf="photos.length > 0">
   <div *ngFor="let photo of photos" (click)="selectPhoto(photo)">
-    <img [src]="photo.urls.thumb" [alt]="photo.description">
+    <img [src]="photo.urls.thumb" [alt]="photo.description" [class.selected]="photo.urls.regular === selectedPhotoUrl">
   </div>
 </div>
+
+
+<!-- Hide Photos Button (Shown only if photos array is not empty) -->
+<button class="btn btn-secondary" (click)="hidePhotos()" *ngIf="photos.length > 0">Hide Photos</button>
+
+
 
 
 
