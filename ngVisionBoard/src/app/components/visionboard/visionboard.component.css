@@ -16,3 +16,27 @@
 #drop-area.hover {
   background-color: #f0f0f0;
 }
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust the gap between cards as needed */
+}
+
+.post-card {
+  width: 200px; /* Adjust the width as needed */
+}
+
+.card {
+  border: 1px solid #ccc; /* Example border */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Keeps the child elements within the card */
+}
+
+.card-front img {
+  width: 100%; /* Makes the image fill the card */
+  height: auto; /* Keeps the image aspect ratio */
+}
+
+.card-back {
+  padding: 10px; /* Adds some spacing inside the card */
+}

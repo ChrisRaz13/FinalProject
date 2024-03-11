@@ -9,7 +9,8 @@ import { Post } from '../models/post';
   providedIn: 'root'
 })
 export class PostService {
-  private url = environment.baseUrl + 'api/posts';
+  private url = `${environment.baseUrl}api/posts`;
+
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
@@ -44,5 +45,13 @@ export class PostService {
       })
     );
   }
-
-}
+  getPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(this.url, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error('PostService.getPosts(): error retrieving posts', err);
+        return throwError(
+          () => new Error('Error retrieving posts: ' + err.message)
+        );
+      })
+    );
+    }}

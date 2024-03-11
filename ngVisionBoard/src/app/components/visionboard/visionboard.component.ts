@@ -1,3 +1,4 @@
+import { PostService } from './../../services/post.service';
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
@@ -8,6 +9,7 @@ import { BoardService } from '../../services/board.service';
 import { AuthService } from '../../services/auth.service';
 import { RouterLink, RouterModule } from '@angular/router';
 import { UnsplashComponent } from '../unsplash/unsplash.component';
+import { Post } from '../../models/post';
 
 
 @Component({
@@ -27,11 +29,12 @@ export class VisionboardComponent implements OnInit{
   showEditFormFlag: boolean = false;
   displayEditForm: boolean = false;
   items = ['Item 1', 'Item 2', 'Item 3'];
+  posts: Post[] = [];
 
   board: Board | undefined;
   userId: number = 1; // Assuming there's a logged-in user
 
-  constructor(private http: HttpClient, private boardService: BoardService, private authService: AuthService ) {
+  constructor(private http: HttpClient, private boardService: BoardService, private authService: AuthService, private PostService: PostService ) {
     this.displayEditForm = false;
   }
 
@@ -44,7 +47,7 @@ export class VisionboardComponent implements OnInit{
   ngOnInit(): void {
     // const boardId = 1;
     // this.loadBoardInfo(boardId);
-    this.loadBoards();
+    this.loadPosts();
     // throw new Error('Method not implemented.');
   }
 
@@ -115,6 +118,15 @@ export class VisionboardComponent implements OnInit{
     );
   }
 }
+loadPosts() {
+  this.PostService.getPosts().subscribe({
+    next: (data) => {
+      this.posts = data; // Directly assign the data to posts
+    },
+    error: (error) => console.error('Error fetching posts:', error)
+  });
+}
+
 
 }
 
