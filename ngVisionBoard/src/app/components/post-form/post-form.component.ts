@@ -95,7 +95,7 @@ hidePhotos(): void {
   }
 
   createPost(addPost: Post): void {
-
+    addPost.board.id = this.boardId;
     console.log('Post JSON:', JSON.stringify(addPost));
     this.postService.create(addPost).subscribe({
       next: (addedPost) => {

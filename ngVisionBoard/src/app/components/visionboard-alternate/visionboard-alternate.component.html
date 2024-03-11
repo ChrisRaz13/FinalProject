@@ -9,17 +9,18 @@
         <ng-container *ngIf="!isNewPost[i]">
           <app-display-post [post]="post"></app-display-post>
         </ng-container>
-        <ng-container *ngIf="isNewPost[i]">
-          <app-post-form [boardId]="currentBoard.id" (save)="savePost(i)"></app-post-form>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="grid-box">
+        <ng-container>
+          <button (click)="showPostForm = !showPostForm" class="btn btn-primary"> + Add a new post </button>
+          <app-post-form *ngIf="showPostForm" [boardId]="currentBoard.id"></app-post-form>
+          <!-- <app-post-form [boardId]="currentBoard.id"></app-post-form> -->
         </ng-container>
       </div>
     </div>
 
-    <!-- Plus button to add a new post -->
-    <div class="col-sm-4">
-      <div class="grid-box">
-        <button (click)="addPost()" class="btn btn-primary"> + Add a new post </button>
-      </div>
-    </div>
   </div>
 </div>
