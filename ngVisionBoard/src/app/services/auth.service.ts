@@ -39,11 +39,10 @@ export class AuthService {
 
     // Create GET request to authenticate credentials
     return this.http.get<User>(this.url + 'authenticate', httpOptions).pipe(
-      tap((newUser) => {
-        // While credentials are stored in browser localStorage, we consider
-        // ourselves logged in.
+      tap((loggedInUser) => {
         localStorage.setItem('credentials', credentials);
-        return newUser;
+        localStorage.setItem('user', JSON.stringify(loggedInUser)); // Store the user info on successful login
+        return loggedInUser;
       }),
       catchError((err: any) => {
         console.log(err);
@@ -56,6 +55,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('credentials');
+    localStorage.removeItem('user');
   }
 
   getLoggedInUser(): Observable<User> {
@@ -101,5 +101,5 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.role === 'admin';
   }
-  
+
 }
