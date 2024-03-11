@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.visionboard.entities.Board;
+import com.skilldistillery.visionboard.entities.Post;
 import com.skilldistillery.visionboard.services.BoardService;
+import com.skilldistillery.visionboard.services.PostService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +28,9 @@ public class BoardController {
 		
 		@Autowired
 		private BoardService boardService;
+		
+		@Autowired
+		private PostService postService;
 
 		@GetMapping("boards")
 		public List<Board> index() {
@@ -96,6 +101,16 @@ public class BoardController {
 			}
 			return boards;
 		}
+		
+		@GetMapping("boards/{id}/posts") // Update the endpoint to include "/posts" to indicate you're fetching posts
+		public List<Post> findPostsByBoardId(@PathVariable("posts") int boardId, HttpServletRequest request, HttpServletResponse response) {
+		    List<Post> posts = postService.findPostsByBoardId(boardId); // Assuming you have a method findByBoardId in your postService
+		    if (posts == null || posts.isEmpty()) {
+		        response.setStatus(404); // Set status to 404 if no posts are found
+		    }
+		    return posts;
+		}
+
 		
 		
 }
