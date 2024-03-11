@@ -22,6 +22,7 @@ export class VisionboardAlternateComponent implements OnInit{
   boards: Board[] = [];
   currentBoard: Board = new Board();
   posts: Post[] = [];
+  isNewPost: boolean[] = [];
 
   constructor(
     private authService: AuthService,
@@ -84,6 +85,16 @@ export class VisionboardAlternateComponent implements OnInit{
     }
   }
 
+  addPost(): void {
+    const newPost = new Post();
+    this.posts.push(newPost); // Add new post to posts array
+    this.isNewPost.push(true); // Mark this post as new
+  }
 
-
+  // Method to handle saving a post, after which it's no longer new
+  savePost(index: number): void {
+    // Logic to save the post to a backend or similar
+    this.isNewPost[index] = false; // Mark the post as no longer new
+  }
 }
+
