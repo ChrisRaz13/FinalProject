@@ -1,37 +1,62 @@
 .board {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Creates a dynamic number of columns */
-  grid-auto-rows: 150px; /* Set minimum row height */
+  grid-auto-rows: 150px; /* All rows will be the same height as the column width */
   gap: 10px; /* Space between items */
   width: 80%; /* Adjust as needed */
   margin: 20px auto; /* Centering the board */
   padding: 10px;
 }
 
-
 .post-card {
-  width: 200px; /* Adjust the width as needed */
+  width: 100%; /* Ensure the card takes up the full cell width */
+  height: 100%; /* Ensure the card takes up the full cell height */
+  display: grid;
+  grid-template-rows: 1fr; /* Makes the card a square */
+  grid-template-columns: 1fr; /* Makes the card a square */
 }
 
 .card {
   border: 1px solid #ccc; /* Example border */
   border-radius: 8px; /* Rounded corners */
   overflow: hidden; /* Keeps the child elements within the card */
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-front{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
 }
 
 .card-front img {
   width: 100%; /* Makes the image fill the card */
-  height: auto; /* Keeps the image aspect ratio */
+  height: 100%; /* Makes the image fill the card */
+  object-fit: cover; /* Ensures the image covers the card area without distortion */
 }
 
+/* Initial state for the card back */
 .card-back {
-  padding: 10px; /* Adds some spacing inside the card */
+  transform: rotateY(180deg); /* This matches the rotation of the flip */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+/* Adjust the rotation for the flipped state */
+.flipped .card-back {
+  transform: rotateY(180deg);
 }
 
 
-.flip-card {
-  perspective: 1000px; /* Depth effect */
-}
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -40,33 +65,21 @@
   transition: transform 0.6s;
   transform-style: preserve-3d;
 }
+
 .flipped {
   transform: rotateY(180deg);
 }
-.card-front, .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-}
-.card-front {
-  z-index: 2;
-  /* Ensure front is initially visible */
-}
-.card-back {
-  transform: rotateY(180deg);
-  z-index: 1;
-  /* Adjust styling as needed */
-}
 
 @media (max-width: 768px) {
-  .post-card {
-    width: calc(50% - 20px); /* Two cards per row on medium screens */
+  .board {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-auto-rows: 120px; /* Adjust row height for smaller screens */
   }
 }
 
 @media (max-width: 480px) {
-  .post-card {
-    width: calc(100% - 20px); /* One card per row on small screens */
+  .board {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-auto-rows: 100px; /* Adjust row height for very small screens */
   }
 }

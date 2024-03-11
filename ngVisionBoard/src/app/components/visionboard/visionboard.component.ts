@@ -11,6 +11,13 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { UnsplashComponent } from '../unsplash/unsplash.component';
 import { Post } from '../../models/post';
 
+interface DynamicPost extends Post {
+  rowSpan: number;
+  colSpan: number;
+}
+
+
+
 
 @Component({
   selector: 'app-visionboard',
@@ -29,7 +36,8 @@ export class VisionboardComponent implements OnInit{
   showEditFormFlag: boolean = false;
   displayEditForm: boolean = false;
   items = ['Item 1', 'Item 2', 'Item 3'];
-  posts: Post[] = [];
+  // posts: Post[] = [];
+  posts: DynamicPost[] = [];
 
   board: Board | undefined;
   userId: number = 1; // Assuming there's a logged-in user
@@ -118,10 +126,15 @@ export class VisionboardComponent implements OnInit{
     );
   }
 }
-loadPosts() {
+loadPosts(): void {
   this.PostService.getPosts().subscribe({
-    next: (data) => {
-      this.posts = data; // Directly assign the data to posts
+    next: (data: Post[]) => {
+      // Map Post[] to DynamicPost[] and assign random spans
+      this.posts = data.map(post => ({
+        ...post,
+        rowSpan: this.getRandomSpan(),
+        colSpan: this.getRandomSpan()
+      }));
     },
     error: (error) => console.error('Error fetching posts:', error)
   });
@@ -145,6 +158,10 @@ flipState: { [key: number]: boolean } = {};
 toggleFlip(postId: number): void {
   this.flipState[postId] = !this.flipState[postId];
 }
+
+
+
+
 randomizeLeft(index: number): string {
   // Random left position, adjust the range as needed
   return `${20 + (index * 5 % 30)}%`;
@@ -155,7 +172,10 @@ randomizeTop(index: number): string {
   return `${10 + (index * 5 % 20)}%`;
 }
 
-
+getRandomSpan(): number {
+  // Randomly return 1, 2, or 3 to span across 1 to 3 tracks
+  return Math.ceil(Math.random() * 3);
+}
 
 
 }
