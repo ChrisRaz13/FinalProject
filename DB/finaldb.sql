@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `board` (
   `user_id` INT NOT NULL,
   `description` TEXT NULL,
   `enabled` TINYINT NULL,
-  `color_id` INT NOT NULL,
+  `color_id` INT NULL,
   `published` TINYINT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
@@ -281,8 +281,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `finaldb`;
-INSERT INTO `post` (`id`, `description`, `title`, `completed`, `created_at`, `updated_at`, `due_date`, `image_url`, `video_url`, `overlay_text`, `completed_date`, `enabled`, `published`, `scale`, `board_id`, `layer`) VALUES (1, 'My trip to Paris was a dream!', 'Paris Trip', 1, '2024-03-06 00:25:00', '2024-03-06 00:25:00', '2024-12-20', "https://upload.wikimedia.org/wikipedia/commons/6/6e/Paris_-_Eiffelturm_und_Marsfeld2.jpg", NULL, 'A Dream Come True', '2024-03-01', 1, 1, 5, 1, NULL);
-INSERT INTO `post` (`id`, `description`, `title`, `completed`, `created_at`, `updated_at`, `due_date`, `image_url`, `video_url`, `overlay_text`, `completed_date`, `enabled`, `published`, `scale`, `board_id`, `layer`) VALUES (2, 'Starting my 30-day yoga challenge.', 'Yoga Challenge', 0, '2024-03-06 00:30:00', '2024-03-06 00:30:00', '2024-04-05', "https://upload.wikimedia.org/wikipedia/commons/5/5b/Yoga_pose_image.png", NULL, 'Day 1: The Journey Begins', NULL, 1, 1, 5, 2, NULL);
+INSERT INTO `post` (`id`, `description`, `title`, `completed`, `created_at`, `updated_at`, `due_date`, `image_url`, `video_url`, `overlay_text`, `completed_date`, `enabled`, `published`, `scale`, `board_id`, `layer`) VALUES (1, 'My trip to Paris was a dream!', 'Paris Trip', 1, '2024-03-06 00:25:00', '2024-03-06 00:25:00', '2024-12-20', NULL, NULL, 'A Dream Come True', '2024-03-01', 1, 1, 5, 1, NULL);
+INSERT INTO `post` (`id`, `description`, `title`, `completed`, `created_at`, `updated_at`, `due_date`, `image_url`, `video_url`, `overlay_text`, `completed_date`, `enabled`, `published`, `scale`, `board_id`, `layer`) VALUES (2, 'Starting my 30-day yoga challenge.', 'Yoga Challenge', 0, '2024-03-06 00:30:00', '2024-03-06 00:30:00', '2024-04-05', NULL, NULL, 'Day 1: The Journey Begins', NULL, 1, 1, 5, 2, NULL);
 
 COMMIT;
 
