@@ -68,7 +68,7 @@ public class Post {
 
     private Integer layer;
     
-    //@JsonIgnore
+    
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
