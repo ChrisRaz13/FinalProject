@@ -126,13 +126,19 @@ loadPosts() {
     error: (error) => console.error('Error fetching posts:', error)
   });
 }
-deletePost(postId: number, event: MouseEvent): void {
-  event.stopPropagation();
-  // Implement deletion logic here, e.g., call a service method
-  console.log('Deleting post', postId);
-  // After deletion, update posts array or state accordingly
-}
 
+
+deletePost(postId: number, event: MouseEvent): void {
+  if (confirm('Are you sure you want to delete this post?')) {
+    this.PostService.deletePost(postId).subscribe({
+      next: () => {
+        this.posts = this.posts.filter(post => post.id !== postId);
+        console.log('Post deleted successfully');
+      },
+      error: (error) => console.error('Error deleting post:', error)
+    });
+  }
+}
 // Inside your component class
 flipState: { [key: number]: boolean } = {};
 
@@ -142,6 +148,6 @@ toggleFlip(postId: number): void {
 
 
 
-}
 
+}
 
