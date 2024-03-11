@@ -145,6 +145,15 @@ flipState: { [key: number]: boolean } = {};
 toggleFlip(postId: number): void {
   this.flipState[postId] = !this.flipState[postId];
 }
+randomizeLeft(index: number): string {
+  // Random left position, adjust the range as needed
+  return `${20 + (index * 5 % 30)}%`;
+}
+
+randomizeTop(index: number): string {
+  // Random top position, adjust the range as needed
+  return `${10 + (index * 5 % 20)}%`;
+}
 
 
 

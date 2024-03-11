@@ -1,26 +1,13 @@
-#drop-area {
-  border: 2px dashed #ccc;
-  width: 1200px; /* Increase the width */
-  height: 800px; /* Increase the height */
-  line-height: 300px; /* Adjust line height for centering content vertically */
-  text-align: center;
-  margin: 0 auto;
-  border-radius: 5px; /* Optional: Add border radius for a rounded look */
-  border-style: dashed; /* Optional: Specify dashed border style */
-  border-color: #ccc; /* Optional: Specify border color */
-  border-width: 2px; /* Optional: Specify border width */
-  padding: 10px; /* Optional: Add padding inside the drop area */
-  box-sizing: border-box; /* Optional: Ensure padding is included in width and height */
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Creates a dynamic number of columns */
+  grid-auto-rows: 150px; /* Set minimum row height */
+  gap: 10px; /* Space between items */
+  width: 80%; /* Adjust as needed */
+  margin: 20px auto; /* Centering the board */
+  padding: 10px;
 }
 
-#drop-area.hover {
-  background-color: #f0f0f0;
-}
-.board {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* Adjust the gap between cards as needed */
-}
 
 .post-card {
   width: 200px; /* Adjust the width as needed */
@@ -70,4 +57,16 @@
   transform: rotateY(180deg);
   z-index: 1;
   /* Adjust styling as needed */
+}
+
+@media (max-width: 768px) {
+  .post-card {
+    width: calc(50% - 20px); /* Two cards per row on medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .post-card {
+    width: calc(100% - 20px); /* One card per row on small screens */
+  }
 }
