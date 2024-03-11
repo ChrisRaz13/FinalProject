@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `enabled` TINYINT NOT NULL DEFAULT 1,
   `published` TINYINT NULL,
   `scale` TINYINT(5) NULL,
-  `board_id` INT NOT NULL,
+  `board_id` INT NULL,
   `layer` INT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
