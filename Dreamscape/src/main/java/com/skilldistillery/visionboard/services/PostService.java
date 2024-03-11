@@ -18,6 +18,7 @@ public interface PostService {
 
 	List<Post> findPostsByCategory(String category);
 	
-	List<Post> findPostsByBoardId(int boardId); 
+	List<Post> findPostsByBoardId(int boardId);
+
 
 }

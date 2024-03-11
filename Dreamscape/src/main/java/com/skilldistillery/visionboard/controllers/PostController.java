@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.visionboard.entities.Board;
 import com.skilldistillery.visionboard.entities.Post;
 import com.skilldistillery.visionboard.services.PostService;
 
@@ -92,5 +91,6 @@ public class PostController {
 		}
 		return posts;
 	}
+	
 }
 

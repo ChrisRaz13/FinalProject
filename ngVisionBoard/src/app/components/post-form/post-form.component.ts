@@ -1,3 +1,4 @@
+import { UnsplashService } from './../../services/unsplash.service';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Board } from '../../models/board';
 import { BoardService } from '../../services/board.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-form',
@@ -20,14 +22,56 @@ export class PostFormComponent implements OnInit{
   board: Board = new Board();
   @Input() boardId: number = 0;
   createSuccess: boolean = false;
+  photos: any[] = [];
+  searchQuery: string = '';
+  collections: any[] = [];
+  searchResults: any[] = [];
 
   constructor(private postService: PostService,
     private boardService: BoardService,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService) {}
+    private authService: AuthService,
+    private http: HttpClient,
+    private unsplashService: UnsplashService) {}
 
-  ngOnInit(): void {
-  }
+
+    ngOnInit() {
+      this.searchCollections();
+    }
+
+
+    searchCollections() {
+      if (!this.searchQuery.trim()) return;
+
+      this.unsplashService.searchCollections(this.searchQuery).subscribe({
+        next: (response) => {
+          // Assuming response.results contains the collections
+          this.collections = response.results;
+
+          // If you want to immediately display photos from all collections:
+          this.photos = response.results.flatMap((collection: { preview_photos: any; }) => collection.preview_photos).map((photo: { id: any; urls: any; description: any; }) => ({
+            id: photo.id,
+            urls: photo.urls,
+            description: photo.description || 'No Description',
+          }));
+        },
+        error: (error) => {
+          console.error('Error fetching collections:', error);
+        }
+      });
+    }
+
+    search() {
+      this.searchCollections();
+    }
+
+
+
+
+selectPhoto(photo: { urls: { regular: string; }; }): void {
+  this.post.imageUrl = photo.urls.regular; // Set the post's imageUrl to the selected photo's URL
+}
+
 
   loadBoard(boardId: number): void {
     this.boardService.getBoardById(boardId).subscribe({

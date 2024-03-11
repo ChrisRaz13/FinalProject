@@ -73,8 +73,7 @@ public class PostServiceImpl implements PostService {
     public List<Post> findPostsByBoardId(int boardId) {
         return postRepo.findByBoardId(boardId);
     }
-    
-    
+
     
     
     

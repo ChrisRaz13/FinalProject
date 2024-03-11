@@ -7,12 +7,13 @@ import { Mock } from '../../models/mock';
 import { BoardService } from '../../services/board.service';
 import { AuthService } from '../../services/auth.service';
 import { RouterLink, RouterModule } from '@angular/router';
+import { UnsplashComponent } from '../unsplash/unsplash.component';
 
 
 @Component({
   selector: 'app-visionboard',
   standalone: true,
-  imports: [CommonModule, DragDropModule, RouterLink, RouterModule],
+  imports: [CommonModule, DragDropModule, RouterLink, RouterModule, UnsplashComponent],
   templateUrl: './visionboard.component.html',
   styleUrl: './visionboard.component.css'
 })

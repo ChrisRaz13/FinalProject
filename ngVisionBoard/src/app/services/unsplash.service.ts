@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UnsplashService {
   private baseUrl: string = 'https://api.unsplash.com';
-  private accessKey: string = 'g2TUe8r-1sUbtn1lIxX_C2AwstnMEcGCKfXh6LVV3A4'; // Replace with your Unsplash Access Key
+  private accessKey: string = 'g2TUe8r-1sUbtn1lIxX_C2AwstnMEcGCKfXh6LVV3A4';
 
   constructor(private http: HttpClient) { }
 
