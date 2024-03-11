@@ -11,7 +11,7 @@
       <li *ngIf="isLoggedIn()"><a routerLink="/account">Account</a></li>
       <li *ngIf="isAdmin() && isLoggedIn()"><a routerLink="/admin">Admin</a></li>
       <li><a routerLink="/visionboard">Boards</a></li>
-      <li *ngIf="isLoggedIn()" class="create-link"><a routerLink="/create">+</a></li>
+      <li *ngIf="isLoggedIn()" class="create-link"><a routerLink="/visionboard-alternate">+</a></li>
 
 
     </ul>
