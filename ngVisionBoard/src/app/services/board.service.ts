@@ -102,4 +102,14 @@ export class BoardService {
     return this.http.post<any>('your-api-endpoint', { photoUrls });
   }
 
+  getDraggedPhotos(boardId: number): Observable<any[]> {
+    const endpoint = `${this.url}/posts/search/board${boardId}`;
+    return this.http.get<any[]>(endpoint).pipe(
+      catchError((error: any) => {
+        console.error('Error fetching dragged photos:', error);
+        return throwError('Failed to fetch dragged photos. Please try again later.');
+      })
+    );
+  }
+
 }
