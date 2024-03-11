@@ -54,4 +54,14 @@ export class PostService {
         );
       })
     );
-    }}
+    }
+    deletePost(postId: number): Observable<any> {
+      return this.http.delete(`${this.url}/${postId}`, this.getHttpOptions()).pipe(
+        catchError((err: any) => {
+          console.error('PostService.deletePost(): error deleting post', err);
+          return throwError(() => new Error('Error deleting post: ' + err.message));
+        })
+      );
+    }
+
+    }

@@ -126,6 +126,17 @@ loadPosts() {
     error: (error) => console.error('Error fetching posts:', error)
   });
 }
+deletePost(postId: number): void {
+  if (confirm('Are you sure you want to delete this post?')) {
+    this.PostService.deletePost(postId).subscribe({
+      next: () => {
+        this.posts = this.posts.filter(post => post.id !== postId);
+        console.log('Post deleted successfully');
+      },
+      error: (error) => console.error('Error deleting post:', error)
+    });
+  }
+}
 
 
 }
