@@ -37,6 +37,7 @@
   width: 100%; /* Makes the image fill the card */
   height: 100%; /* Makes the image fill the card */
   object-fit: cover; /* Ensures the image covers the card area without distortion */
+  border-radius: 35px;
 }
 
 /* Initial state for the card back */
