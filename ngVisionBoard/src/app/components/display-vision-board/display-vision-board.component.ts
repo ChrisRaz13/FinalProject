@@ -70,6 +70,18 @@ export class DisplayVisionBoardComponent implements OnInit{
     this.flipState[postId] = !this.flipState[postId];
   }
 
+  flipAllToBack(): void {
+    this.posts.forEach(post => {
+      this.flipState[post.id] = true;
+    });
+  }
+
+  // New method to flip all cards to their frontside
+  flipAllToFront(): void {
+    this.posts.forEach(post => {
+      this.flipState[post.id] = false;
+    });
+  }
 
 
 
