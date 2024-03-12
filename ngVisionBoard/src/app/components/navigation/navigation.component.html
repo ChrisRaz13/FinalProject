@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" [routerLink]="['/home']">DREAMSCAPE</a>
+  <a class="navbar-brand" [routerLink]="['/visionboard']">DREAMSCAPE</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed"
     [attr.aria-expanded]="!isCollapsed">
@@ -8,14 +8,15 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]='isCollapsed'>
     <ul class="navbar-nav">
-      <li><a class="nav-link" [routerLink]="['/home']">Home</a></li>
-      <li *ngIf="isLoggedIn()"><app-logout></app-logout></li>
       <li *ngIf="isLoggedIn()"><a class="nav-link" [routerLink]="['/account']">Account</a></li>
+      <li><a class="nav-link" [routerLink]="['/visionboard']">Home</a></li>
+
       <li *ngIf="isAdmin() && isLoggedIn()"><a class="nav-link" [routerLink]="['/admin']">Admin</a></li>
       <li *ngIf="!isLoggedIn()"><a class="nav-link" [routerLink]="['/login']">Login</a>
       <li *ngIf="!isLoggedIn()"><a class="nav-link" [routerLink]="['/register']">Register</a></li>
-      <li><a class="nav-link" [routerLink]="['/visionboard']">Boards</a></li>
-      <li *ngIf="isLoggedIn()"><a class="nav-link"[routerLink]="['/visionboard-alternate']">Create</a></li>
+      <li *ngIf="isLoggedIn()"><app-logout></app-logout></li>
+  <!--    <li><a class="nav-link" [routerLink]="['/visionboard']">Boards</a></li> -->
+  <!--    <li *ngIf="isLoggedIn()"><a class="nav-link"[routerLink]="['/visionboard']">Create</a></li> -->
     </ul>
   </div>
 </nav>

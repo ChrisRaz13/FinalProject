@@ -36,10 +36,10 @@ export class Board {
     description: string = '',
     enabled: boolean = false,
     color: Color = {
-      id: 0,
-      name: '',
-      value: ''
-    }, // Update to Color type
+      id: 2,
+      name: 'light pink',
+      value: '#FFB6C1'
+    },
     published: boolean = false,
     posts: any[] = [], // Adjust types as needed
     comments: any[] = [], // Adjust types as needed

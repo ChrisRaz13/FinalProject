@@ -14,9 +14,12 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { VisionboardAlternateComponent } from './components/visionboard-alternate/visionboard-alternate.component';
 import { DisplayPostComponent } from './components/display-post/display-post.component';
+import { Post } from './models/post';
+import { CreateBordFormComponent } from './components/create-bord-form/create-bord-form.component';
+import { DisplayVisionBoardComponent } from './components/display-vision-board/display-vision-board.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'landing-page' },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegistrationComponent },
@@ -29,9 +32,11 @@ export const routes: Routes = [
   { path: 'home', component: UnsplashComponent},
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'update-profile', component: UpdateUserComponent },
-  { path: 'visionboard', component: VisionboardComponent },
+  { path: 'visionboard-alternate', component: VisionboardComponent },
   { path: 'create-post/:boardId', component: PostFormComponent },
-  { path: 'visionboard-alternate', component: VisionboardAlternateComponent },
+  { path: 'visionboard', component: VisionboardAlternateComponent },
   { path: 'display-post', component: DisplayPostComponent },
+  { path: 'create-board', component: CreateBordFormComponent},
+  { path: 'display-board/:boardId', component: DisplayVisionBoardComponent},
   { path: '**', component: NotfoundComponent},
 ];

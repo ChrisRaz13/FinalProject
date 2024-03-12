@@ -1,3 +1,4 @@
+<div *ngIf="userHasBoards">
 <div class="container text-center">
   <h1>{{currentBoard.title}}</h1>
 </div>
@@ -16,11 +17,22 @@
       <div class="grid-box">
         <ng-container>
           <button (click)="showPostForm = !showPostForm" class="btn btn-primary"> + Add a new post </button>
-          <app-post-form *ngIf="showPostForm" [boardId]="currentBoard.id"></app-post-form>
-          <!-- <app-post-form [boardId]="currentBoard.id"></app-post-form> -->
+          <app-post-form *ngIf="showPostForm" [boardId]="currentBoard.id" (addButtonClicked)="handleAddButtonClicked()"></app-post-form>
         </ng-container>
       </div>
     </div>
 
+  </div>
+</div>
+</div>
+<div *ngIf="!userHasBoards">
+  <app-create-bord-form></app-create-bord-form>
+</div>
+
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-sm-4">
+      <button class="btn btn-primary" (click)="createNewBoard()">Create New Board</button>
+    </div>
   </div>
 </div>

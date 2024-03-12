@@ -1,6 +1,6 @@
 import { UnsplashService } from './../../services/unsplash.service';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Post } from '../../models/post';
 import { PostService } from '../../services/post.service';
@@ -26,6 +26,7 @@ export class PostFormComponent implements OnInit{
   searchQuery: string = '';
   collections: any[] = [];
   searchResults: any[] = [];
+  @Output() addButtonClicked: EventEmitter<any> = new EventEmitter();
 
   constructor(private postService: PostService,
     private boardService: BoardService,
@@ -101,11 +102,13 @@ hidePhotos(): void {
       next: (addedPost) => {
         console.log('Post created successfully:', addedPost);
         this.createSuccess = true;
+        this.addButtonClicked.emit();
       },
       error: (error) => {
         console.error('Error creating post:', error);
       },
     });
   }
+
 
 }
