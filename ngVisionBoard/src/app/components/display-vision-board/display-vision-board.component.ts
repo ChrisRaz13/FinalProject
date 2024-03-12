@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../models/post';
 import { PostService } from '../../services/post.service';
+import { BoardLikeService } from '../../services/board-like.service';
 
 @Component({
   selector: 'app-display-vision-board',
@@ -23,7 +24,8 @@ export class DisplayVisionBoardComponent implements OnInit{
     private authService: AuthService,
     private route: ActivatedRoute,
     private boardService: BoardService,
-    private postService: PostService
+    private postService: PostService,
+    private boardLikeService: BoardLikeService
 
   ) {}
 

@@ -13,6 +13,7 @@ export class BoardLikeService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
+
   getBoardLikesByUserId(userId: number): Observable<BoardLike[]> {
     let userSearchUrl = `${this.url}/search/user/${userId}`;
     return this.http.get<BoardLike[]>(userSearchUrl , this.getHttpOptions()).pipe(

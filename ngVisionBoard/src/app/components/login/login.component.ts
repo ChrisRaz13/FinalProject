@@ -22,7 +22,7 @@ export class LoginComponent {
     console.log('Login attempt:', this.loginUser);
     this.authService.login(user.username, user.password).subscribe({
       next: (loggedInUser) => {
-        this.router.navigateByUrl('/visionboard-alternate');
+        this.router.navigateByUrl('/visionboard');
       },
       error: (failedLogin) => {
         console.error('Login failed.');
