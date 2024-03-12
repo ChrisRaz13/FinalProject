@@ -1,6 +1,6 @@
 <div class="card-body">
   <h1>Create Post</h1>
-  <form name="createPostForm" (submit)="createPost(post)">
+  <form name="createPostForm" (ngSubmit)="createPost()">
     <div class="form-group">
       <label for="title">Title:</label>
       <input type="text" class="form-control" name="title" [(ngModel)]="post.title" required>

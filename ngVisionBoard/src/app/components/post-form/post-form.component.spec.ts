@@ -11,7 +11,7 @@ describe('PostFormComponent', () => {
       imports: [PostFormComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(PostFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

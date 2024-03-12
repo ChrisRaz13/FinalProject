@@ -8,17 +8,19 @@ import { CommonModule } from '@angular/common';
 import { Post } from '../../models/post';
 import { PostService } from '../../services/post.service';
 import { BoardLikeService } from '../../services/board-like.service';
+import { PostFormComponent } from '../post-form/post-form.component';
 
 @Component({
   selector: 'app-display-vision-board',
   standalone: true,
-  imports: [DisplayPostComponent, CommonModule],
+  imports: [DisplayPostComponent, CommonModule, PostFormComponent],
   templateUrl: './display-vision-board.component.html',
   styleUrl: './display-vision-board.component.css'
 })
 export class DisplayVisionBoardComponent implements OnInit{
   currentBoard: Board = new Board();
   posts: Post[] = [];
+  showPostForm: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -115,6 +117,14 @@ export class DisplayVisionBoardComponent implements OnInit{
     const saturation = Math.floor(Math.random() * (100 - 50) + 50); // Saturation between 50% and 100%
     const lightness = Math.floor(Math.random() * (100 - 70) + 70); // Lightness between 70% and 100% for lighter colors
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  }
+
+  togglePostForm(){
+    this.showPostForm = !this.showPostForm;
+  }
+
+  onPostCreated(newPost: Post){
+    this.posts.push(newPost);
   }
 
   }

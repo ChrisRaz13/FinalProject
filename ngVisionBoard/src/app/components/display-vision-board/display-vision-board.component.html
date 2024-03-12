@@ -22,3 +22,8 @@
 <button (click)="flipAllToBack()">Flip All to Back</button>
 </div>
 
+<br><br><br>
+<div>
+  <button (click)="togglePostForm()">Add Post</button>
+  <app-post-form *ngIf="showPostForm" [boardId]="currentBoard.id" (postCreated)="onPostCreated($event)"></app-post-form>
+</div>

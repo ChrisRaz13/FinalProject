@@ -21,6 +21,7 @@ export class PostFormComponent implements OnInit{
   post: Post = new Post();
   board: Board = new Board();
   @Input() boardId: number = 0;
+  @Output() postCreated = new EventEmitter<Post>();
   createSuccess: boolean = false;
   photos: any[] = [];
   searchQuery: string = '';
@@ -95,18 +96,30 @@ hidePhotos(): void {
     });
   }
 
-  createPost(addPost: Post): void {
-    addPost.board.id = this.boardId;
-    console.log('Post JSON:', JSON.stringify(addPost));
-    this.postService.create(addPost).subscribe({
-      next: (addedPost) => {
-        console.log('Post created successfully:', addedPost);
-        this.createSuccess = true;
-        this.addButtonClicked.emit();
+  createPost(): void {
+    if (!this.boardId) {
+      console.error('Board ID is not provided!');
+      return;
+    }
+
+    this.boardService.getBoardById(this.boardId).subscribe({
+      next: (board) => {
+        this.post.board = board;
+
+        this.postService.create(this.post).subscribe({
+          next: (addedPost) => {
+            console.log('Post created successfully:', addedPost);
+            this.postCreated.emit(addedPost);
+            this.post = new Post();
+          },
+          error: (error) => {
+            console.error('Error creating post:', error);
+          },
+        });
       },
-      error: (error) => {
-        console.error('Error creating post:', error);
-      },
+      error: (err) => {
+        console.error('Error fetching board:', err);
+      }
     });
   }
 
