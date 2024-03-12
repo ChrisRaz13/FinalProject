@@ -70,6 +70,10 @@ export class VisionboardAlternateComponent implements OnInit{
     });
   }
 
+  onBoardCreated(newBoard: Board){
+    this.boards.push(newBoard);
+  }
+
   loadPosts(boardId: number): void {
     this.postService.getPostsByBoardId(boardId).subscribe({
       next: (posts) => {

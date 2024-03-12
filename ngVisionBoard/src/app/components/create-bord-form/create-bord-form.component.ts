@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-create-bord-form',
@@ -23,7 +25,8 @@ export class CreateBordFormComponent implements OnInit {
   constructor(private boardService: BoardService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private http: HttpClient) {}
+    private http: HttpClient,
+    private router: Router) {}
 
 
 ngOnInit(): void {
@@ -38,6 +41,7 @@ ngOnInit(): void {
           next: (addedBoard) => {
             this.boardCreated.emit(addedBoard);
             alert('Board created successfully!');
+            this.router.navigate(['/visionboard']);
           },
           error: (error) => {
             console.error('Error creating board:', error);

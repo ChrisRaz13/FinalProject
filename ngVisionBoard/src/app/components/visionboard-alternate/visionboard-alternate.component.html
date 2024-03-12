@@ -44,6 +44,6 @@
 
 <h2>{{user.username}}</h2>
 
-<app-create-bord-form></app-create-bord-form>
+<app-create-bord-form (boardCreated)="onBoardCreated($event)"></app-create-bord-form>
 
 <app-board-list [boards]="boards"></app-board-list>
