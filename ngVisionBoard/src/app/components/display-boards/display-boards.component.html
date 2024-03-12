@@ -1,0 +1,25 @@
+
+<div *ngIf="boards && boards.length > 0">
+  <div class="container text-center">
+    <h1>Boards</h1>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4" *ngFor="let board of boards">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a [routerLink]="['/display-board', board.id]">{{ board.title }}</a>
+            </h5>
+
+            <p class="card-text">{{ board.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!boards || boards.length === 0">
+  <p>No boards found.</p>
+</div>

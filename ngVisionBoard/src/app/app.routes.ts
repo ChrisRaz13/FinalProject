@@ -17,6 +17,8 @@ import { DisplayPostComponent } from './components/display-post/display-post.com
 import { Post } from './models/post';
 import { CreateBordFormComponent } from './components/create-bord-form/create-bord-form.component';
 import { DisplayVisionBoardComponent } from './components/display-vision-board/display-vision-board.component';
+import { UserBoardsComponent } from './components/user-boards/user-boards.component';
+import { DisplayBoardsComponent } from './components/display-boards/display-boards.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -32,11 +34,14 @@ export const routes: Routes = [
   { path: 'home', component: UnsplashComponent},
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'update-profile', component: UpdateUserComponent },
+  { path: 'visionboard', component: VisionboardAlternateComponent },
   { path: 'visionboard-alternate', component: VisionboardComponent },
   { path: 'create-post/:boardId', component: PostFormComponent },
-  { path: 'visionboard', component: VisionboardAlternateComponent },
   { path: 'display-post', component: DisplayPostComponent },
   { path: 'create-board', component: CreateBordFormComponent},
+  { path: 'display-board', component: DisplayBoardsComponent},
   { path: 'display-board/:boardId', component: DisplayVisionBoardComponent},
+  { path: 'user-boards', component: UserBoardsComponent},
+  { path: 'post-form', component: PostFormComponent},
   { path: '**', component: NotfoundComponent},
 ];

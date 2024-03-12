@@ -15,7 +15,8 @@
       <li *ngIf="!isLoggedIn()"><a class="nav-link" [routerLink]="['/login']">Login</a>
       <li *ngIf="!isLoggedIn()"><a class="nav-link" [routerLink]="['/register']">Register</a></li>
       <li *ngIf="isLoggedIn()"><app-logout></app-logout></li>
-  <!--    <li><a class="nav-link" [routerLink]="['/visionboard']">Boards</a></li> -->
+
+     <li><a class="nav-link" [routerLink]="['/display-board']">Boards</a></li>
   <!--    <li *ngIf="isLoggedIn()"><a class="nav-link"[routerLink]="['/visionboard']">Create</a></li> -->
     </ul>
   </div>
