@@ -1,12 +1,12 @@
-<!-- post.component.html -->
-<!-- post.component.html -->
-<div class="container">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-md-6">
-      <div class="post-container text-center">
-        <h1>{{ post.title }}</h1>
-        <img [src]="post.imageUrl" alt="Post Image" class="post-image img-fluid">
-        <p>{{ post.overlayText }}</p>
+<div class="board">
+  <div *ngFor="let post of posts" class="post-card">
+    <div class="flip-card-inner">
+      <div class="card card-front">
+        <img [src]="post.imageUrl" alt="Image description">
+      </div>
+      <div class="card card-back">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.description }}</p>
       </div>
     </div>
   </div>

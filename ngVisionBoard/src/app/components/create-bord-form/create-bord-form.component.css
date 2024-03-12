@@ -1,0 +1,41 @@
+.card-body {
+  max-width: 600px; /* Set the max width of the form */
+  margin: auto; /* Center the form */
+  padding: 2rem; /* Add some padding inside the card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow to the card */
+  border-radius: 8px; /* Optional: Round the corners */
+  background-color: #fff; /* Set background color */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align items vertically */
+}
+
+.form-group {
+  width: 100%; /* Ensure full width */
+  margin-bottom: 1rem; /* Add some space between form groups */
+}
+
+.form-group label {
+  display: block;
+  text-align: left; /* Align the labels to the left */
+  margin-bottom: 0.5rem; /* Add space below the label */
+}
+
+.form-control {
+  width: 100%; /* Full width */
+  padding: 0.5rem; /* Padding inside the inputs */
+  border: 1px solid #ced4da; /* Bootstrap-like border style */
+  border-radius: 0.25rem; /* Slightly rounded borders for the inputs */
+}
+
+.btn-primary {
+  padding: 0.5rem 1rem; /* Padding inside the button */
+  color: #fff; /* Text color for the button */
+  background-color: #007bff; /* Background color for the button */
+  border: none; /* Remove the border */
+  border-radius: 0.25rem; /* Slightly rounded borders for the button */
+  cursor: pointer; /* Cursor pointer on hover */
+  margin-top: 1rem; /* Space above the button */
+}
+
+/* Add additional styling as needed */

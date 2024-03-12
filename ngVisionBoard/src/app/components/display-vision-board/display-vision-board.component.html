@@ -1,17 +1,13 @@
-
-  <div class="container text-center">
-    <h1>{{currentBoard.title}}</h1>
-  </div>
-  <div class="container">
-    <div class="row">
-      <!-- Iterate over the posts array -->
-      <div class="col-sm-4" *ngFor="let post of posts; let i = index">
-        <div class="grid-box">
-            <app-display-post [post]="post"></app-display-post>
-        </div>
-      </div>
-
+<div class="container text-center">
+  <h1>{{currentBoard.title}}</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <app-display-post [posts]="posts"></app-display-post>
     </div>
   </div>
+</div>
+
 
 

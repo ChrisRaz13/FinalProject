@@ -32,7 +32,7 @@ export class DisplayVisionBoardComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const boardId = params['boardId'];
+      const boardId = +params['boardId'];
       this.loadBoard(boardId);
       this.loadPosts(boardId);
     });

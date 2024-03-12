@@ -85,4 +85,17 @@ export class UserService {
       })
     );
   }
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}/users`);
+
+  }
+
+  searchUsers(term: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}/search?term=${term}`, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error('Error searching for users', err);
+        return throwError(() => new Error('Error searching for users: ' + err));
+      })
+    );
+  }
 }

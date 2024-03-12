@@ -136,5 +136,21 @@ export class AccountPageComponent implements OnInit {
     let li = lastName.charAt(0).toUpperCase();
     return fi + li;
   }
-
+  deleteBoard(boardId: number): void {
+    if (confirm('Are you sure you want to delete this board?')) {
+      this.boardService.deleteBoard(boardId).subscribe({
+        next: () => {
+          // Remove the deleted board from the list
+          this.userCreatedBoards = this.userCreatedBoards.filter(board => board.id !== boardId);
+          // If you also want to update the liked boards list
+          this.userLikedBoards = this.userLikedBoards.filter(board => board.id !== boardId);
+          alert('Board deleted successfully.');
+        },
+        error: (err) => {
+          console.error('Error deleting board:', err);
+          alert('Failed to delete board. Please try again.');
+        }
+      });
+    }
+  }
 }

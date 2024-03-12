@@ -73,6 +73,11 @@ export class BoardService {
     return this.http.get<Board>(this.url, this.getHttpOptions());
   }
 
+  deleteBoard(boardId: number): Observable<any> {
+    return this.http.delete(`${this.url}/boards/${boardId}`);
+  }
+
+
   getBoardsByUserId(userId: number): Observable<Board[]> {
     const userSearchUrl = `${this.url}/search/${userId}`;
     return this.http.get<Board[]>(userSearchUrl , this.getHttpOptions()).pipe(

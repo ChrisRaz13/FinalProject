@@ -1,0 +1,23 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Adjusts to 3 columns */
+  gap: 10px; /* Space between items */
+  width: 80%;
+  margin: 20px auto; /* Centering the board */
+}
+
+.post-card {
+  /* Removed fixed width/height to allow grid to control size */
+  display: flex; /* Ensures content inside post-card is centered and flexible */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure images within post-cards fit nicely */
+.post-card img {
+  max-width: 100%; /* Ensures the image is responsive within the grid cell */
+  height: auto; /* Maintains aspect ratio */
+  object-fit: cover; /* Adjust as necessary */
+}
+
+/* Your existing styles for .card, .card-front, .card-back remain unchanged */

@@ -1,0 +1,27 @@
+<div class="container">
+  <!-- Dropdown for selecting a user -->
+  <select (change)="onUserChange($event)" class="form-control">
+    <!-- ... -->
+  </select>
+
+    <option value="" disabled selected>Select a user</option>
+    <option *ngFor="let user of users" [value]="user.id">
+      {{ user.firstName }} {{ user.lastName }}
+    </option>
+
+
+  <!-- Display user boards -->
+  <div *ngIf="selectedUserId && userBoards.length > 0">
+    <h2>Boards:</h2>
+    <ul>
+      <li *ngFor="let board of userBoards">
+        {{ board.title }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Message if no user is selected or no boards exist -->
+  <div *ngIf="!selectedUserId || userBoards.length === 0">
+    <p>Select a user to see their boards or there are no boards for this user.</p>
+  </div>
+</div>

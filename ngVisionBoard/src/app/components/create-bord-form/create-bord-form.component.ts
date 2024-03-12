@@ -17,7 +17,7 @@ import { User } from '../../models/user';
 export class CreateBordFormComponent implements OnInit {
   board: Board = new Board();
   user: User = new User();
-  @Output() addButtonClicked: EventEmitter<any> = new EventEmitter();
+  @Output() boardCreated: EventEmitter<Board> = new EventEmitter();
 
 
   constructor(private boardService: BoardService,
@@ -29,28 +29,28 @@ export class CreateBordFormComponent implements OnInit {
 ngOnInit(): void {
   }
 
-createBoard(addBoard: Board): void {
-  this.authService.getLoggedInUser().subscribe({
-    next: (user) => {
-      this.user = user;
-      addBoard.user = this.user;
-      console.log('JSON Request:', JSON.stringify(addBoard));
-      this.boardService.create(addBoard).subscribe({
-        next: (addedBoard) => {
-          this.addButtonClicked.emit();
-        },
-        error: (error) => {
-          console.error('Error creating board:', error);
-        },
-      });
-    },
-    error: (error) => {
-      console.error('Error creating board:', error);
-    },
-  })
-
-
+  createBoard(addBoard: Board): void {
+    this.authService.getLoggedInUser().subscribe({
+      next: (user) => {
+        this.user = user;
+        addBoard.user = this.user;
+        this.boardService.create(addBoard).subscribe({
+          next: (addedBoard) => {
+            this.boardCreated.emit(addedBoard);
+            alert('Board created successfully!');
+          },
+          error: (error) => {
+            console.error('Error creating board:', error);
+            alert('Failed to create board. Please try again.');
+          },
+        });
+      },
+      error: (error) => {
+        console.error('Error fetching user:', error);
+        alert('Failed to create board. Please log in.');
+      },
+    });
   }
-
-
 }
+
+

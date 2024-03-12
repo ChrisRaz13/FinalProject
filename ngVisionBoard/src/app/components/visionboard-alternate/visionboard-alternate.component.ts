@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -10,11 +11,12 @@ import { PostService } from '../../services/post.service';
 import { DisplayPostComponent } from '../display-post/display-post.component';
 import { CommonModule } from '@angular/common';
 import { CreateBordFormComponent } from '../create-bord-form/create-bord-form.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-visionboard-alternate',
   standalone: true,
-  imports: [PostFormComponent, DisplayPostComponent, CommonModule, CreateBordFormComponent],
+  imports: [PostFormComponent, DisplayPostComponent, CommonModule, CreateBordFormComponent, FormsModule],
   templateUrl: './visionboard-alternate.component.html',
   styleUrl: './visionboard-alternate.component.css'
 })
@@ -26,12 +28,16 @@ export class VisionboardAlternateComponent implements OnInit{
   isNewPost: boolean[] = [];
   showPostForm: boolean = false;
   userHasBoards: boolean = false;
+  searchTerm: string = '';
+  searchedUsers: User[] = [];
+  userBoards: Board[] = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private boardService: BoardService,
-    private postService: PostService
+    private postService: PostService,
+    private UserService: UserService
 
   ) {}
 
@@ -98,6 +104,32 @@ export class VisionboardAlternateComponent implements OnInit{
   createNewBoard() {
     this.router.navigate(['/create-board']);
   }
+  searchUsers(): void {
+    if (this.searchTerm) {
+      this.UserService.searchUsers(this.searchTerm).subscribe({
+        next: (users) => {
+          this.searchedUsers = users;
+        },
+        error: (error) => {
+          console.error('Error searching for users:', error);
+        }
+      });
+    } else {
+      this.searchedUsers = [];
+    }
+  }
+
+
+  showUserBoards(userId: number): void {
+    this.boardService.getBoardsByUserId(userId).subscribe({
+      next: (boards) => {
+        this.userBoards = boards;
+        // Implement logic to update the view with these boards
+      },
+      error: (error) => {
+        console.error('Error fetching boards for user:', error);
+      }
+    });
+  }
 
 }
-

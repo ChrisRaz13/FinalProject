@@ -1,7 +1,7 @@
 .board {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Creates a dynamic number of columns */
-  grid-auto-rows: 150px; /* All rows will be the same height as the column width */
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); /* Creates a dynamic number of columns */
+  grid-auto-rows: 550px; /* All rows will be the same height as the column width */
   gap: 10px; /* Space between items */
   width: 80%; /* Adjust as needed */
   margin: 20px auto; /* Centering the board */
@@ -17,7 +17,7 @@
 }
 
 .card {
-  border: 1px solid #ccc; /* Example border */
+  border: 15px solid #ccc; /* Example border */
   border-radius: 8px; /* Rounded corners */
   overflow: hidden; /* Keeps the child elements within the card */
   position: relative;
