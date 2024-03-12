@@ -12,11 +12,12 @@ import { DisplayPostComponent } from '../display-post/display-post.component';
 import { CommonModule } from '@angular/common';
 import { CreateBordFormComponent } from '../create-bord-form/create-bord-form.component';
 import { FormsModule } from '@angular/forms';
+import { BoardListComponent } from '../board-list/board-list.component';
 
 @Component({
   selector: 'app-visionboard-alternate',
   standalone: true,
-  imports: [PostFormComponent, DisplayPostComponent, CommonModule, CreateBordFormComponent, FormsModule],
+  imports: [PostFormComponent, DisplayPostComponent, CommonModule, CreateBordFormComponent, FormsModule, BoardListComponent],
   templateUrl: './visionboard-alternate.component.html',
   styleUrl: './visionboard-alternate.component.css'
 })

@@ -17,6 +17,7 @@ import { DisplayPostComponent } from './components/display-post/display-post.com
 import { Post } from './models/post';
 import { CreateBordFormComponent } from './components/create-bord-form/create-bord-form.component';
 import { DisplayVisionBoardComponent } from './components/display-vision-board/display-vision-board.component';
+import { EditBoardFormComponent } from './components/edit-board-form/edit-board-form.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -35,6 +36,7 @@ export const routes: Routes = [
   { path: 'visionboard-alternate', component: VisionboardComponent },
   { path: 'create-post/:boardId', component: PostFormComponent },
   { path: 'visionboard', component: VisionboardAlternateComponent },
+  { path: 'edit-board/:boardId', component: EditBoardFormComponent },
   { path: 'display-post', component: DisplayPostComponent },
   { path: 'create-board', component: CreateBordFormComponent},
   { path: 'display-board/:boardId', component: DisplayVisionBoardComponent},

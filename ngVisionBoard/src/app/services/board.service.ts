@@ -70,7 +70,7 @@ export class BoardService {
 
   getBoardById(boardId: number): Observable<Board> {
     const url = `${this.url}/${boardId}`;
-    return this.http.get<Board>(this.url, this.getHttpOptions());
+    return this.http.get<Board>(url, this.getHttpOptions());
   }
 
   deleteBoard(boardId: number): Observable<any> {
