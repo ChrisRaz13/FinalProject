@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.visionboard.entities.Board;
-import com.skilldistillery.visionboard.entities.Post;
 import com.skilldistillery.visionboard.services.BoardService;
 import com.skilldistillery.visionboard.services.PostService;
 

@@ -74,8 +74,16 @@ export class BoardService {
   }
 
   deleteBoard(boardId: number): Observable<any> {
-    return this.http.delete(`${this.url}/boards/${boardId}`);
+    return this.http.delete(`${this.url}/${boardId}`, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error('BoardService.deleteBoard(): error deleting board', err);
+        return throwError(
+          () => new Error('Error deleting board: ' + err.message)
+        );
+      })
+    );
   }
+
 
 
   getBoardsByUserId(userId: number): Observable<Board[]> {

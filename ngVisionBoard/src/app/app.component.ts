@@ -42,7 +42,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
     LandingPageComponent,
     RegistrationComponent,
     LandingPageNavigationComponent,
-    PostFormComponent
+    PostFormComponent,
   ],
 })
 export class AppComponent {
