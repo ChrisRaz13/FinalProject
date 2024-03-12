@@ -21,6 +21,7 @@ export class Post {
   layer: number;
   board: Board;
   categories: Category[];
+  bgColor?: string;
 
   constructor(
     id: number = 0,

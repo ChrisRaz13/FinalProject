@@ -6,7 +6,7 @@
         <div class="card-front">
           <img [src]="post.imageUrl" alt="Post Image">
         </div>
-        <div class="card-back">
+        <div class="card-back" [style.background]="post.bgColor">
           <h3>{{ post.title }}</h3>
           <p>{{ post.description }}</p>
           <button (click)="deletePost(post.id, $event)">Delete</button>

@@ -53,15 +53,17 @@ export class DisplayVisionBoardComponent implements OnInit{
   loadPosts(boardId: number): void {
     this.postService.getPostsByBoardId(boardId).subscribe({
       next: (posts) => {
-        this.posts = posts;
+        this.posts = posts.map(post => ({
+          ...post,
+          bgColor: this.getRandomLightColor() // Assign a random light color to each post
+        }));
       },
       error: (problem) => {
-        console.error(
-          'DisplayBoardHttpComponent.loadPosts(): error loading board posts:'
-        )
+        console.error('DisplayBoardHttpComponent.loadPosts(): error loading board posts:');
       }
     });
   }
+
   flipState: { [key: number]: boolean } = {};
 
   toggleFlip(postId: number): void {
@@ -95,6 +97,12 @@ export class DisplayVisionBoardComponent implements OnInit{
         error: (error) => console.error('Error deleting post:', error)
       });
     }
+  }
+  getRandomLightColor(): string {
+    const hue = Math.floor(Math.random() * 360); // Hue value between 0 and 360
+    const saturation = Math.floor(Math.random() * (100 - 50) + 50); // Saturation between 50% and 100%
+    const lightness = Math.floor(Math.random() * (100 - 70) + 70); // Lightness between 70% and 100% for lighter colors
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   }
 
   }
