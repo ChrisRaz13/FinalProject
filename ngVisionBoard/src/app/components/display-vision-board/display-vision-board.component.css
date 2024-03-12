@@ -84,4 +84,15 @@
   }
 }
 
+.buttons-container {
+  position: fixed; /* Use fixed if you want the buttons to stay in view while scrolling */
+  top: 96px;
+  left: 0;
+  margin: 10px; /* Adds a little space from the edges */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
 
