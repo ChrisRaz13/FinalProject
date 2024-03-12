@@ -1,3 +1,4 @@
+<div *ngIf="userHasBoards">
 <div class="container text-center">
   <h1>{{currentBoard.title}}</h1>
 </div>
@@ -9,17 +10,29 @@
         <ng-container *ngIf="!isNewPost[i]">
           <app-display-post [post]="post"></app-display-post>
         </ng-container>
-        <ng-container *ngIf="isNewPost[i]">
-          <app-post-form [boardId]="currentBoard.id" (save)="savePost(i)"></app-post-form>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="grid-box">
+        <ng-container>
+          <button (click)="showPostForm = !showPostForm" class="btn btn-primary"> + Add a new post </button>
+          <app-post-form *ngIf="showPostForm" [boardId]="currentBoard.id" (addButtonClicked)="handleAddButtonClicked()"></app-post-form>
         </ng-container>
       </div>
     </div>
 
-    <!-- Plus button to add a new post -->
+  </div>
+</div>
+</div>
+<div *ngIf="!userHasBoards">
+  <app-create-bord-form></app-create-bord-form>
+</div>
+
+<div class="container mt-3">
+  <div class="row justify-content-center">
     <div class="col-sm-4">
-      <div class="grid-box">
-        <button (click)="addPost()" class="btn btn-primary"> + Add a new post </button>
-      </div>
+      <button class="btn btn-primary" (click)="createNewBoard()">Create New Board</button>
     </div>
   </div>
 </div>

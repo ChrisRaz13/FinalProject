@@ -16,6 +16,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LandingPageNavigationComponent } from './components/landing-page-navigation/landing-page-navigation.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
 
 @Component({
   selector: 'app-root',
@@ -41,6 +42,7 @@ import { LandingPageNavigationComponent } from './components/landing-page-naviga
     LandingPageComponent,
     RegistrationComponent,
     LandingPageNavigationComponent,
+    PostFormComponent
   ],
 })
 export class AppComponent {

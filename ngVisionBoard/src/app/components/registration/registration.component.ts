@@ -23,7 +23,7 @@ export class RegistrationComponent {
       next: (newUser) => {
         this.authService.login(user.username, user.password).subscribe({
           next: (loggedInUser) => {
-            this.router.navigateByUrl('/home');
+            this.router.navigateByUrl('/login');
             this.close.emit();
           },
           error: (problem) => {

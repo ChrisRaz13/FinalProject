@@ -21,109 +21,86 @@ import com.skilldistillery.visionboard.services.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@CrossOrigin({"*", "http://localhost/"})
+@CrossOrigin({ "*", "http://localhost/" })
 @RequestMapping("api")
 @RestController
 public class BoardController {
-		
-		@Autowired
-		private BoardService boardService;
-		
-		@Autowired
-		private PostService postService;
 
-		@GetMapping("boards")
-		public List<Board> index() {
-			return boardService.index();
+	@Autowired
+	private BoardService boardService;
+
+	@Autowired
+	private PostService postService;
+
+	@GetMapping("boards")
+	public List<Board> index() {
+		return boardService.index();
+	}
+
+	@GetMapping("boards/{id}")
+	public Board findById(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
+		Board board = boardService.findById(id);
+		if (board == null) {
+			response.setStatus(404);
 		}
+		return board;
+	}
 
-		@GetMapping("boards/{id}")
-		public Board findById(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
-			Board board = boardService.findById(id);
-			if (board == null) {
-				response.setStatus(404);
-			}
-			return board;
+	@PostMapping("boards")
+	public Board create(@RequestBody Board board, HttpServletRequest request, HttpServletResponse response) {
+		Board newBoard = boardService.create(board);
+		if (newBoard == null) {
+			response.setStatus(400);
+			return null;
+		} else {
+			response.setStatus(201);
+			response.setHeader("Location", request.getRequestURL().append("/").append(newBoard.getId()).toString());
+			return newBoard;
 		}
+	}
 
-		@PostMapping("boards")
-		public Board create(@RequestBody Board board, HttpServletRequest request, HttpServletResponse response) {
-			Board newBoard = boardService.create(board);
-			if (newBoard == null) {
-				response.setStatus(400);
-				return null;
+	@PutMapping("boards/{id}")
+	public Board update(@PathVariable("id") Integer id, @RequestBody Board board, HttpServletResponse res) {
+		board = boardService.update(id, board);
+		if (board == null) {
+			res.setStatus(404);
+		}
+		return board;
+	}
+
+	@DeleteMapping("boards/{id}")
+	public void delete(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			if (boardService.delete(id)) {
+				response.setStatus(204);
 			} else {
-				response.setStatus(201);
-				response.setHeader("Location", request.getRequestURL().append("/").append(newBoard.getId()).toString());
-				return newBoard;
-			}
-		}
-
-		@PutMapping("boards/{id}")
-		public Board update(@PathVariable("id") Integer id, @RequestBody Board board, HttpServletResponse res) {
-			board = boardService.update(id, board);
-			if (board == null) {
-				res.setStatus(404);
-			}
-			return board;
-		}
-
-		@DeleteMapping("boards/{id}")
-		public void delete(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
-			try {
-				if (boardService.delete(id)) {
-					response.setStatus(204);
-				} else {
-					response.setStatus(404);
-				}
-			} catch (Exception e) {
-				response.setStatus(400);
-				e.printStackTrace();
-			}
-		}
-		
-		@GetMapping("boards/search/{userId}")
-		public List<Board> findByUserId(@PathVariable("userId") int userId,
-				                       HttpServletRequest request, HttpServletResponse response) {
-			List<Board> boards = boardService.findByUserId(userId);
-			if (boards == null) {
 				response.setStatus(404);
 			}
-			return boards;
+		} catch (Exception e) {
+			response.setStatus(400);
+			e.printStackTrace();
 		}
-		
-		@GetMapping("boards/search/likedbyuser/{userId}")
-		public List<Board> findLikedBoardsByUserId(@PathVariable("userId") int userId,
-				                       HttpServletRequest request, HttpServletResponse response) {
-			List<Board> boards = boardService.findLikedBoardsByUserId(userId);
-			if (boards == null) {
-				response.setStatus(404);
-			}
-			return boards;
-		}
-		
-		@GetMapping("boards/{id}/posts") // Update the endpoint to include "/posts" to indicate you're fetching posts
-		public List<Post> findPostsByBoardId(@PathVariable("posts") int boardId, HttpServletRequest request, HttpServletResponse response) {
-		    List<Post> posts = postService.findPostsByBoardId(boardId); // Assuming you have a method findByBoardId in your postService
-		    if (posts == null || posts.isEmpty()) {
-		        response.setStatus(404); // Set status to 404 if no posts are found
-		    }
-		    return posts;
-		}
+	}
 
-		
-		
+	@GetMapping("boards/search/{userId}")
+	public List<Board> findByUserId(@PathVariable("userId") int userId, HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Board> boards = boardService.findByUserId(userId);
+		System.out.println("in find by user id");
+		if (boards == null) {
+			response.setStatus(404);
+		}
+		return boards;
+	}
+
+	@GetMapping("boards/search/likedbyuser/{userId}")
+	public List<Board> findLikedBoardsByUserId(@PathVariable("userId") int userId, HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Board> boards = boardService.findLikedBoardsByUserId(userId);
+		if (boards == null) {
+			response.setStatus(404);
+		}
+		return boards;
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -9,11 +9,12 @@ import { Post } from '../../models/post';
 import { PostService } from '../../services/post.service';
 import { DisplayPostComponent } from '../display-post/display-post.component';
 import { CommonModule } from '@angular/common';
+import { CreateBordFormComponent } from '../create-bord-form/create-bord-form.component';
 
 @Component({
   selector: 'app-visionboard-alternate',
   standalone: true,
-  imports: [PostFormComponent, DisplayPostComponent, CommonModule],
+  imports: [PostFormComponent, DisplayPostComponent, CommonModule, CreateBordFormComponent],
   templateUrl: './visionboard-alternate.component.html',
   styleUrl: './visionboard-alternate.component.css'
 })
@@ -23,6 +24,8 @@ export class VisionboardAlternateComponent implements OnInit{
   currentBoard: Board = new Board();
   posts: Post[] = [];
   isNewPost: boolean[] = [];
+  showPostForm: boolean = false;
+  userHasBoards: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -36,7 +39,7 @@ export class VisionboardAlternateComponent implements OnInit{
     this.authService.getLoggedInUser().subscribe({
       next: (user) => {
         this.user = user;
-        this.loadBoards(user.id); // Load boards for the current user
+        this.loadBoards(user.id);
       },
       error: (problem) => {
         console.error(
@@ -75,13 +78,10 @@ export class VisionboardAlternateComponent implements OnInit{
 
   findMostRecentBoard(): void {
     if (this.boards.length > 0) {
-      // Sort boards by updatedAt in descending order
       this.boards.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-      // Set currentBoard to the first board (most recent)
       this.currentBoard = this.boards[0];
       this.loadPosts(this.currentBoard.id)
-      console.log(this.currentBoard);
-      console.log(this.posts);
+      this.userHasBoards = true;
     }
   }
 
@@ -91,10 +91,13 @@ export class VisionboardAlternateComponent implements OnInit{
     this.isNewPost.push(true); // Mark this post as new
   }
 
-  // Method to handle saving a post, after which it's no longer new
-  savePost(index: number): void {
-    // Logic to save the post to a backend or similar
-    this.isNewPost[index] = false; // Mark the post as no longer new
+  handleAddButtonClicked() {
+    this.loadPosts(this.currentBoard.id)
   }
+
+  createNewBoard() {
+    this.router.navigate(['/create-board']);
+  }
+
 }
 

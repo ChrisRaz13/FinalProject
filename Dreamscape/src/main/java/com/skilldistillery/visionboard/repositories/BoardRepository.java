@@ -18,5 +18,5 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 	
     @Query("SELECT b FROM Board b JOIN BoardLike bl ON bl.user.id = b.user.id WHERE b.user.id = :userId")
     List<Board> findLikedBoardsByUserId(@Param("userId") int userId);
-
+    
 }
