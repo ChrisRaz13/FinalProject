@@ -1,23 +1,86 @@
 .board {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Adjusts to 3 columns */
-  gap: 10px; /* Space between items */
+  grid-template-columns: repeat(4, 1fr); /* Creates four columns */
+  grid-auto-rows: 550px; /* Adjust if needed */
+  gap: 10px;
   width: 80%;
-  margin: 20px auto; /* Centering the board */
+  margin: 20px auto;
+  padding: 10px;
 }
+
 
 .post-card {
-  /* Removed fixed width/height to allow grid to control size */
-  display: flex; /* Ensures content inside post-card is centered and flexible */
-  align-items: center;
+  width: 100%; /* Ensure the card takes up the full cell width */
+  height: 100%; /* Ensure the card takes up the full cell height */
+  display: grid;
+  grid-template-rows: 1fr; /* Makes the card a square */
+  grid-template-columns: 1fr; /* Makes the card a square */
+}
+
+.card {
+  border: 15px solid #ccc; /* Example border */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Keeps the child elements within the card */
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-front{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-front img {
+  width: 100%; /* Makes the image fill the card */
+  height: 100%; /* Makes the image fill the card */
+  object-fit: cover; /* Ensures the image covers the card area without distortion */
+}
+
+/* Initial state for the card back */
+.card-back {
+  transform: rotateY(180deg); /* This matches the rotation of the flip */
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
 }
 
-/* Ensure images within post-cards fit nicely */
-.post-card img {
-  max-width: 100%; /* Ensures the image is responsive within the grid cell */
-  height: auto; /* Maintains aspect ratio */
-  object-fit: cover; /* Adjust as necessary */
+/* Adjust the rotation for the flipped state */
+.flipped .card-back {
+  transform: rotateY(180deg);
 }
 
-/* Your existing styles for .card, .card-front, .card-back remain unchanged */
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+@media (max-width: 768px) {
+  .board {
+    grid-template-columns: repeat(2, 1fr); /* Adjusts to two columns for medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .board {
+    grid-template-columns: 1fr; /* Adjusts to a single column for very small screens */
+  }
+}
+
+

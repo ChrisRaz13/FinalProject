@@ -62,5 +62,42 @@ export class DisplayVisionBoardComponent implements OnInit{
       }
     });
   }
+  flipState: { [key: number]: boolean } = {};
 
-}
+  toggleFlip(postId: number): void {
+    this.flipState[postId] = !this.flipState[postId];
+  }
+
+
+
+
+  randomizeLeft(index: number): string {
+    // Random left position, adjust the range as needed
+    return `${20 + (index * 5 % 30)}%`;
+  }
+
+  randomizeTop(index: number): string {
+    // Random top position, adjust the range as needed
+    return `${10 + (index * 5 % 20)}%`;
+  }
+
+  getRandomSpan(): number {
+    // Randomly return 1, 2, or 3 to span across 1 to 3 tracks
+    return Math.ceil(Math.random() * 3);
+  }
+  deletePost(postId: number, event: MouseEvent): void {
+    if (confirm('Are you sure you want to delete this post?')) {
+      this.postService.deletePost(postId).subscribe({
+        next: () => {
+          this.posts = this.posts.filter(post => post.id !== postId);
+          console.log('Post deleted successfully');
+        },
+        error: (error) => console.error('Error deleting post:', error)
+      });
+    }
+  }
+
+  }
+
+
+
