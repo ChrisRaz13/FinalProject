@@ -1,0 +1,29 @@
+<div class="board">
+  <div class="post-card" *ngFor="let post of posts; let i = index" (click)="toggleFlip(post.id)"
+       [style.zIndex]="posts.length - i" [ngStyle]="{'left': randomizeLeft(i), 'top': randomizeTop(i)}">
+    <div class="flip-card">
+      <div class="flip-card-inner" [class.flipped]="flipState[post.id]">
+        <div class="card-front">
+          <img [src]="post.imageUrl" alt="Post Image">
+        </div>
+        <div class="card-back" [style.background]="post.bgColor">
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.description }}</p>
+          <!-- <button (click)="deletePost(post.id, $event)">Delete</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="buttons-container">
+<button (click)="flipAllToFront()">Flip All to Front</button>
+<button (click)="flipAllToBack()">Flip All to Back</button>
+</div>
+
+<!-- <br><br><br>
+<div>
+  <button (click)="togglePostForm()">Add Post</button>
+  <app-post-form *ngIf="showPostForm" [boardId]="currentBoard.id" (postCreated)="onPostCreated($event)"></app-post-form>
+</div> -->

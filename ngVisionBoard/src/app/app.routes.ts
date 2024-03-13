@@ -20,6 +20,7 @@ import { DisplayVisionBoardComponent } from './components/display-vision-board/d
 import { EditBoardFormComponent } from './components/edit-board-form/edit-board-form.component';
 import { UserBoardsComponent } from './components/user-boards/user-boards.component';
 import { DisplayBoardsComponent } from './components/display-boards/display-boards.component';
+import { ViewOnlyVisionBoardComponent } from './components/view-only-vision-board/view-only-vision-board.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -44,6 +45,7 @@ export const routes: Routes = [
   { path: 'create-board', component: CreateBordFormComponent},
   { path: 'display-board', component: DisplayBoardsComponent},
   { path: 'display-board/:boardId', component: DisplayVisionBoardComponent},
+  { path: 'display-board-view-only/:boardId', component: ViewOnlyVisionBoardComponent},
   { path: 'user-boards', component: UserBoardsComponent},
   { path: 'post-form', component: PostFormComponent},
   { path: '**', component: NotfoundComponent},

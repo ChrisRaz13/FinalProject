@@ -9,7 +9,8 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">
-              <a [routerLink]="['/display-board', board.id]">{{ board.title }}</a>
+              <!-- <a [routerLink]="['/display-board', board.id]">{{ board.title }}</a> -->
+              <a [routerLink]="['/display-board-view-only/', board.id]">{{ board.title }}</a>
             </h5>
 
             <p class="card-text">{{ board.description }}</p>
