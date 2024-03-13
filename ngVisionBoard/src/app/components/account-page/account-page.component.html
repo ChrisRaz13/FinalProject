@@ -46,9 +46,9 @@
             <div class="col-md-6">
               <h2>Boards you have created: {{ boardCount }}</h2>
             </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <h2>Boards you have liked: {{ likedBoardCount }}</h2>
-            </div>
+            </div> -->
           </div>
           <div class="row">
             <div class="col">
@@ -60,17 +60,17 @@
                 </li>
               </ul>
             </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col">
               <h2 class="mt-4">User Liked Boards</h2>
               <ul class="list-group">
-                <li class="list-group-item" *ngFor="let board of userLikedBoards">
+                <li class="list-group-item" *ngFor="let board of userLikedBoards"> -->
                   <!-- TODO update when we can route to boards -->
-                  <a [routerLink]="['/display-board', board.id]">{{ board.title }}</a>
+                  <!-- <a [routerLink]="['/display-board', board.id]">{{ board.title }}</a>
                 </li>
               </ul>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div>
