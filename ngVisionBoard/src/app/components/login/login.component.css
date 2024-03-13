@@ -1,17 +1,17 @@
-*{
+html, body {
+  height: 100%; /* Ensures that the html and body elements take full height of the viewport */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
 body{
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #4070f4;
 }
-.wrapper{
+.wrapper {
   position: relative;
   max-width: 430px;
   width: 100%;
