@@ -9,11 +9,12 @@ import { Post } from '../../models/post';
 import { PostService } from '../../services/post.service';
 import { BoardLikeService } from '../../services/board-like.service';
 import { PostFormComponent } from '../post-form/post-form.component';
+import { EditPostFormComponent } from '../edit-post-form/edit-post-form.component';
 
 @Component({
   selector: 'app-display-vision-board',
   standalone: true,
-  imports: [DisplayPostComponent, CommonModule, PostFormComponent],
+  imports: [DisplayPostComponent, CommonModule, PostFormComponent, EditPostFormComponent],
   templateUrl: './display-vision-board.component.html',
   styleUrl: './display-vision-board.component.css'
 })
@@ -21,6 +22,7 @@ export class DisplayVisionBoardComponent implements OnInit{
   currentBoard: Board = new Board();
   posts: Post[] = [];
   showPostForm: boolean = false;
+  selectedPost: Post | null = null;
 
   constructor(
     private authService: AuthService,
@@ -126,6 +128,23 @@ export class DisplayVisionBoardComponent implements OnInit{
   onPostCreated(newPost: Post){
     this.posts.push(newPost);
   }
+
+  selectPostForEdit(post: Post, event: MouseEvent): void {
+    event.stopPropagation();
+    this.selectedPost = post;
+  }
+
+  handlePostUpdated(updatedPost: Post): void {
+    const index = this.posts.findIndex(p => p.id === updatedPost.id);
+
+    if (index !== -1) {
+      this.posts[index] = updatedPost;
+      // Emit a change event or perform any additional logic required after updating the post.
+    }
+    this.selectedPost = null;
+    this.loadPosts(this.currentBoard.id);
+  }
+
 
   }
 

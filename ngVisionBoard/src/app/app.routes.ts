@@ -39,6 +39,7 @@ export const routes: Routes = [
   { path: 'visionboard', component: VisionboardAlternateComponent },
   { path: 'visionboard-alternate', component: VisionboardComponent },
   { path: 'create-post/:boardId', component: PostFormComponent },
+  { path: 'edit-post/:boardId', component: EditBoardFormComponent },
   { path: 'visionboard', component: VisionboardAlternateComponent },
   { path: 'edit-board/:boardId', component: EditBoardFormComponent },
   { path: 'display-post', component: DisplayPostComponent },

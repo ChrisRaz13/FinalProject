@@ -1,0 +1,49 @@
+/* Styles for the photo selector container */
+.photo-selector {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+/* Styles for each photo within the container */
+.photo-selector img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 10px; /* Space between images */
+  cursor: pointer; /* Indicates the image is selectable */
+}
+
+.photo-selector img.selected {
+  border: 5px solid #007bff; /* Blue border for selected photo */
+  cursor: pointer;
+}
+
+.post-card {
+  position: relative;
+  width: calc(33.333% - 10px); /* Three items per row, adjust the gap as needed */
+  transition: transform 0.3s ease-in-out;
+}
+
+.flip-card-inner {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  width: 100%;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+

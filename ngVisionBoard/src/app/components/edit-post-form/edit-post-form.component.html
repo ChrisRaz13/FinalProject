@@ -1,0 +1,54 @@
+<div *ngIf="post">
+  <div class="card-body">
+    <h1>Edit Post</h1>
+    <form name="editPostForm" (ngSubmit)="updatePost()">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" name="title" [(ngModel)]="post.title" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" name="description" [(ngModel)]="post.description" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" class="form-control" id="imageUrl" name="imageUrl" [(ngModel)]="post.imageUrl">
+      </div>
+
+      <div class="search-box">
+        <form (submit)="search()">
+          <input type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Find photos">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="example-box">
+        <div *ngFor="let collection of collections">
+          <div *ngFor="let photo of collection.preview_photos" class="photo-container">
+          </div>
+        </div>
+      </div>
+
+  <!-- Photos Display -->
+  <div class="photo-selector" *ngIf="photos.length > 0">
+    <div *ngFor="let photo of photos" (click)="selectPhoto(photo)">
+      <img [src]="photo.urls.thumb" [alt]="photo.description" [class.selected]="photo.urls.regular === selectedPhotoUrl">
+    </div>
+  </div>
+
+
+  <!-- Hide Photos Button (Shown only if photos array is not empty) -->
+  <button class="btn btn-secondary" (click)="hidePhotos()" *ngIf="photos.length > 0">Hide Photos</button>
+
+
+
+      <div class="form-group">
+        <label for="overlayText">Overlay Text:</label>
+        <input type="text" class="form-control" name="overlayText" [(ngModel)]="post.overlayText">
+      </div>
+      <button type="submit" class="btn btn-primary">Update Post</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
+</div>
